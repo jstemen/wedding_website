@@ -5,3 +5,13 @@ function scrollToId(id) {
 }
 
 
+
+
+$(window).resize(function() {
+    $('.content-section').height($(window).height() - 46);
+});
+
+$(window).trigger('resize');
+$(window).ready(function(){
+    $(window).resize();
+})
