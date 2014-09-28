@@ -12,6 +12,7 @@
     color: white;
 }
 .glitter {
+    color: black;
     background-image: url(./glitter.jpg);
 }
 .purple {
@@ -19,11 +20,12 @@
     color: #E2D1FA;
 }
 .teal {
+    color: #E2D1FA;
     background-color: #0d435c;
 }
 .white {
     background-color: white;
 }
 .blue {
-    background-color: 0e2496;
+    background-color: cornflowerblue;
 }
