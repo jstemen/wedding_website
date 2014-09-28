@@ -1,6 +1,6 @@
 function scrollToId(id) {
     $('html, body').animate({
-        scrollTop: $(id).offset().top
+        scrollTop: $(id).offset().top -30
     }, 500);
 }
 
@@ -8,7 +8,7 @@ function scrollToId(id) {
 
 
 $(window).resize(function() {
-    $('.content-section').height($(window).height() - 46);
+    $('.content-section').height($(window).height() - 30);
 });
 
 $(window).trigger('resize');
