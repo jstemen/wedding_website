@@ -1,19 +1,19 @@
 @font-face {
-    font-family: Edwardian;
-    src: url(ITCEDSCR.ttf);
+    font-family: ITCEDSCR;
+    src: font-url("ITCEDSCR.ttf") format('truetype');
 }
 .edwardian {
-    font-family: Edwardian;
+    font-family: ITCEDSCR;
     font-size: 800%;
     text-align: center;
 }
 .pea {
-    background-image: url(./peacock.jpg);
+    background-image: asset-data-url("peacock.jpg");
     color: white;
 }
 .glitter {
     color: black;
-    background-image: url(./glitter.jpg);
+    background-image: asset-data-url("glitter.jpg");
 }
 .purple {
     background-color: rgb(33,7,71);
