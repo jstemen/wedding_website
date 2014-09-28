@@ -1,0 +1,29 @@
+@font-face {
+    font-family: Edwardian;
+    src: url(ITCEDSCR.ttf);
+}
+.edwardian {
+    font-family: Edwardian;
+    font-size: 800%;
+    text-align: center;
+}
+.pea {
+    background-image: url(./peacock.jpg);
+    color: white;
+}
+.glitter {
+    background-image: url(./glitter.jpg);
+}
+.purple {
+    background-color: rgb(33,7,71);
+    color: #E2D1FA;
+}
+.teal {
+    background-color: #0d435c;
+}
+.white {
+    background-color: white;
+}
+.blue {
+    background-color: 0e2496;
+}
