@@ -12,15 +12,15 @@
     color: white;
 }
 .glitter {
-    color: black;
+    color: #210D5C;
     background-image: asset-data-url("glitter.jpg");
 }
 .purple {
     background-color: rgb(33,7,71);
-    color: #E2D1FA;
+    color: #938F00;
 }
 .teal {
-    color: #E2D1FA;
+    color: #935000;
     background-color: #0d435c;
 }
 .white {
@@ -29,6 +29,11 @@
 .blue {
     background-color: royalblue;
 }
-.content-section {
+.banner, .content-section {
 
+  border-radius: 25px;
+}
+
+main {
+  background: black;
 }
