@@ -13,7 +13,7 @@ function preload() {
     game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
     //game.load.tilemap('level1', 'assets/games/starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
+    //game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
     game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
     game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
     game.load.image('starSmall', '/assets/games/starstruck/star.png');
@@ -32,6 +32,8 @@ var cursors;
 var jumpButton;
 var bg;
 
+var enemies = [];
+
 var mummy;
 function create() {
 
@@ -48,7 +50,7 @@ function create() {
     //map.addTilesetImage('tiles-1');
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    //map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
 
     //layer = map.createLayer('Tile Layer 1');
     layer = map.createLayer('World1');
@@ -58,7 +60,7 @@ function create() {
 
     layer.resizeWorld();
 
-    layer.wrap = true;
+    layer.wrap = false;
 
     game.physics.arcade.gravity.y = 250;
 
@@ -78,12 +80,23 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    releaseMummy();
+    console.info("helllo")
+
+    setInterval(function(){
+        releaseMummy();
+    }, 4000);
+
+
+
+    for(var i=0; i++; i<5){
+        console.info("releaseing enemy");
+        releaseMummy();
+    }
 }
 
 function releaseMummy() {
 
-    mummy = game.add.sprite(0, 0, 'mummy');
+    var mummy = game.add.sprite(0, 0, 'mummy');
     mummy.name = "mummy"
     mummy.scale.setTo(2, 2);
 
@@ -101,11 +114,14 @@ function releaseMummy() {
     mummy.body.collideWorldBounds = true;
     mummy.body.setSize(20, 32, 5, 16);
 
+        enemies.push(mummy);
 }
 
-function collisionHandler(obj1, obj2) {
-    if (mummy.exists) {
-        mummy.exists = false
+function collisionHandler(obj1, enemy) {
+    if (enemy.exists) {
+        enemy.exists = false
+        //enemies.remove(enemy)
+        //releaseMummy()
     }
     //releaseMummy()
     //game.stage.backgroundColor = '#992d2d';
@@ -113,12 +129,13 @@ function collisionHandler(obj1, obj2) {
 }
 
 function update() {
-
-    game.physics.arcade.collide(player, mummy, collisionHandler, null, this);
+    $.each(enemies, function(index, enemy){
+        game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
+        game.physics.arcade.collide(enemy, layer);
+        enemy.body.velocity.x = 50 * Math.random();
+    });
 
     game.physics.arcade.collide(player, layer);
-    game.physics.arcade.collide(mummy, layer);
-    mummy.body.velocity.x = 10;
 
     player.body.velocity.x = 0;
 
