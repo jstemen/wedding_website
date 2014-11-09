@@ -76,6 +76,9 @@ function loadGame() {
             player.animations.add('left', [0, 1, 2, 3], 10, true);
             player.animations.add('turn', [4], 20, true);
             player.animations.add('right', [5, 6, 7, 8], 10, true);
+            player.health = 100
+            player.inputEnabled = true
+            player.events.onKilled.add(function(){died()}, this);
 
             game.camera.follow(player);
 
@@ -97,6 +100,12 @@ function loadGame() {
             }
 
 
+
+
+        }
+
+        function died(){
+            alert("woops!  You Died.  Refresh the page to try again")
         }
 
         function removeLogo () {
@@ -134,7 +143,8 @@ function loadGame() {
 
         function collisionHandler(obj1, enemy) {
             if (enemy.exists) {
-                enemy.exists = false
+                player.damage(5)
+                //enemy.exists = false
                 //enemies.remove(enemy)
                 //releaseMummy()
             }
