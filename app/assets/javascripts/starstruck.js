@@ -20,10 +20,8 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
             game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
-
-            game.load.image('logo', 'assets/games/tanks/logo.png');
-            game.load.tilemap('level1', 'assets/games/starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
-            game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
+            //game.load.tilemap('level1', 'assets/games/starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
+            //game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
             game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
             game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
             game.load.image('starSmall', '/assets/games/starstruck/star.png');
@@ -42,7 +40,6 @@ function loadGame() {
         var jumpButton;
         var bg;
 
-        var logo;
         var enemies = [];
 
         var mummy;
@@ -56,7 +53,7 @@ function loadGame() {
             bg = game.add.tileSprite(0, 0, 800, 600, 'background');
             bg.fixedToCamera = true;
 
-            map = game.add.tilemap('level1');
+            //map = game.add.tilemap('level1');
             map = game.add.tilemap('mario');
 
             //map.addTilesetImage('tiles-1');
