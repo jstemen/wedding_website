@@ -38,6 +38,7 @@ function loadGame() {
         var cursors;
         var jumpButton;
         var bg;
+        var text
 
         var logo;
 
@@ -100,6 +101,14 @@ function loadGame() {
             }
 
 
+            //text = game.add.text(game.world.centerX, game.world.centerY, "", {
+            //    font: "65px Arial",
+            //    fill: "#ff0044",
+            //    align: "right"
+            //});
+            //
+            //text.anchor.setTo(0, 0);
+            //text.fixedToCamera = true
 
 
         }
@@ -154,6 +163,9 @@ function loadGame() {
         }
 
         function update() {
+
+            //text.setText("X:" + player.x);
+            //console.log(player.x)
             $.each(enemies, function (index, enemy) {
                 game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
                 game.physics.arcade.collide(enemy, layer);
@@ -163,7 +175,11 @@ function loadGame() {
             game.physics.arcade.collide(player, layer);
 
             player.body.velocity.x = 0;
+            if(player.x > 3183  ){
+                alert("The save the date is..")
+                game.pause()
 
+            }
             if (cursors.left.isDown) {
                 player.body.velocity.x = -150;
 
