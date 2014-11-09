@@ -14,4 +14,5 @@ $(window).resize(function() {
 $(window).trigger('resize');
 $(window).ready(function(){
     $(window).resize();
+    loadGame();
 })
