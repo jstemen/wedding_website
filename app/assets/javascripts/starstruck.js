@@ -20,6 +20,8 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
             game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
+            game.load.image('logo', '/assets/games/tanks/logo.png');
+
             //game.load.tilemap('level1', 'assets/games/starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
             //game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
             game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
@@ -39,6 +41,8 @@ function loadGame() {
         var cursors;
         var jumpButton;
         var bg;
+
+        var logo;
 
         var enemies = [];
 
@@ -100,6 +104,9 @@ function loadGame() {
                 console.info("releaseing enemy");
                 releaseMummy();
             }
+
+            logo = game.add.sprite(0, 100, 'logo');
+            logo.fixedToCamera = true;
         }
 
         function releaseMummy() {
