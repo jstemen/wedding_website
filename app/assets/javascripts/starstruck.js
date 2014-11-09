@@ -28,7 +28,6 @@ function loadGame() {
             game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
             game.load.image('starSmall', '/assets/games/starstruck/star.png');
             game.load.image('starBig', '/assets/games/starstruck/star2.png');
-            game.load.image('background', '/assets/games/starstruck/background2.png');
 
         }
 
@@ -53,9 +52,6 @@ function loadGame() {
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
             game.stage.backgroundColor = '#000000';
-
-            bg = game.add.tileSprite(0, 0, 800, 600, 'background');
-            bg.fixedToCamera = true;
 
             //map = game.add.tilemap('level1');
             map = game.add.tilemap('mario');
