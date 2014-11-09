@@ -1,7 +1,7 @@
 function loadGame() {
     var length = $('#phaser-game').length;
     if (length > 0) {
-        var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-game', {
+        game = new Phaser.Game($(window).width(), 300, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
             update: update,
@@ -20,10 +20,8 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
             game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
-            game.load.image('logo', '/assets/games/tanks/logo.png');
+            game.load.image('logo', '/assets/ours/instructions-400.png');
 
-            //game.load.tilemap('level1', 'assets/games/starstruck/level1.json', null, Phaser.Tilemap.TILED_JSON);
-            //game.load.image('tiles-1', '/assets/games/starstruck/tiles-1.png');
             game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
             game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
             game.load.image('starSmall', '/assets/games/starstruck/star.png');
@@ -53,19 +51,14 @@ function loadGame() {
 
             game.stage.backgroundColor = '#000000';
 
-            //map = game.add.tilemap('level1');
             map = game.add.tilemap('mario');
 
-            //map.addTilesetImage('tiles-1');
             map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-            //map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+            map.setCollisionByExclusion([ 13, 14, 15 ]);
 
-            //layer = map.createLayer('Tile Layer 1');
             layer = map.createLayer('World1');
 
-            //  Un-comment this on to see the collision tiles
-            // layer.debug = true;
 
             layer.resizeWorld();
 
@@ -79,7 +72,7 @@ function loadGame() {
             player.body.bounce.y = 0.2;
             player.body.collideWorldBounds = true;
             player.body.setSize(20, 32, 5, 16);
-
+            player.anchor.setTo(.5, 1);
             player.animations.add('left', [0, 1, 2, 3], 10, true);
             player.animations.add('turn', [4], 20, true);
             player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -89,7 +82,9 @@ function loadGame() {
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-            console.info("helllo")
+            logo = game.add.sprite(game.width/4, 10, 'logo');
+
+            //game.input.keyboard.onDown(removeLogo, this);
 
             setInterval(function () {
                 releaseMummy();
@@ -101,13 +96,20 @@ function loadGame() {
                 releaseMummy();
             }
 
-            logo = game.add.sprite(0, 100, 'logo');
-            logo.fixedToCamera = true;
+
+        }
+
+        function removeLogo () {
+
+            game.input.onDown.remove(removeLogo, this);
+            logo.kill();
+
         }
 
         function releaseMummy() {
 
-            var mummy = game.add.sprite(0, 0, 'mummy');
+            var x = $(window).width() + player.x;
+            var mummy = game.add.sprite(x, 0, 'mummy');
             mummy.name = "mummy"
             mummy.scale.setTo(2, 2);
 
@@ -117,7 +119,9 @@ function loadGame() {
 
             mummy.animations.add('walk');
             mummy.animations.play('walk', 20, true);
-
+            mummy.anchor.setTo(.5, 1); //so it flips around its middle
+            mummy.scale.x = -1; //flipped
+            mummy.speed = Math.random()
             //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
 
             game.physics.enable(mummy, Phaser.Physics.ARCADE);
@@ -143,7 +147,7 @@ function loadGame() {
             $.each(enemies, function (index, enemy) {
                 game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
                 game.physics.arcade.collide(enemy, layer);
-                enemy.body.velocity.x = 50 * Math.random();
+                enemy.body.velocity.x = -50 * enemy.speed;
             });
 
             game.physics.arcade.collide(player, layer);
