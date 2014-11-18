@@ -9,18 +9,18 @@ function scrollToId(id) {
 
 $(window).resize(function () {
 
-    $('.content-section').each( function(index){
+    $('.content-section').each(function (index) {
         var fullScreenSize = $(window).height();
         var currentDivSize = $(this).height();
-        var rightSize = Math.max(fullScreenSize, currentDivSize)
-        $(this).height(rightSize);
+        if (currentDivSize < fullScreenSize) {
+            $(this).height(fullScreenSize);
+        }
     })
 });
 
-$(window).trigger('resize');
 
 function onChange() {
-    $(window).resize();
+    $(window).trigger('resize');
     loadGame();
 }
 
