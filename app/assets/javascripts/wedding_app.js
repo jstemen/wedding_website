@@ -4,6 +4,7 @@ function scrollToId(id) {
     $('html, body').animate({
         scrollTop: $(id).offset().top - NAV_HEIGHT
     }, 500);
+    location.hash = id;
 }
 
 
