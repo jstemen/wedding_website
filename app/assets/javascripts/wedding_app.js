@@ -10,7 +10,7 @@ function scrollToId(id) {
 $(window).resize(function () {
 
     $('.content-section').each( function(index){
-        var fullScreenSize = $(window).height() - NAV_HEIGHT;
+        var fullScreenSize = $(window).height();
         var currentDivSize = $(this).height();
         var rightSize = Math.max(fullScreenSize, currentDivSize)
         $(this).height(rightSize);
