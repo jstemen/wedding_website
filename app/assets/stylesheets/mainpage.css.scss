@@ -2,7 +2,18 @@
   font-family: ITCEDSCR;
   src: url("/assets/ITCEDSCR.ttf") format('truetype');
 }
-
+@font-face {
+  font-family: georgia;
+  src: url("/assets/georgia.ttf") format('truetype');
+}
+@font-face {
+  font-family: GOTHIC;
+  src: url("/assets/GOTHIC.TTF") format('truetype');
+}
+@font-face {
+  font-family: ostrich-rounded;
+  src: url("/assets/ostrich-rounded.ttf") format('truetype');
+}
 .edwardian {
   font-family: ITCEDSCR;
   font-size: 1000%;
@@ -20,7 +31,19 @@
   background-image: asset-data-url("glitter.png");
   background-size: 100% 100%;
 }
+.myheading {
+  font-family: ostrich-rounded;
+  font-size: 400%;
+}
 
+.mynavigation {
+  font-family: ostrich-rounded;
+  font-size: 200%;
+}
+
+.GOTHIC {
+  font-family: GOTHIC;
+}
 .purple {
   background-color: rgb(33, 7, 71);
   color: #f2adff;
@@ -44,7 +67,7 @@
 .banner, .content-section {
 
   border-radius: 25px;
-  font-family: inherit;
+  font-family: GOTHIC;
 }
 
 main {
