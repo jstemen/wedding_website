@@ -20,7 +20,6 @@
 
 .edwardian {
   font-family: ITCEDSCR;
-  font-size: 1000%;
   text-align: center;
 }
 
@@ -33,6 +32,10 @@
   background-attachment: fixed;
   color: white;
   background-size: auto 100%;
+}
+
+.hugeText{
+  font-size: 1000%;
 }
 
 .pea {
