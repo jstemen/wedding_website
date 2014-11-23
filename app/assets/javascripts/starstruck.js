@@ -61,14 +61,13 @@ function loadGame() {
 
             map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-            map.setCollision([14,15,16, 21,22, 27,28, 40 ]);
+            map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
 
             layer = map.createLayer('World1');
 
-            jump = new Phaser.Sound(game,'jump');
-            gameOverSound = new Phaser.Sound(game,'gameover');
-            marioDiedSound = new Phaser.Sound(game,'mariodie');
-
+            jump = new Phaser.Sound(game, 'jump');
+            gameOverSound = new Phaser.Sound(game, 'gameover');
+            marioDiedSound = new Phaser.Sound(game, 'mariodie');
 
 
             layer.resizeWorld();
@@ -89,14 +88,16 @@ function loadGame() {
             player.animations.add('right', [5, 6, 7, 8], 10, true);
             player.health = 100
             player.inputEnabled = true
-            player.events.onKilled.add(function(){died()}, this);
+            player.events.onKilled.add(function () {
+                died()
+            }, this);
 
             game.camera.follow(player);
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-            logo = game.add.sprite(game.width/4, 10, 'logo');
+            logo = game.add.sprite(game.width / 4, 10, 'logo');
 
             //game.input.keyboard.onDown(removeLogo, this);
 
@@ -111,25 +112,25 @@ function loadGame() {
             }
 
 
-            //text = game.add.text(game.world.centerX, game.world.centerY, "", {
-            //    font: "65px Arial",
-            //    fill: "#ff0044",
-            //    align: "right"
-            //});
-            //
-            //text.anchor.setTo(0, 0);
-            //text.fixedToCamera = true
+            text = game.add.text(game.world.centerX, game.world.centerY, "", {
+                font: "65px Arial",
+                fill: "#ff0044",
+                align: "right"
+            });
+
+            text.anchor.setTo(0, 0);
+            text.fixedToCamera = true
 
 
         }
 
-        function died(){
+        function died() {
             marioDiedSound.play()
             //alert("woops!  You Died.  Refresh the page to try again")
 
         }
 
-        function removeLogo () {
+        function removeLogo() {
 
             game.input.onDown.remove(removeLogo, this);
             logo.kill();
@@ -149,7 +150,7 @@ function loadGame() {
 
             mummy.animations.add('walk');
             mummy.animations.play('walk', 20, true);
-            mummy.anchor.setTo(.5,.5); //so it flips around its middle
+            mummy.anchor.setTo(.5, .5); //so it flips around its middle
             mummy.speed = Math.random()
             //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
 
@@ -157,10 +158,10 @@ function loadGame() {
 
             mummy.body.collideWorldBounds = true;
             mummy.body.setSize(20, 32, 5, 16);
-            mummy.walk = function(speed){
-                if(speed > 0){
+            mummy.walk = function (speed) {
+                if (speed > 0) {
                     this.scale.x = 1; //flipped
-                }else{
+                } else {
                     this.scale.x = -1; //flipped
                 }
                 this.body.velocity.x = speed * mummy.speed;
@@ -176,19 +177,19 @@ function loadGame() {
             }
         }
 
-        function enemyColHandler(enemy, obj1 ){
-            if(enemy.body.blocked.right){
+        function enemyColHandler(enemy, obj1) {
+            if (enemy.body.blocked.right) {
                 enemy.walk(-50);
             }
-            if(enemy.body.blocked.left){
+            if (enemy.body.blocked.left) {
                 enemy.walk(50);
             }
-             var foo = 1;
+            var foo = 1;
         }
 
         function update() {
 
-            //text.setText("X:" + player.x);
+            text.setText("X:" + player.x);
             //console.log(player.x)
             $.each(enemies, function (index, enemy) {
                 game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
@@ -198,15 +199,22 @@ function loadGame() {
             game.physics.arcade.collide(player, layer);
 
             player.body.velocity.x = 0;
-            if(player.x > 3183  ){
+            if (player.x > 3183) {
                 alert("The save the date is..")
                 game.pause()
             }
 
-            //console.log(player.y)
-            if(player.y > game.height -20  && player.alive){
-                player.kill();
-            }
+            $.map([].concat.apply([player], [enemies]) , function (sprite) {
+                if (sprite.y > game.height - 20 && sprite.alive) {
+                    sprite.kill();
+                    var start = $.inArray(sprite, enemies);
+                    if (start >= 0) {
+                        enemies.splice(start, 1);
+                    }
+                    sprite.destroy();
+                }
+            });
+
 
             if (cursors.left.isDown) {
                 player.body.velocity.x = -150;
