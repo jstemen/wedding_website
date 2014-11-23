@@ -23,9 +23,10 @@ function loadGame() {
             game.load.image('logo', '/assets/ours/instructions-400.png');
 
             game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
-//            game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
-            game.load.image('starSmall', '/assets/games/starstruck/star.png');
-            game.load.image('starBig', '/assets/games/starstruck/star2.png');
+
+            game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
+            game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
+            game.load.audio('mariodie', '/assets/sounds/smb_mariodie.ogg');
 
         }
 
@@ -46,6 +47,10 @@ function loadGame() {
 
         var mummy;
 
+        var jump;
+        var gameOverSound;
+        var marioDiedSound;
+
         function create() {
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -59,6 +64,11 @@ function loadGame() {
             map.setCollision([14,15,16, 21,22, 27,28, 40 ]);
 
             layer = map.createLayer('World1');
+
+            jump = new Phaser.Sound(game,'jump');
+            gameOverSound = new Phaser.Sound(game,'gameover');
+            marioDiedSound = new Phaser.Sound(game,'mariodie');
+
 
 
             layer.resizeWorld();
@@ -114,7 +124,9 @@ function loadGame() {
         }
 
         function died(){
-            alert("woops!  You Died.  Refresh the page to try again")
+            marioDiedSound.play()
+            //alert("woops!  You Died.  Refresh the page to try again")
+
         }
 
         function removeLogo () {
@@ -153,13 +165,7 @@ function loadGame() {
         function collisionHandler(obj1, enemy) {
             if (enemy.exists) {
                 player.damage(5)
-                //enemy.exists = false
-                //enemies.remove(enemy)
-                //releaseMummy()
             }
-            //releaseMummy()
-            //game.stage.backgroundColor = '#992d2d';
-
         }
 
         function update() {
@@ -212,6 +218,7 @@ function loadGame() {
             }
 
             if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
+                jump.play()
                 player.body.velocity.y = -250;
                 jumpTimer = game.time.now + 750;
             }
