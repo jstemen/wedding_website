@@ -23,7 +23,7 @@ function loadGame() {
             game.load.image('logo', '/assets/ours/instructions-400.png');
 
             game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
-            game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
+//            game.load.spritesheet('droid', '/assets/games/starstruck/droid.png', 32, 32);
             game.load.image('starSmall', '/assets/games/starstruck/star.png');
             game.load.image('starBig', '/assets/games/starstruck/star2.png');
 
@@ -56,7 +56,7 @@ function loadGame() {
 
             map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-            map.setCollisionByExclusion([ 13, 14, 15 ]);
+            map.setCollision([14,15,16, 21,22, 27,28, 40 ]);
 
             layer = map.createLayer('World1');
 
@@ -73,7 +73,7 @@ function loadGame() {
             player.body.bounce.y = 0.2;
             player.body.collideWorldBounds = true;
             player.body.setSize(20, 32, 5, 16);
-            player.anchor.setTo(.5, 1);
+            player.anchor.setTo(.5, 0);
             player.animations.add('left', [0, 1, 2, 3], 10, true);
             player.animations.add('turn', [4], 20, true);
             player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -137,7 +137,7 @@ function loadGame() {
 
             mummy.animations.add('walk');
             mummy.animations.play('walk', 20, true);
-            mummy.anchor.setTo(.5, 1); //so it flips around its middle
+            mummy.anchor.setTo(.5,.5); //so it flips around its middle
             mummy.scale.x = -1; //flipped
             mummy.speed = Math.random()
             //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
