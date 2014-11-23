@@ -1,7 +1,7 @@
 function loadGame() {
     var length = $('#phaser-game').length;
     if (length > 0) {
-        game = new Phaser.Game($(window).width(), 300, Phaser.CANVAS, 'phaser-game', {
+        game = new Phaser.Game($(window).width(), 600, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
             update: update,
@@ -10,8 +10,8 @@ function loadGame() {
 
         function preload() {
 
-            game.load.tilemap('mario', '/assets/tilemaps/maps/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
-            game.load.image('tiles', '/assets/tilemaps/tiles/super_mario.png');
+            game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
 
 
