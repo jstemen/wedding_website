@@ -1,7 +1,7 @@
 function loadGame() {
     var length = $('#phaser-game').length;
     if (length > 0) {
-        game = new Phaser.Game($(window).width(), 600, Phaser.CANVAS, 'phaser-game', {
+        game = new Phaser.Game($(window).width(), 432, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
             update: update,
@@ -184,8 +184,13 @@ function loadGame() {
             if(player.x > 3183  ){
                 alert("The save the date is..")
                 game.pause()
-
             }
+
+            //console.log(player.y)
+            if(player.y > game.height -20  && player.alive){
+                player.kill();
+            }
+
             if (cursors.left.isDown) {
                 player.body.velocity.x = -150;
 
