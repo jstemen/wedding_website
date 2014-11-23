@@ -150,7 +150,6 @@ function loadGame() {
             mummy.animations.add('walk');
             mummy.animations.play('walk', 20, true);
             mummy.anchor.setTo(.5,.5); //so it flips around its middle
-            mummy.scale.x = -1; //flipped
             mummy.speed = Math.random()
             //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
 
@@ -158,6 +157,15 @@ function loadGame() {
 
             mummy.body.collideWorldBounds = true;
             mummy.body.setSize(20, 32, 5, 16);
+            mummy.walk = function(speed){
+                if(speed > 0){
+                    this.scale.x = 1; //flipped
+                }else{
+                    this.scale.x = -1; //flipped
+                }
+                this.body.velocity.x = speed * mummy.speed;
+            }
+            mummy.walk(-50)
 
             enemies.push(mummy);
         }
@@ -168,14 +176,23 @@ function loadGame() {
             }
         }
 
+        function enemyColHandler(enemy, obj1 ){
+            if(enemy.body.blocked.right){
+                enemy.walk(-50);
+            }
+            if(enemy.body.blocked.left){
+                enemy.walk(50);
+            }
+             var foo = 1;
+        }
+
         function update() {
 
             //text.setText("X:" + player.x);
             //console.log(player.x)
             $.each(enemies, function (index, enemy) {
                 game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
-                game.physics.arcade.collide(enemy, layer);
-                enemy.body.velocity.x = -50 * enemy.speed;
+                game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
             game.physics.arcade.collide(player, layer);
