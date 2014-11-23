@@ -80,7 +80,7 @@ function loadGame() {
             player = game.add.sprite(32, 32, 'dude');
             game.physics.enable(player, Phaser.Physics.ARCADE);
 
-            player.body.bounce.y = 0.2;
+            player.body.bounce.y = 0;
             player.body.collideWorldBounds = true;
             player.body.setSize(20, 32, 5, 16);
             player.anchor.setTo(.5, 0);
