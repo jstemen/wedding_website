@@ -112,29 +112,36 @@ function loadGame() {
             }
 
 
-            text = game.add.text(game.world.centerX, game.world.centerY, "", {
+
+            /*t = game.add.text(game.world.centerX, game.world.centerY, "poop monkey", {
                 font: "65px Arial",
                 fill: "#ff0044",
                 align: "right"
             });
 
+            text.fixedToCamera = true*/
             text.anchor.setTo(0, 0);
-            text.fixedToCamera = true
 
 
         }
+        function printMsg(msg){
+            var style = { font: "100px Arial", fill: "white", align: "center" };
+            var t = game.add.text($(window).width()/2, 0, msg, style);
+            t.fixedToCamera = true
+        }
 
         function died() {
-            marioDiedSound.play()
-            //alert("woops!  You Died.  Refresh the page to try again")
+            printMsg("YOU DIED!");
+            marioDiedSound.play();
+            setTimeout(function(){
+                location.reload();
+            }, 4000)
 
         }
 
         function removeLogo() {
-
             game.input.onDown.remove(removeLogo, this);
             logo.kill();
-
         }
 
         function releaseMummy() {
@@ -189,18 +196,17 @@ function loadGame() {
 
         function update() {
 
-            text.setText("X:" + player.x);
             //console.log(player.x)
             $.each(enemies, function (index, enemy) {
                 game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
-                game.physics.arcade.collide(enemy, layer, enemyColHandler);
+            game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
             game.physics.arcade.collide(player, layer);
 
             player.body.velocity.x = 0;
             if (player.x > 3183) {
-                alert("The save the date is..")
+                printMsg("The save the date is..")
                 game.pause()
             }
 
@@ -247,7 +253,7 @@ function loadGame() {
                 }
             }
 
-            if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
+           if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
                 jump.play()
                 player.body.velocity.y = -250;
                 jumpTimer = game.time.now + 750;
