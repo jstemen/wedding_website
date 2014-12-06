@@ -32,12 +32,13 @@ function loadGame() {
 
             game.load.image('logo', '/assets/ours/instructions-400.png');
 
-            game.load.spritesheet('dude', '/assets/games/starstruck/dude.png', 32, 48);
+            game.load.spritesheet('dude', '/assets/palak.png', 32, 48);
 
             game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
             game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
             game.load.audio('mariodie', '/assets/sounds/smb_mariodie.ogg');
             game.load.audio('stomp', '/assets/sounds/smb_stomp.ogg');
+            game.load.audio('music', '/assets/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
 
         }
 
@@ -51,6 +52,7 @@ function loadGame() {
         var jumpButton;
         var bg;
         var text
+        var music
 
         var logo;
 
@@ -74,6 +76,8 @@ function loadGame() {
             map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
             map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
+            music = new Phaser.Sound(game, 'music');
+            music.play();
 
             layer = map.createLayer('World1');
 
@@ -124,18 +128,6 @@ function loadGame() {
                 releaseMummy();
             }
 
-
-
-            /*t = game.add.text(game.world.centerX, game.world.centerY, "poop monkey", {
-                font: "65px Arial",
-                fill: "#ff0044",
-                align: "right"
-            });
-
-            text.fixedToCamera = true*/
-            text.anchor.setTo(0, 0);
-
-
         }
         function printMsg(msg){
             var style = { font: "100px Arial", fill: "white", align: "center" };
@@ -157,38 +149,45 @@ function loadGame() {
             logo.kill();
         }
 
-        function releaseMummy() {
 
-            var x = $(window).width() + player.x;
-            var mummy = game.add.sprite(x, 0, 'mummy');
-            mummy.name = "mummy"
-            mummy.scale.setTo(2, 2);
+        function Enemy(x,y){
+            //Here's where we create our player sprite.
+            Phaser.Sprite.call(this, game, x, y, 'mummy');
+            this.name = "enemy"
+            this.scale.setTo(2,2)
+            this.angle = 0
 
-            //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
-            //  otherwise use Phaser.Sprite.rotation
-            mummy.angle = 0
+            this.animations.add('walk');
+            this.animations.play('walk', 20, true);
+            this.anchor.setTo(.5, .5); //so it flips around its middle
+            this.speed = Math.random()
+            //game.add.tween(this).to({ x: game.width + (1600 + this.x) }, 20000, Phaser.Easing.Linear.None, true);
 
-            mummy.animations.add('walk');
-            mummy.animations.play('walk', 20, true);
-            mummy.anchor.setTo(.5, .5); //so it flips around its middle
-            mummy.speed = Math.random()
-            //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
+            game.physics.enable(this, Phaser.Physics.ARCADE);
 
-            game.physics.enable(mummy, Phaser.Physics.ARCADE);
-
-            mummy.body.collideWorldBounds = true;
-            mummy.body.setSize(20, 32, 5, 16);
-            mummy.walk = function (speed) {
+            this.body.collideWorldBounds = true;
+            this.body.setSize(20, 32, 5, 16);
+            this.walk = function (speed) {
                 if (speed > 0) {
                     this.scale.x = 1; //flipped
                 } else {
                     this.scale.x = -1; //flipped
                 }
-                this.body.velocity.x = speed * mummy.speed;
+                this.body.velocity.x = speed * this.speed;
             }
-            mummy.walk(-50)
+            this.walk(-50)
 
             enemies.push(mummy);
+        }
+        //We give our player a type of Phaser.Sprite and assign it's constructor method.
+        Enemy.prototype = Object.create(Phaser.Sprite.prototype);
+        Enemy.prototype.constructor = Enemy;
+
+        function releaseMummy() {
+
+            var x = $(window).width() + player.x;
+            var enemy = new Enemy(x, 0)
+            var foo = 1;
         }
 
         function collisionHandler(obj1, enemy) {
@@ -224,7 +223,6 @@ function loadGame() {
             player.body.velocity.x = 0;
             if (player.x > 3183) {
                 printMsg("The save the date is..")
-                game.pause()
             }
 
             $.map([].concat.apply([player], [enemies]) , function (sprite) {
