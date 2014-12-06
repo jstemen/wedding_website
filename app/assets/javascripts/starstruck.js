@@ -1,5 +1,15 @@
 function loadGame() {
     var length = $('#phaser-game').length;
+
+    function killEnemy(sprite) {
+        sprite.kill();
+        var start = $.inArray(sprite, enemies);
+        if (start >= 0) {
+            enemies.splice(start, 1);
+        }
+        sprite.destroy();
+    }
+
     if (length > 0) {
         game = new Phaser.Game($(window).width(), 432, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
@@ -27,6 +37,7 @@ function loadGame() {
             game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
             game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
             game.load.audio('mariodie', '/assets/sounds/smb_mariodie.ogg');
+            game.load.audio('stomp', '/assets/sounds/smb_stomp.ogg');
 
         }
 
@@ -50,6 +61,7 @@ function loadGame() {
         var jump;
         var gameOverSound;
         var marioDiedSound;
+        var stompSound;
 
         function create() {
 
@@ -68,6 +80,7 @@ function loadGame() {
             jump = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
+            stompSound = new Phaser.Sound(game, 'stomp');
 
 
             layer.resizeWorld();
@@ -179,7 +192,11 @@ function loadGame() {
         }
 
         function collisionHandler(obj1, enemy) {
-            if (enemy.exists) {
+            if(obj1.body.touching.down){
+                stompSound.play();
+                killEnemy(enemy);
+                player.body.velocity.y = -250;
+            }else if (enemy.exists) {
                 player.damage(5)
             }
         }
@@ -212,12 +229,7 @@ function loadGame() {
 
             $.map([].concat.apply([player], [enemies]) , function (sprite) {
                 if (sprite.y > game.height - 20 && sprite.alive) {
-                    sprite.kill();
-                    var start = $.inArray(sprite, enemies);
-                    if (start >= 0) {
-                        enemies.splice(start, 1);
-                    }
-                    sprite.destroy();
+                    killEnemy(sprite);
                 }
             });
 
