@@ -149,11 +149,11 @@ function loadGame() {
             logo.kill();
         }
 
-
         function Enemy(x,y){
             //Here's where we create our player sprite.
-            Phaser.Sprite.call(this, game, x, y, 'mummy');
-            this.name = "enemy"
+            //Phaser.Sprite.call(game, x, y, 'mummy', null);
+            Phaser.Sprite.call(this, game, x, y, 'mummy', 1)
+            this.name = "mummy"
             this.scale.setTo(2,2)
             this.angle = 0
 
@@ -177,7 +177,7 @@ function loadGame() {
             }
             this.walk(-50)
 
-            enemies.push(mummy);
+            enemies.push(this);
         }
         //We give our player a type of Phaser.Sprite and assign it's constructor method.
         Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -187,9 +187,43 @@ function loadGame() {
 
             var x = $(window).width() + player.x;
             var enemy = new Enemy(x, 0)
+            this.game.add.existing(enemy)
             var foo = 1;
         }
 
+/*        function releaseMummy() {
+
+            var x = $(window).width() + player.x;
+            var mummy = game.add.sprite(x, 0, 'mummy');
+            mummy.name = "mummy"
+            mummy.scale.setTo(2, 2);
+
+            //  If you prefer to work in degrees rather than radians then you can use Phaser.Sprite.angle
+            //  otherwise use Phaser.Sprite.rotation
+            mummy.angle = 0
+
+            mummy.animations.add('walk');
+            mummy.animations.play('walk', 20, true);
+            mummy.anchor.setTo(.5, .5); //so it flips around its middle
+            mummy.speed = Math.random()
+            //game.add.tween(mummy).to({ x: game.width + (1600 + mummy.x) }, 20000, Phaser.Easing.Linear.None, true);
+
+            game.physics.enable(mummy, Phaser.Physics.ARCADE);
+
+            mummy.body.collideWorldBounds = true;
+            mummy.body.setSize(20, 32, 5, 16);
+            mummy.walk = function (speed) {
+                if (speed > 0) {
+                    this.scale.x = 1; //flipped
+                } else {
+                    this.scale.x = -1; //flipped
+                }
+                this.body.velocity.x = speed * mummy.speed;
+            }
+            mummy.walk(-50)
+
+            enemies.push(mummy);
+        }*/
         function collisionHandler(obj1, enemy) {
             if(obj1.body.touching.down){
                 stompSound.play();
