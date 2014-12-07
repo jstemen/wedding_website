@@ -177,6 +177,7 @@ function loadGame() {
             }
             this.walk(-50)
 
+            game.add.existing(this)
             enemies.push(this);
         }
         //We give our player a type of Phaser.Sprite and assign it's constructor method.
@@ -184,11 +185,8 @@ function loadGame() {
         Enemy.prototype.constructor = Enemy;
 
         function releaseMummy() {
-
             var x = $(window).width() + player.x;
             var enemy = new Enemy(x, 0)
-            this.game.add.existing(enemy)
-            var foo = 1;
         }
 
 /*        function releaseMummy() {
