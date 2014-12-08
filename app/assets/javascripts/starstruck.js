@@ -49,8 +49,6 @@ function loadGame() {
         var logo;
 
 
-        var mummy;
-
         var jump;
         var gameOverSound;
         var marioDiedSound;
@@ -113,12 +111,6 @@ function loadGame() {
                 releaseMummy();
             }, 4000);
 
-
-            for (var i = 0; i++; i < 5) {
-                console.info("releaseing enemy");
-                releaseMummy();
-            }
-
         }
 
         function printMsg(msg) {
@@ -148,6 +140,7 @@ function loadGame() {
                 //Phaser.Sprite.call(game, x, y, 'mummy', null);
                 Phaser.Sprite.call(this, game, x, y, 'mummy', 1)
                 this.name = "mummy"
+                var mummy = this
                 this.scale.setTo(2, 2)
                 this.angle = 0
 
@@ -171,14 +164,13 @@ function loadGame() {
                 }
                 this.walk(-50)
 
-                function kill() {
-                    this.prototype.kill();
+                this.myKill = function () {
+                    mummy.kill();
                     var start = $.inArray(this, enemies);
-                    if (start >= 0) {
-                        enemies.splice(start, 1);
-                    }
-                    this.destroy();
+                    enemies.splice(start, 1);
+                    mummy.destroy();
                 }
+
                 game.add.existing(this)
                 enemies.push(this);
             }
@@ -186,7 +178,13 @@ function loadGame() {
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
             Enemy.prototype = Object.create(Phaser.Sprite.prototype);
             Enemy.prototype.constructor = Enemy;
-            return {Enemy:Enemy, enemies:enemies}
+            Enemy.prototype.update = function () {
+                var mummy = this
+                if (mummy.y > mummy.height - 20 && mummy.alive) {
+                    //  mummy.myKill();
+                }
+            }
+            return {Enemy: Enemy, enemies: enemies}
         }(game)
 
         function releaseMummy() {
@@ -229,11 +227,9 @@ function loadGame() {
                 printMsg("The save the date is..")
             }
 
-            $.map([].concat.apply([player], [EnemyModule.enemies]), function (sprite) {
-                if (sprite.y > game.height - 20 && sprite.alive) {
-                    sprint.kill();
-                }
-            });
+            if (player.y > game.height - 20 && player.alive) {
+                player.kill();
+            }
 
 
             if (cursors.left.isDown) {
