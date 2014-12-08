@@ -1,14 +1,17 @@
 function loadGame() {
     var length = $('#phaser-game').length;
-    var stageSize = {width:$(window).width(), height:432}
+    var stageSize = {width: $(window).width(), height: 432}
 
     if (length > 0) {
-        game = new Phaser.Game(stageSize.width, stageSize.height , Phaser.CANVAS, 'phaser-game', {
+
+
+        game = new Phaser.Game(stageSize.width, stageSize.height, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
             update: update,
             render: render
         });
+
 
         function preload() {
 
@@ -34,6 +37,94 @@ function loadGame() {
 
         }
 
+        var PlayerModule = function (game) {
+            function Player(x, y) {
+
+                Phaser.Sprite.call(this, game, x, y, 'dude', 1)
+                game.physics.enable(this, Phaser.Physics.ARCADE);
+
+                this.body.bounce.y = 0;
+                this.body.collideWorldBounds = true;
+                this.body.setSize(20, 32, 5, 16);
+                this.anchor.setTo(.5, 0);
+                this.animations.add('left', [0, 1, 2, 3], 10, true);
+                this.animations.add('turn', [4], 20, true);
+                this.animations.add('right', [5, 6, 7, 8], 10, true);
+                this.health = 100
+                this.inputEnabled = true
+                this.events.onKilled.add(function () {
+                    died()
+                }, this);
+
+                game.add.existing(this)
+                game.camera.follow(this);
+            }
+
+            function died() {
+                printMsg("YOU DIED!");
+                marioDiedSound.play();
+                setTimeout(function () {
+                    location.reload();
+                }, 4000)
+
+            }
+
+            Player.prototype = Object.create(Phaser.Sprite.prototype);
+            Player.prototype.constructor = Player;
+            Player.prototype.update = function () {
+                var player = this
+                if (player.y === game.height && player.alive) {
+                    player.myKill();
+                }
+                player.body.velocity.x = 0;
+                if (player.x > 3183) {
+                    printMsg("The save the date is..")
+                }
+
+                if (player.y > game.height - 20 && player.alive) {
+                    player.kill();
+                }
+
+
+                if (cursors.left.isDown) {
+                    player.body.velocity.x = -150;
+
+                    if (facing != 'left') {
+                        player.animations.play('left');
+                        facing = 'left';
+                    }
+                }
+                else if (cursors.right.isDown) {
+                    player.body.velocity.x = 150;
+
+                    if (facing != 'right') {
+                        player.animations.play('right');
+                        facing = 'right';
+                    }
+                }
+                else {
+                    if (facing != 'idle') {
+                        player.animations.stop();
+
+                        if (facing == 'left') {
+                            player.frame = 0;
+                        }
+                        else {
+                            player.frame = 5;
+                        }
+
+                        facing = 'idle';
+                    }
+                }
+
+                if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
+                    jump.play()
+                    player.body.velocity.y = -250;
+                    jumpTimer = game.time.now + 750;
+                }
+            }
+            return {Player: Player, died: died}
+        }(game);
         var map;
         var tileset;
         var layer;
@@ -82,23 +173,7 @@ function loadGame() {
 
             game.physics.arcade.gravity.y = 250;
 
-            player = game.add.sprite(32, 32, 'dude');
-            game.physics.enable(player, Phaser.Physics.ARCADE);
-
-            player.body.bounce.y = 0;
-            player.body.collideWorldBounds = true;
-            player.body.setSize(20, 32, 5, 16);
-            player.anchor.setTo(.5, 0);
-            player.animations.add('left', [0, 1, 2, 3], 10, true);
-            player.animations.add('turn', [4], 20, true);
-            player.animations.add('right', [5, 6, 7, 8], 10, true);
-            player.health = 100
-            player.inputEnabled = true
-            player.events.onKilled.add(function () {
-                died()
-            }, this);
-
-            game.camera.follow(player);
+            player = new PlayerModule.Player(32, 32);
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -120,26 +195,11 @@ function loadGame() {
             t.fixedToCamera = true
         }
 
-        function died() {
-            printMsg("YOU DIED!");
-            marioDiedSound.play();
-            setTimeout(function () {
-                location.reload();
-            }, 4000)
-
-        }
 
         function removeLogo() {
             game.input.onDown.remove(removeLogo, this);
             logo.kill();
         }
-
-        var PlayerModule = function (game) {
-            function Player() {
-
-            }
-
-        }()
 
 
         var EnemyModule = function (game) {
@@ -191,7 +251,7 @@ function loadGame() {
             Enemy.prototype.update = function () {
                 var mummy = this
                 if (mummy.y === game.height && mummy.alive) {
-                      mummy.myKill();
+                    mummy.myKill();
                 }
             }
             return {Enemy: Enemy, enemies: enemies}
@@ -228,52 +288,6 @@ function loadGame() {
 
             game.physics.arcade.collide(player, layer);
 
-            player.body.velocity.x = 0;
-            if (player.x > 3183) {
-                printMsg("The save the date is..")
-            }
-
-            if (player.y > game.height - 20 && player.alive) {
-                player.kill();
-            }
-
-
-            if (cursors.left.isDown) {
-                player.body.velocity.x = -150;
-
-                if (facing != 'left') {
-                    player.animations.play('left');
-                    facing = 'left';
-                }
-            }
-            else if (cursors.right.isDown) {
-                player.body.velocity.x = 150;
-
-                if (facing != 'right') {
-                    player.animations.play('right');
-                    facing = 'right';
-                }
-            }
-            else {
-                if (facing != 'idle') {
-                    player.animations.stop();
-
-                    if (facing == 'left') {
-                        player.frame = 0;
-                    }
-                    else {
-                        player.frame = 5;
-                    }
-
-                    facing = 'idle';
-                }
-            }
-
-            if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
-                jump.play()
-                player.body.velocity.y = -250;
-                jumpTimer = game.time.now + 750;
-            }
 
         }
 
