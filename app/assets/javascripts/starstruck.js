@@ -224,23 +224,11 @@ function loadGame() {
 
                 this.body.collideWorldBounds = true;
                 this.body.setSize(20, 32, 5, 16);
-                this.walk = function (speed) {
-                    if (speed > 0) {
-                        this.scale.x = 1; //flipped
-                    } else {
-                        this.scale.x = -1; //flipped
-                    }
-                    this.body.velocity.x = speed * this.speed;
-                }
+
+                this.checkWorldBounds = true;
+                this.events.onOutOfBounds.add(this.myKill, this);
+
                 this.walk(-50)
-
-                this.myKill = function () {
-                    mummy.kill();
-                    var start = $.inArray(this, enemies);
-                    enemies.splice(start, 1);
-                    mummy.destroy();
-                }
-
                 game.add.existing(this)
                 enemies.push(this);
             }
@@ -253,6 +241,22 @@ function loadGame() {
                 if (mummy.y === game.height && mummy.alive) {
                     mummy.myKill();
                 }
+            }
+
+            Enemy.prototype.walk = function (speed) {
+                if (speed > 0) {
+                    this.scale.x = 1; //flipped
+                } else {
+                    this.scale.x = -1; //flipped
+                }
+                this.body.velocity.x = speed * this.speed;
+            }
+
+            Enemy.prototype.myKill = function () {
+                this.kill();
+                var start = $.inArray(this, enemies);
+                enemies.splice(start, 1);
+                this.destroy();
             }
             return {Enemy: Enemy, enemies: enemies}
         }(game)
