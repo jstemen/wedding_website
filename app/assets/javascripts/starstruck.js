@@ -1,9 +1,9 @@
 function loadGame() {
     var length = $('#phaser-game').length;
-
+    var stageSize = {width:$(window).width(), height:432}
 
     if (length > 0) {
-        game = new Phaser.Game($(window).width(), 432, Phaser.CANVAS, 'phaser-game', {
+        game = new Phaser.Game(stageSize.width, stageSize.height , Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
             update: update,
@@ -108,7 +108,8 @@ function loadGame() {
             //game.input.keyboard.onDown(removeLogo, this);
 
             setInterval(function () {
-                releaseMummy();
+                var x = game.camera.x + game.camera.width;
+                var enemy = new EnemyModule.Enemy(x, 0)
             }, 4000);
 
         }
@@ -133,8 +134,17 @@ function loadGame() {
             logo.kill();
         }
 
+        var PlayerModule = function (game) {
+            function Player() {
+
+            }
+
+        }()
+
+
         var EnemyModule = function (game) {
             var enemies = [];
+
             function Enemy(x, y) {
                 //Here's where we create our player sprite.
                 //Phaser.Sprite.call(game, x, y, 'mummy', null);
@@ -180,17 +190,13 @@ function loadGame() {
             Enemy.prototype.constructor = Enemy;
             Enemy.prototype.update = function () {
                 var mummy = this
-                if (mummy.y > mummy.height - 20 && mummy.alive) {
-                    //  mummy.myKill();
+                if (mummy.y === game.height && mummy.alive) {
+                      mummy.myKill();
                 }
             }
             return {Enemy: Enemy, enemies: enemies}
         }(game)
 
-        function releaseMummy() {
-            var x = $(window).width() + player.x;
-            var enemy = new EnemyModule.Enemy(x, 0)
-        }
 
         function collisionHandler(obj1, enemy) {
             if (obj1.body.touching.down) {
