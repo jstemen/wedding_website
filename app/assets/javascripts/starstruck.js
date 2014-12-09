@@ -118,7 +118,7 @@ function loadGame() {
                 }
 
                 if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
-                    jump.play()
+                    jumpSound.play()
                     player.body.velocity.y = -250;
                     jumpTimer = game.time.now + 750;
                 }
@@ -140,7 +140,7 @@ function loadGame() {
         var logo;
 
 
-        var jump;
+        var jumpSound;
         var gameOverSound;
         var marioDiedSound;
         var stompSound;
@@ -161,7 +161,7 @@ function loadGame() {
 
             layer = map.createLayer('World1');
 
-            jump = new Phaser.Sound(game, 'jump');
+            jumpSound = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
             stompSound = new Phaser.Sound(game, 'stomp');
@@ -286,7 +286,7 @@ function loadGame() {
 
             //console.log(player.x)
             $.each(EnemyModule.enemies, function (index, enemy) {
-                game.physics.arcade.collide(player, enemy, collisionHandler, null, this);
+                game.physics.arcade.collide(player, enemy, collisionHandler);
                 game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
