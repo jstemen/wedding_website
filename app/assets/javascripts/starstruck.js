@@ -225,7 +225,8 @@ function loadGame() {
                 this.body.setSize(20, 32, 5, 16);
 
                 this.checkWorldBounds = true;
-                this.events.onOutOfBounds.add(this.myKill, this);
+                this.outOfBoundsKill = true
+                this.events.onOutOfBounds.add(this.dropRef, this);
 
                 this.walk(-50)
                 game.add.existing(this)
@@ -250,11 +251,12 @@ function loadGame() {
                 }
                 this.body.velocity.x = speed * this.speed;
             }
-
-            Enemy.prototype.myKill = function () {
-                this.kill();
+            Enemy.prototype.dropRef = function () {
                 var start = $.inArray(this, enemies);
                 enemies.splice(start, 1);
+            }
+            Enemy.prototype.myKill = function () {
+                this.dropRef()
                 this.destroy();
             }
             return {Enemy: Enemy, enemies: enemies}
