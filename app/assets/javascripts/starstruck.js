@@ -78,7 +78,7 @@ function loadGame() {
                 }
                 player.body.velocity.x = 0;
                 if (player.x > 3183) {
-                    printMsg("The save the date is..")
+                    printMsg("The save the date is September 26th 2015!".toUpperCase())
                 }
 
                 if (player.y > game.height - 20 && player.alive) {
@@ -186,12 +186,11 @@ function loadGame() {
                 var x = game.camera.x + game.camera.width;
                 var enemy = new EnemyModule.Enemy(x, 0)
             }, 4000);
-
         }
 
         function printMsg(msg) {
-            var style = {font: "100px Arial", fill: "white", align: "center"};
-            var t = game.add.text($(window).width() / 2, 0, msg, style);
+            var style = {font: "50px Arial", fill: "white", align: "center"};
+            var t = game.add.text(20, 20, msg, style);
             t.fixedToCamera = true
         }
 
