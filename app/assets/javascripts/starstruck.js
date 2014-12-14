@@ -24,7 +24,7 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
 
             game.load.spritesheet('mummy', '/assets/jarebear.png', 32, 48);
-           // game.load.image('logo', '/assets/ours/instructions-400.png');
+            game.load.image('logo', '/assets/instructions-text.png');
 
             game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
             game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
@@ -188,14 +188,16 @@ function loadGame() {
 
             game.physics.arcade.gravity.y = 250;
 
+            const scale = .5
+            logo = game.add.sprite(game.width / 4, 10, 'logo');
+            logo.width = logo.width * scale
+            logo.height = logo.height * scale
+
             PlayerModule.player = new PlayerModule.Player(32, 32);
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
-
-            //logo = game.add.sprite(game.width / 4, 10, 'logo');
-
             //game.input.keyboard.onDown(removeLogo, this);
 
             setInterval(function () {
