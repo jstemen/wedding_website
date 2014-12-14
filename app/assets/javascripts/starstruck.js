@@ -73,7 +73,7 @@ function loadGame() {
             Player.prototype.constructor = Player;
             Player.prototype.update = function () {
                 var player = this
-                game.physics.arcade.collide(shoes, layer);
+                game.physics.arcade.collide(player, layer);
                 if (player.y === game.height && player.alive) {
                     player.myKill();
                 }
@@ -294,7 +294,7 @@ function loadGame() {
                 game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
-            game.physics.arcade.collide(player, layer);
+            game.physics.arcade.collide(shoes, layer);
 
 
         }
