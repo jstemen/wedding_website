@@ -78,7 +78,7 @@ function loadGame() {
             Player.prototype.enableGodMode = function(){
                 Player.prototype.origKill = Player.prototype.kill
                 Player.prototype.kill = function(){}
-                this.horizSpeed = 500;
+                this.horizSpeed = 1500;
                 this.jumpSpeed = -500;
             }
             Player.prototype.update = function () {
@@ -127,8 +127,10 @@ function loadGame() {
                         facing = 'idle';
                     }
                 }
-
-                if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
+                if (cursors.down.isDown) {
+                    player.body.velocity.y = player.jumpSpeed* -.75;
+                }
+                if ((cursors.up.isDown || jumpButton.isDown) && player.body.onFloor() && game.time.now > jumpTimer) {
                     jumpSound.play()
                     player.body.velocity.y = player.jumpSpeed;
                     jumpTimer = game.time.now + 750;
