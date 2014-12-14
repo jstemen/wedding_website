@@ -246,6 +246,7 @@ function loadGame() {
                 if (mummy.y === game.height && mummy.alive) {
                     mummy.myKill();
                 }
+                game.physics.arcade.collide(mummy, layer, enemyColHandler);
             }
 
             Enemy.prototype.walk = function (speed) {
@@ -264,6 +265,14 @@ function loadGame() {
                 this.dropRef()
                 this.destroy();
             }
+            function enemyColHandler(enemy, obj1) {
+                if (enemy.body.blocked.right) {
+                    enemy.walk(-50);
+                }
+                if (enemy.body.blocked.left) {
+                    enemy.walk(50);
+                }
+            }
             return {Enemy: Enemy, enemies: enemies}
         }(game)
 
@@ -278,22 +287,12 @@ function loadGame() {
             }
         }
 
-        function enemyColHandler(enemy, obj1) {
-            if (enemy.body.blocked.right) {
-                enemy.walk(-50);
-            }
-            if (enemy.body.blocked.left) {
-                enemy.walk(50);
-            }
-            var foo = 1;
-        }
 
         function update() {
 
             //console.log(player.x)
             $.each(EnemyModule.enemies, function (index, enemy) {
                 game.physics.arcade.collide(PlayerModule.player, enemy, collisionHandler);
-                game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
             game.physics.arcade.collide(shoes, layer);
