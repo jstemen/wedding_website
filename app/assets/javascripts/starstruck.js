@@ -42,6 +42,8 @@ function loadGame() {
 
             function Player(x, y) {
                 this.hasShoes=false;
+                this.horizSpeed = 150;
+                this.jumpSpeed = -200;
                 Phaser.Sprite.call(this, game, x, y, 'dude', 1)
                 game.physics.enable(this, Phaser.Physics.ARCADE);
 
@@ -69,28 +71,34 @@ function loadGame() {
                 setTimeout(function () {
                     location.reload();
                 }, 4000)
-
             }
 
             Player.prototype = Object.create(Phaser.Sprite.prototype);
             Player.prototype.constructor = Player;
+            Player.prototype.enableGodMode = function(){
+                Player.prototype.origKill = Player.prototype.kill
+                Player.prototype.kill = function(){}
+                this.horizSpeed = 500;
+                this.jumpSpeed = -500;
+            }
             Player.prototype.update = function () {
                 var player = this
                 game.physics.arcade.collide(player, layer);
                 if (player.y === game.height && player.alive) {
-                    player.myKill();
+                    player.kill();
                 }
                 player.body.velocity.x = 0;
                 if (player.x > 3183 && player.hasShoes) {
                     printMsg("The save the date is September 26th 2015!".toUpperCase())
                 }
-
+                if(f1Button.isDown){
+                    this.enableGodMode();
+                }
                 if (player.y > game.height - 20 && player.alive) {
                     player.kill();
                 }
-                const horizSpeed = 500;
                 if (cursors.left.isDown) {
-                    player.body.velocity.x = horizSpeed * -1;
+                    player.body.velocity.x = player.horizSpeed * -1;
 
                     if (facing != 'left') {
                         player.animations.play('left');
@@ -98,7 +106,7 @@ function loadGame() {
                     }
                 }
                 else if (cursors.right.isDown) {
-                    player.body.velocity.x = horizSpeed;
+                    player.body.velocity.x = player.horizSpeed;
 
                     if (facing != 'right') {
                         player.animations.play('right');
@@ -122,7 +130,7 @@ function loadGame() {
 
                 if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer) {
                     jumpSound.play()
-                    player.body.velocity.y = -250;
+                    player.body.velocity.y = player.jumpSpeed;
                     jumpTimer = game.time.now + 750;
                 }
             }
@@ -147,6 +155,7 @@ function loadGame() {
         var marioDiedSound;
         var stompSound;
         var shoes;
+        var f1Button;
 
         function create() {
 
@@ -181,6 +190,7 @@ function loadGame() {
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
 
             //logo = game.add.sprite(game.width / 4, 10, 'logo');
 
@@ -276,7 +286,7 @@ function loadGame() {
         }(game)
 
 
-        function collisionHandler(obj1, enemy) {
+        function enemyPlayerCollisionHandler(obj1, enemy) {
             if (obj1.body.touching.down) {
                 stompSound.play();
                 enemy.kill()
@@ -290,7 +300,7 @@ function loadGame() {
         function update() {
 
             $.each(EnemyModule.enemies, function (index, enemy) {
-                game.physics.arcade.collide(PlayerModule.player, enemy, collisionHandler);
+                game.physics.arcade.collide(PlayerModule.player, enemy, enemyPlayerCollisionHandler);
             });
 
             game.physics.arcade.collide(shoes, layer);
