@@ -184,6 +184,7 @@ function loadGame() {
             shoes = game.add.sprite(32,32, 'shoes');
             game.physics.enable(shoes, Phaser.Physics.ARCADE);
             shoes.body.setSize(20, 32, 5, 16);
+            shoes.scale.setTo(.5,.5)
 
             //load sounds
             jumpSound = new Phaser.Sound(game, 'jump');
