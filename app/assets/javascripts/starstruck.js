@@ -19,7 +19,6 @@ function loadGame() {
             game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
 
-            game.load.image('card', '/assets/sprites/mana_card.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
@@ -295,6 +294,7 @@ function loadGame() {
             });
 
             game.physics.arcade.collide(player, layer);
+            game.physics.arcade.collide(shoes, layer);
 
 
         }
