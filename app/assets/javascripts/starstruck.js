@@ -22,8 +22,8 @@ function loadGame() {
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
-            game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
+            game.load.spritesheet('mummy', '/assets/jarebear.png', 32, 48);
            // game.load.image('logo', '/assets/ours/instructions-400.png');
 
             game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
@@ -226,20 +226,20 @@ function loadGame() {
                 Phaser.Sprite.call(this, game, x, y, 'mummy', 1)
                 this.name = "mummy"
                 var mummy = this
-                this.scale.setTo(2, 2)
-                this.angle = 0
 
-                this.animations.add('walk');
-                this.animations.play('walk', 20, true);
-                this.anchor.setTo(.5, .5); //so it flips around its middle
+                this.animations.add('left', [0, 1, 2, 3], 10, true);
+                this.animations.add('turn', [4], 20, true);
+                this.animations.add('right', [5, 6, 7, 8], 10, true);
+                this.anchor.setTo(.5,.5); //so it flips around its middle
                 this.speed = Math.random()
-                //game.add.tween(this).to({ x: game.width + (1600 + this.x) }, 20000, Phaser.Easing.Linear.None, true);
+                this.scale.setTo(2, 2)
 
                 game.physics.enable(this, Phaser.Physics.ARCADE);
 
-                this.body.collideWorldBounds = true;
                 this.body.setSize(20, 32, 5, 16);
+                this.body.collideWorldBounds = true;
 
+                this.animations.play('right');
                 this.checkWorldBounds = true;
                 this.outOfBoundsKill = true
                 this.events.onOutOfBounds.add(this.dropRef, this);
