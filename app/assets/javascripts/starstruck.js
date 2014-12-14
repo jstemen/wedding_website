@@ -180,10 +180,12 @@ function loadGame() {
             instructions.width = instructions.width * scale
             instructions.height = instructions.height * scale
 
+            //Add shoes
             shoes = game.add.sprite(32,32, 'shoes');
             game.physics.enable(shoes, Phaser.Physics.ARCADE);
             shoes.body.setSize(20, 32, 5, 16);
 
+            //load sounds
             jumpSound = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
@@ -191,9 +193,7 @@ function loadGame() {
 
 
             layer.resizeWorld();
-
             layer.wrap = false;
-
             game.physics.arcade.gravity.y = 250;
 
 
@@ -206,14 +206,25 @@ function loadGame() {
             setInterval(function () {
                 var x = game.camera.x + game.camera.width;
                 var enemy = new EnemyModule.Enemy(x, 0)
-            }, 4000);
+            }, 20000);
         }
 
-        function printMsg(msg) {
-            var style = {font: "50px Arial", fill: "white", align: "center"};
-            var t = game.add.text(20, 20, msg, style);
-            t.fixedToCamera = true
-        }
+        var printMsg = function(){
+
+            var lastMsg;
+            function printMsg(msg) {
+                if (lastMsg != null){
+                    lastMsg.destroy();
+                }
+                var style = {font: "50px Arial", fill: "white", align: "center"};
+                Phaser.Text
+                var t = game.add.text(20, 20, msg, style);
+                t.fixedToCamera = true
+                lastMsg = t;
+            }
+           return printMsg;
+        }();
+
 
         var EnemyModule = function (game) {
             var enemies = [];
