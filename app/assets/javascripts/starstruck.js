@@ -28,7 +28,7 @@ function loadGame() {
            // game.load.image('logo', '/assets/ours/instructions-400.png');
 
             game.load.spritesheet('dude', '/assets/palak.png', 32, 48);
-            game.load.spritesheet('shoes', '/assets/shoes2.png', 32, 48);
+            game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
 
             game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
             game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
@@ -160,11 +160,10 @@ function loadGame() {
             map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
             music = new Phaser.Sound(game, 'music');
             music.play();
-/*            shoes = game.add.sprite(32,32, 'dude');
+            layer = map.createLayer('World1'); //Sprites must be added below this line
+            shoes = game.add.sprite(32,32, 'shoes');
             game.physics.enable(shoes, Phaser.Physics.ARCADE);
-            shoes.body.setSize(20, 32, 5, 16);*/
-            layer = map.createLayer('World1');
-            card = game.add.sprite(200, 200, 'card');
+            shoes.body.setSize(20, 32, 5, 16);
             jumpSound = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
