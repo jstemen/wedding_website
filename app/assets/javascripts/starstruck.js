@@ -38,6 +38,8 @@ function loadGame() {
         }
 
         var PlayerModule = function (game) {
+            this.player;
+
             function Player(x, y) {
 
                 Phaser.Sprite.call(this, game, x, y, 'dude', 1)
@@ -58,6 +60,7 @@ function loadGame() {
 
                 game.add.existing(this)
                 game.camera.follow(this);
+                PlayerModule.player = this;
             }
 
             function died() {
@@ -129,7 +132,6 @@ function loadGame() {
         var map;
         var tileset;
         var layer;
-        var player;
         var facing = 'left';
         var jumpTimer = 0;
         var cursors;
@@ -176,7 +178,7 @@ function loadGame() {
 
             game.physics.arcade.gravity.y = 250;
 
-            player = new PlayerModule.Player(32, 32);
+            PlayerModule.player = new PlayerModule.Player(32, 32);
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -270,9 +272,9 @@ function loadGame() {
             if (obj1.body.touching.down) {
                 stompSound.play();
                 enemy.kill()
-                player.body.velocity.y = -250;
+                PlayerModule.player.body.velocity.y = -250;
             } else if (enemy.exists) {
-                player.damage(5)
+                PlayerModule.player.damage(5)
             }
         }
 
@@ -290,7 +292,7 @@ function loadGame() {
 
             //console.log(player.x)
             $.each(EnemyModule.enemies, function (index, enemy) {
-                game.physics.arcade.collide(player, enemy, collisionHandler);
+                game.physics.arcade.collide(PlayerModule.player, enemy, collisionHandler);
                 game.physics.arcade.collide(enemy, layer, enemyColHandler);
             });
 
