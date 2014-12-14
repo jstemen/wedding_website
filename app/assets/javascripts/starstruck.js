@@ -26,7 +26,7 @@ function loadGame() {
 
            // game.load.image('logo', '/assets/ours/instructions-400.png');
 
-            game.load.spritesheet('dude', '/assets/palak.png', 32, 48);
+            game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
             game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
 
             game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
