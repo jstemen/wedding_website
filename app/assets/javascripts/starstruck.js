@@ -24,7 +24,7 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
 
             game.load.spritesheet('mummy', '/assets/jarebear.png', 32, 48);
-            game.load.image('logo', '/assets/instructions-text.png');
+            game.load.image('instructions', '/assets/instructions-text.png');
 
             game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
             game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
@@ -149,7 +149,7 @@ function loadGame() {
         var text
         var music
 
-        var logo;
+        var instructions;
 
 
         var jumpSound;
@@ -173,9 +173,17 @@ function loadGame() {
             music = new Phaser.Sound(game, 'music');
             music.play();
             layer = map.createLayer('World1'); //Sprites must be added below this line
+
+            //Add though bubble style instructions
+            const scale = .5
+            instructions= game.add.sprite(20, 10, 'instructions');
+            instructions.width = instructions.width * scale
+            instructions.height = instructions.height * scale
+
             shoes = game.add.sprite(32,32, 'shoes');
             game.physics.enable(shoes, Phaser.Physics.ARCADE);
             shoes.body.setSize(20, 32, 5, 16);
+
             jumpSound = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
@@ -188,17 +196,12 @@ function loadGame() {
 
             game.physics.arcade.gravity.y = 250;
 
-            const scale = .5
-            logo = game.add.sprite(game.width / 4, 10, 'logo');
-            logo.width = logo.width * scale
-            logo.height = logo.height * scale
 
             PlayerModule.player = new PlayerModule.Player(32, 32);
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
-            //game.input.keyboard.onDown(removeLogo, this);
 
             setInterval(function () {
                 var x = game.camera.x + game.camera.width;
@@ -211,13 +214,6 @@ function loadGame() {
             var t = game.add.text(20, 20, msg, style);
             t.fixedToCamera = true
         }
-
-
-        function removeLogo() {
-            game.input.onDown.remove(removeLogo, this);
-            logo.kill();
-        }
-
 
         var EnemyModule = function (game) {
             var enemies = [];
