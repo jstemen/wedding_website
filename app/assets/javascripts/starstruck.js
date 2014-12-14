@@ -19,15 +19,16 @@ function loadGame() {
             game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
 
-
+            game.load.image('card', '/assets/sprites/mana_card.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
             game.load.spritesheet('mummy', '/assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
-            game.load.image('logo', '/assets/ours/instructions-400.png');
+           // game.load.image('logo', '/assets/ours/instructions-400.png');
 
             game.load.spritesheet('dude', '/assets/palak.png', 32, 48);
+            game.load.spritesheet('shoes', '/assets/shoes2.png', 32, 48);
 
             game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
             game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
@@ -144,6 +145,7 @@ function loadGame() {
         var gameOverSound;
         var marioDiedSound;
         var stompSound;
+        var shoes;
 
         function create() {
 
@@ -158,9 +160,11 @@ function loadGame() {
             map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
             music = new Phaser.Sound(game, 'music');
             music.play();
-
+/*            shoes = game.add.sprite(32,32, 'dude');
+            game.physics.enable(shoes, Phaser.Physics.ARCADE);
+            shoes.body.setSize(20, 32, 5, 16);*/
             layer = map.createLayer('World1');
-
+            card = game.add.sprite(200, 200, 'card');
             jumpSound = new Phaser.Sound(game, 'jump');
             gameOverSound = new Phaser.Sound(game, 'gameover');
             marioDiedSound = new Phaser.Sound(game, 'mariodie');
@@ -178,7 +182,7 @@ function loadGame() {
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-            logo = game.add.sprite(game.width / 4, 10, 'logo');
+            //logo = game.add.sprite(game.width / 4, 10, 'logo');
 
             //game.input.keyboard.onDown(removeLogo, this);
 
