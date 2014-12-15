@@ -106,19 +106,28 @@ function loadGame() {
             startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
-            var xPos =  game.world.width-100
-            var emitter = game.add.emitter(xPos, 200, 1550);
+        }
+        var startFireworks = function() {
+           function createLoc(x, y){
 
-            emitter.makeParticles(['blue', 'red', 'yellow', 'green' ]);
+               var emitter = game.add.emitter(xPos, 200, 1550);
 
-            emitter.setRotation(0, 100);
-            emitter.setAlpha(0.3, 0.8);
-            emitter.setScale(0.5, 1);
-            emitter.gravity = -200;
+               emitter.makeParticles(['blue', 'red', 'yellow', 'green' ]);
 
-            //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
-            //	The 5000 value is the lifespan of each particle before it's killed
-            emitter.start(false, 500, 100);
+               emitter.setRotation(0, 100);
+               emitter.setAlpha(0.3, 0.8);
+               emitter.setScale(0.5, 1);
+               emitter.gravity = -200;
+
+               //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
+               //	The 5000 value is the lifespan of each particle before it's killed
+               emitter.start(false, 750, 100);
+           }
+                for( var i=0; i< 4; i++){
+                    var xPos =  game.world.width-100- Math.pow(Math.random(),3)*300;
+                    var yPos =  200- Math.pow(Math.random(),3)*300;
+                    createLoc(xPos, yPos)
+                }
         }
 
         //Creates a set of timers that periodically create enemies when the browser tab is active
@@ -193,6 +202,8 @@ function loadGame() {
                 }
                 player.body.velocity.x = 0;
                 if (player.x > 3183 && player.hasShoes) {
+                    player.hasShoes =false
+                    startFireworks()
                     printMsg("The save the date is September 26th 2015!".toUpperCase())
                 }
                 if(f1Button.isDown){
