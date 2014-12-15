@@ -4,7 +4,6 @@ function loadGame() {
 
     if (length > 0) {
 
-
         game = new Phaser.Game(stageSize.width, stageSize.height, Phaser.CANVAS, 'phaser-game', {
             preload: preload,
             create: create,
@@ -35,6 +34,77 @@ function loadGame() {
             game.load.audio('stomp', '/assets/sounds/smb_stomp.ogg');
             game.load.audio('music', '/assets/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
 
+        }
+
+        var map;
+        var tileset;
+        var layer;
+        var facing = 'left';
+        var jumpTimer = 0;
+        var cursors;
+        var jumpButton;
+        var f1Button;
+        var bg;
+        var text
+        var music
+
+        var instructions;
+
+        var jumpSound;
+        var gameOverSound;
+        var marioDiedSound;
+        var stompSound;
+        var shoes;
+
+        function create() {
+
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+
+            game.stage.backgroundColor = '#000000';
+
+            map = game.add.tilemap('mario');
+
+            map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
+
+            map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
+            music = new Phaser.Sound(game, 'music');
+            music.play();
+            layer = map.createLayer('World1'); //Sprites must be added below this line
+
+            //Add though bubble style instructions
+            const scale = .5
+            instructions= game.add.sprite(20, 10, 'instructions');
+            instructions.width = instructions.width * scale
+            instructions.height = instructions.height * scale
+
+            //Add shoes
+            shoes = game.add.sprite(32,32, 'shoes');
+            game.physics.enable(shoes, Phaser.Physics.ARCADE);
+            shoes.body.setSize(20, 32, 5, 16);
+            shoes.scale.setTo(.5,.5)
+
+            //load sounds
+            jumpSound = new Phaser.Sound(game, 'jump');
+            gameOverSound = new Phaser.Sound(game, 'gameover');
+            marioDiedSound = new Phaser.Sound(game, 'mariodie');
+            stompSound = new Phaser.Sound(game, 'stomp');
+
+
+            layer.resizeWorld();
+            layer.wrap = false;
+            game.physics.arcade.gravity.y = 250;
+
+
+            PlayerModule.player = new PlayerModule.Player(32, 32);
+
+            cursors = game.input.keyboard.createCursorKeys();
+            jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
+
+            setInterval(function () {
+                var x = game.camera.x + game.camera.width;
+                var enemy = new EnemyModule.Enemy(x, 0)
+            }, 20000);
         }
 
         var PlayerModule = function (game) {
@@ -138,94 +208,6 @@ function loadGame() {
             }
             return {Player: Player, died: died}
         }(game);
-        var map;
-        var tileset;
-        var layer;
-        var facing = 'left';
-        var jumpTimer = 0;
-        var cursors;
-        var jumpButton;
-        var bg;
-        var text
-        var music
-
-        var instructions;
-
-
-        var jumpSound;
-        var gameOverSound;
-        var marioDiedSound;
-        var stompSound;
-        var shoes;
-        var f1Button;
-
-        function create() {
-
-            game.physics.startSystem(Phaser.Physics.ARCADE);
-
-            game.stage.backgroundColor = '#000000';
-
-            map = game.add.tilemap('mario');
-
-            map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
-
-            map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
-            music = new Phaser.Sound(game, 'music');
-            music.play();
-            layer = map.createLayer('World1'); //Sprites must be added below this line
-
-            //Add though bubble style instructions
-            const scale = .5
-            instructions= game.add.sprite(20, 10, 'instructions');
-            instructions.width = instructions.width * scale
-            instructions.height = instructions.height * scale
-
-            //Add shoes
-            shoes = game.add.sprite(32,32, 'shoes');
-            game.physics.enable(shoes, Phaser.Physics.ARCADE);
-            shoes.body.setSize(20, 32, 5, 16);
-            shoes.scale.setTo(.5,.5)
-
-            //load sounds
-            jumpSound = new Phaser.Sound(game, 'jump');
-            gameOverSound = new Phaser.Sound(game, 'gameover');
-            marioDiedSound = new Phaser.Sound(game, 'mariodie');
-            stompSound = new Phaser.Sound(game, 'stomp');
-
-
-            layer.resizeWorld();
-            layer.wrap = false;
-            game.physics.arcade.gravity.y = 250;
-
-
-            PlayerModule.player = new PlayerModule.Player(32, 32);
-
-            cursors = game.input.keyboard.createCursorKeys();
-            jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
-
-            setInterval(function () {
-                var x = game.camera.x + game.camera.width;
-                var enemy = new EnemyModule.Enemy(x, 0)
-            }, 20000);
-        }
-
-        var printMsg = function(){
-
-            var lastMsg;
-            function printMsg(msg) {
-                if (lastMsg != null){
-                    lastMsg.destroy();
-                }
-                var style = {font: "50px Arial", fill: "white", align: "center"};
-                Phaser.Text
-                var t = game.add.text(20, 20, msg, style);
-                t.fixedToCamera = true
-                lastMsg = t;
-            }
-           return printMsg;
-        }();
-
 
         var EnemyModule = function (game) {
             var enemies = [];
@@ -297,6 +279,23 @@ function loadGame() {
             return {Enemy: Enemy, enemies: enemies}
         }(game)
 
+        var printMsg = function(){
+            var lastMsg;
+            function printMsg(msg) {
+                if (lastMsg != null){
+                    lastMsg.destroy();
+                }
+                var style = {font: "50px Arial", fill: "white", align: "center"};
+                Phaser.Text
+                var t = game.add.text(20, 20, msg, style);
+                t.fixedToCamera = true
+                lastMsg = t;
+            }
+           return printMsg;
+        }();
+
+
+
 
         function enemyPlayerCollisionHandler(obj1, enemy) {
             if (obj1.body.touching.down) {
@@ -324,9 +323,6 @@ function loadGame() {
 
         function render() {
 
-            // game.debug.text(game.time.physicsElapsed, 32, 32);
-            // game.debug.body(player);
-            // game.debug.bodyInfo(player, 16, 24);
 
         }
     }
