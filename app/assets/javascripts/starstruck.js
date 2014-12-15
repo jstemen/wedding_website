@@ -100,6 +100,11 @@ function loadGame() {
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
+            startEnemyCreation();
+        }
+
+        //Creates a set of timers that periodically create enemies when the browser tab is active
+        var startEnemyCreation= function(){
             var enemyTimer = 0;
             $(window).blur(function(){
                 clearInterval(enemyTimer);
@@ -107,15 +112,15 @@ function loadGame() {
             });
             $(window).focus(function(){
                 clearInterval(enemyTimer)
-                enemyTimer = setInterval(function () {
+                enemyTimer = setEnemyCreationTime()
+            });
+            function setEnemyCreationTime() {
+                return setInterval(function () {
                     var x = game.camera.x + game.camera.width;
                     var enemy = new EnemyModule.Enemy(x, 0)
                 }, 10000);
-            });
-            enemyTimer = setInterval(function () {
-                var x = game.camera.x + game.camera.width;
-                var enemy = new EnemyModule.Enemy(x, 0)
-            }, 10000);
+            }
+            enemyTimer = setEnemyCreationTime();
         }
 
         var PlayerModule = function (game) {
