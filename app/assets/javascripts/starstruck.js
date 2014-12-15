@@ -106,19 +106,19 @@ function loadGame() {
             startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
-            var xPos =  500 //game.world.width-100
+            var xPos =  game.world.width-100
             var emitter = game.add.emitter(xPos, 200, 1550);
 
             emitter.makeParticles(['blue', 'red', 'yellow', 'green' ]);
 
-            emitter.setRotation(0, 0);
+            emitter.setRotation(0, 100);
             emitter.setAlpha(0.3, 0.8);
             emitter.setScale(0.5, 1);
             emitter.gravity = -200;
 
             //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
             //	The 5000 value is the lifespan of each particle before it's killed
-            emitter.start(false, 5000, 100);
+            emitter.start(false, 500, 100);
         }
 
         //Creates a set of timers that periodically create enemies when the browser tab is active
