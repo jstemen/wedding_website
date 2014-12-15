@@ -18,6 +18,9 @@ function loadGame() {
             game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
             game.load.image('blue', '/assets/particles/blue.png');
+            game.load.image('red', '/assets/particles/red.png');
+            game.load.image('yellow', '/assets/particles/yellow.png');
+            game.load.image('green', '/assets/particles/green.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
@@ -103,10 +106,10 @@ function loadGame() {
             startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
+            var xPos =  500 //game.world.width-100
+            var emitter = game.add.emitter(xPos, 200, 1550);
 
-            var emitter = game.add.emitter(game.world.centerX, 200, 1550);
-
-            emitter.makeParticles('blue');
+            emitter.makeParticles(['blue', 'red', 'yellow', 'green' ]);
 
             emitter.setRotation(0, 0);
             emitter.setAlpha(0.3, 0.8);
