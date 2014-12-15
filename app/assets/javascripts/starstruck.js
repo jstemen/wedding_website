@@ -17,7 +17,7 @@ function loadGame() {
             game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
             game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
-
+            game.load.image('blue', '/assets/particles/blue.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
@@ -101,6 +101,21 @@ function loadGame() {
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
             startEnemyCreation();
+
+            game.stage.backgroundColor = '#000000';
+
+            var emitter = game.add.emitter(game.world.centerX, 200, 1550);
+
+            emitter.makeParticles('blue');
+
+            emitter.setRotation(0, 0);
+            emitter.setAlpha(0.3, 0.8);
+            emitter.setScale(0.5, 1);
+            emitter.gravity = -200;
+
+            //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
+            //	The 5000 value is the lifespan of each particle before it's killed
+            emitter.start(false, 5000, 100);
         }
 
         //Creates a set of timers that periodically create enemies when the browser tab is active
