@@ -100,11 +100,22 @@ function loadGame() {
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
-
-            setInterval(function () {
+            var enemyTimer = 0;
+            $(window).blur(function(){
+                clearInterval(enemyTimer);
+                enemyTimer= 0;
+            });
+            $(window).focus(function(){
+                clearInterval(enemyTimer)
+                enemyTimer = setInterval(function () {
+                    var x = game.camera.x + game.camera.width;
+                    var enemy = new EnemyModule.Enemy(x, 0)
+                }, 10000);
+            });
+            enemyTimer = setInterval(function () {
                 var x = game.camera.x + game.camera.width;
                 var enemy = new EnemyModule.Enemy(x, 0)
-            }, 20000);
+            }, 10000);
         }
 
         var PlayerModule = function (game) {
