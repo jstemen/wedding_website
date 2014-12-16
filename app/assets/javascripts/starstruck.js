@@ -62,6 +62,7 @@ function loadGame() {
         var stompSound;
         var shoes;
         const gravityLevel = 250
+
         function create() {
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -79,15 +80,15 @@ function loadGame() {
 
             //Add though bubble style instructions
             const scale = .5
-            instructions= game.add.sprite(20, 10, 'instructions');
+            instructions = game.add.sprite(20, 10, 'instructions');
             instructions.width = instructions.width * scale
             instructions.height = instructions.height * scale
 
             //Add shoes
-            shoes = game.add.sprite(32,32, 'shoes');
+            shoes = game.add.sprite(32, 32, 'shoes');
             game.physics.enable(shoes, Phaser.Physics.ARCADE);
             shoes.body.setSize(20, 32, 5, 16);
-            shoes.scale.setTo(.5,.5)
+            shoes.scale.setTo(.5, .5)
 
             //load sounds
             jumpSound = new Phaser.Sound(game, 'jump');
@@ -110,34 +111,35 @@ function loadGame() {
 
             game.stage.backgroundColor = '#000000';
         }
-        var startFireworks = function() {
-           var createLoc = function (x, y){
-               var emitter = emitter ? emitter : game.add.emitter(x, y, 5);
-               emitter.makeParticles(['sfire', 'mfire', 'lfire']);
-               emitter.minParticleSpeed.setTo(0, 0);
-               emitter.maxParticleSpeed.setTo(0, 0);
-               emitter.setRotation(0, 0);
-               emitter.setAlpha(.3, 0.8);
-               emitter.setScale(1, 1);
-               emitter.gravity = -1 * gravityLevel;
 
-               //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
-               //	The 5000 value is the lifespan of each particle before it's killed
-               emitter.start(false, 500, 2000);
-               setInterval(function(){
-                   emitter.x = randX() ;
-                   emitter.y = randY();
-               }, 1000)
-           }
-            var randPos = function(){
+        var startFireworks = function () {
+            var createLoc = function (x, y) {
+                var emitter = emitter ? emitter : game.add.emitter(x, y, 5);
+                emitter.makeParticles(['sfire', 'mfire', 'lfire']);
+                emitter.minParticleSpeed.setTo(0, 0);
+                emitter.maxParticleSpeed.setTo(0, 0);
+                emitter.setRotation(0, 0);
+                emitter.setAlpha(.3, 0.8);
+                emitter.setScale(1, 1);
+                emitter.gravity = -1 * gravityLevel;
+
+                //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
+                //	The 5000 value is the lifespan of each particle before it's killed
+                emitter.start(false, 500, 2000);
+                setInterval(function () {
+                    emitter.x = randX();
+                    emitter.y = randY();
+                }, 1000)
+            }
+            var randPos = function () {
                 var number = Math.pow(Math.random(), 2);
                 return number
             }
-            var randX = function(){
+            var randX = function () {
                 var number = game.world.width - 100 - randPos() * 300;
                 return number
             }
-            var randY = function(){
+            var randY = function () {
                 var number = 200 - randPos() * 100;
                 return number
             }
@@ -145,13 +147,13 @@ function loadGame() {
         }
 
         //Creates a set of timers that periodically create enemies when the browser tab is active
-        var startEnemyCreation= function(){
+        var startEnemyCreation = function () {
             var enemyTimer = 0;
-            $(window).blur(function(){
+            $(window).blur(function () {
                 clearInterval(enemyTimer);
-                enemyTimer= 0;
+                enemyTimer = 0;
             });
-            $(window).focus(function(){
+            $(window).focus(function () {
                 clearInterval(enemyTimer)
                 enemyTimer = setEnemyCreationTime()
             });
@@ -161,6 +163,7 @@ function loadGame() {
                     var enemy = new EnemyModule.Enemy(x, 0)
                 }, 10000);
             }
+
             enemyTimer = setEnemyCreationTime();
         }
 
@@ -168,7 +171,7 @@ function loadGame() {
             this.player;
 
             function Player(x, y) {
-                this.hasShoes=false;
+                this.hasShoes = false;
                 this.horizSpeed = 150;
                 this.jumpSpeed = -200;
                 Phaser.Sprite.call(this, game, x, y, 'dude', 1)
@@ -201,9 +204,10 @@ function loadGame() {
 
             Player.prototype = Object.create(Phaser.Sprite.prototype);
             Player.prototype.constructor = Player;
-            Player.prototype.enableGodMode = function(){
+            Player.prototype.enableGodMode = function () {
                 Player.prototype.origKill = Player.prototype.kill
-                Player.prototype.kill = function(){}
+                Player.prototype.kill = function () {
+                }
                 this.horizSpeed = 1500;
                 this.jumpSpeed = -500;
             }
@@ -215,11 +219,11 @@ function loadGame() {
                 }
                 player.body.velocity.x = 0;
                 if (player.x > 3183 && player.hasShoes) {
-                    player.hasShoes =false
+                    player.hasShoes = false
                     startFireworks()
                     printMsg("The save the date is September 26th 2015!".toUpperCase())
                 }
-                if(f1Button.isDown){
+                if (f1Button.isDown) {
                     this.enableGodMode();
                 }
                 if (player.y > game.height - 20 && player.alive) {
@@ -256,7 +260,7 @@ function loadGame() {
                     }
                 }
                 if (cursors.down.isDown) {
-                    player.body.velocity.y = player.jumpSpeed* -.75;
+                    player.body.velocity.y = player.jumpSpeed * -.75;
                 }
                 if ((cursors.up.isDown || jumpButton.isDown) && player.body.onFloor() && game.time.now > jumpTimer) {
                     jumpSound.play()
@@ -280,7 +284,7 @@ function loadGame() {
                 this.animations.add('left', [0, 1, 2, 3], 10, true);
                 this.animations.add('turn', [4], 20, true);
                 this.animations.add('right', [5, 6, 7, 8], 10, true);
-                this.anchor.setTo(.5,.5); //so it flips around its middle
+                this.anchor.setTo(.5, .5); //so it flips around its middle
                 this.speed = Math.random()
                 this.scale.setTo(2, 2)
 
@@ -334,13 +338,15 @@ function loadGame() {
                     enemy.walk(50);
                 }
             }
+
             return {Enemy: Enemy, enemies: enemies}
         }(game)
 
-        var printMsg = function(){
+        var printMsg = function () {
             var lastMsg;
+
             function printMsg(msg) {
-                if (lastMsg != null){
+                if (lastMsg != null) {
                     lastMsg.destroy();
                 }
                 var style = {font: "50px Arial", fill: "white", align: "center"};
@@ -349,10 +355,9 @@ function loadGame() {
                 t.fixedToCamera = true
                 lastMsg = t;
             }
-           return printMsg;
+
+            return printMsg;
         }();
-
-
 
 
         function enemyPlayerCollisionHandler(obj1, enemy) {
@@ -373,9 +378,9 @@ function loadGame() {
             });
 
             game.physics.arcade.collide(shoes, layer);
-            game.physics.arcade.collide(PlayerModule.player, shoes, function(player, shoes){
+            game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
                 shoes.destroy();
-                player.hasShoes=true
+                player.hasShoes = true
             });
         }
 
