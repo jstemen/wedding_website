@@ -21,6 +21,9 @@ function loadGame() {
             game.load.image('red', '/assets/particles/red.png');
             game.load.image('yellow', '/assets/particles/yellow.png');
             game.load.image('green', '/assets/particles/green.png');
+            game.load.image('mfire', '/assets/mediumFireworks.png');
+            game.load.image('sfire', '/assets/smallFireworks.png');
+            game.load.image('lfire', '/assets/largeFireworks.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
@@ -58,7 +61,7 @@ function loadGame() {
         var marioDiedSound;
         var stompSound;
         var shoes;
-
+        const gravityLevel = 250
         function create() {
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -95,7 +98,7 @@ function loadGame() {
 
             layer.resizeWorld();
             layer.wrap = false;
-            game.physics.arcade.gravity.y = 250;
+            game.physics.arcade.gravity.y = gravityLevel;
 
 
             PlayerModule.player = new PlayerModule.Player(32, 32);
@@ -108,26 +111,37 @@ function loadGame() {
             game.stage.backgroundColor = '#000000';
         }
         var startFireworks = function() {
-           function createLoc(x, y){
-
-               var emitter = game.add.emitter(xPos, 200, 1550);
-
-               emitter.makeParticles(['blue', 'red', 'yellow', 'green' ]);
-
-               emitter.setRotation(0, 100);
-               emitter.setAlpha(0.3, 0.8);
-               emitter.setScale(0.5, 1);
-               emitter.gravity = -200;
+           var createLoc = function (x, y){
+               var emitter = emitter ? emitter : game.add.emitter(x, y, 5);
+               emitter.makeParticles(['sfire', 'mfire', 'lfire']);
+               emitter.minParticleSpeed.setTo(0, 0);
+               emitter.maxParticleSpeed.setTo(0, 0);
+               emitter.setRotation(0, 0);
+               emitter.setAlpha(.3, 0.8);
+               emitter.setScale(1, 1);
+               emitter.gravity = -1 * gravityLevel;
 
                //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
                //	The 5000 value is the lifespan of each particle before it's killed
-               emitter.start(false, 750, 100);
+               emitter.start(false, 500, 2000);
+               setInterval(function(){
+                   emitter.x = randX() ;
+                   emitter.y = randY();
+               }, 1000)
            }
-                for( var i=0; i< 4; i++){
-                    var xPos =  game.world.width-100- Math.pow(Math.random(),3)*300;
-                    var yPos =  200- Math.pow(Math.random(),3)*300;
-                    createLoc(xPos, yPos)
-                }
+            var randPos = function(){
+                var number = Math.pow(Math.random(), 2);
+                return number
+            }
+            var randX = function(){
+                var number = game.world.width - 100 - randPos() * 300;
+                return number
+            }
+            var randY = function(){
+                var number = 200 - randPos() * 100;
+                return number
+            }
+            createLoc(randX(), randY())
         }
 
         //Creates a set of timers that periodically create enemies when the browser tab is active
@@ -159,7 +173,6 @@ function loadGame() {
                 this.jumpSpeed = -200;
                 Phaser.Sprite.call(this, game, x, y, 'dude', 1)
                 game.physics.enable(this, Phaser.Physics.ARCADE);
-
                 this.body.bounce.y = 0;
                 this.body.collideWorldBounds = true;
                 this.body.setSize(20, 32, 5, 16);
