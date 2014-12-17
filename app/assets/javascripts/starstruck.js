@@ -114,7 +114,7 @@ function loadGame() {
 
         var startFireworks = function () {
             var createLoc = function (x, y) {
-                var emitter = emitter ? emitter : game.add.emitter(x, y, 5);
+                var emitter = emitter || game.add.emitter(x, y, 5);
                 emitter.makeParticles(['sfire', 'mfire', 'lfire']);
                 emitter.minParticleSpeed.setTo(0, 0);
                 emitter.maxParticleSpeed.setTo(0, 0);
@@ -188,7 +188,7 @@ function loadGame() {
                 Player.prototype.origKill = Player.prototype.kill
                 Player.prototype.kill = function () {
                 }
-                this.horizSpeed = 1500;
+                this.horizSpeed = 3000;
                 this.jumpSpeed = -500;
             }
             Player.prototype.update = function () {
