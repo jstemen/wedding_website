@@ -107,7 +107,7 @@ function loadGame() {
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
             f1Button = game.input.keyboard.addKey(Phaser.Keyboard.F1);
-            startEnemyCreation();
+            EnemyModule.startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
         }
@@ -146,26 +146,6 @@ function loadGame() {
             createLoc(randX(), randY())
         }
 
-        //Creates a set of timers that periodically create enemies when the browser tab is active
-        var startEnemyCreation = function () {
-            var enemyTimer = 0;
-            $(window).blur(function () {
-                clearInterval(enemyTimer);
-                enemyTimer = 0;
-            });
-            $(window).focus(function () {
-                clearInterval(enemyTimer)
-                enemyTimer = setEnemyCreationTime()
-            });
-            function setEnemyCreationTime() {
-                return setInterval(function () {
-                    var x = game.camera.x + game.camera.width;
-                    var enemy = new EnemyModule.Enemy(x, 0)
-                }, 10000);
-            }
-
-            enemyTimer = setEnemyCreationTime();
-        }
 
         var PlayerModule = function (game) {
             this.player;
@@ -221,6 +201,7 @@ function loadGame() {
                 if (player.x > 3183 && player.hasShoes) {
                     player.hasShoes = false
                     startFireworks()
+                    EnemyModule.stopEnemyCreation()
                     printMsg("The save the date is September 26th 2015!".toUpperCase())
                 }
                 if (f1Button.isDown) {
@@ -303,6 +284,41 @@ function loadGame() {
                 enemies.push(this);
             }
 
+            var enemyTimer = 0;
+            var onBlur = function () {
+                clearInterval(enemyTimer);
+                enemyTimer = 0;
+            }
+            var onFocus = function () {
+                clearInterval(enemyTimer)
+                enemyTimer = setEnemyCreationTime()
+            }
+            //Creates a set of timers that periodically create enemies when the browser tab is active
+            var startEnemyCreation = function () {
+                $(window).blur(onBlur);
+                $(window).focus(onFocus);
+                function setEnemyCreationTime() {
+                    return setInterval(function () {
+                        var x = game.camera.x + game.camera.width;
+                        var enemy = new EnemyModule.Enemy(x, 0)
+                    }, 10000);
+                }
+
+                enemyTimer = setEnemyCreationTime();
+            }
+            var stopEnemyCreation = function () {
+                $(window).unbind("blur", onBlur);
+                $(window).unbind("focus", onFocus);
+                clearInterval(enemyTimer)
+            }
+
+            function setEnemyCreationTime() {
+                return setInterval(function () {
+                    var x = game.camera.x + game.camera.width;
+                    var enemy = new EnemyModule.Enemy(x, 0)
+                }, 10000);
+            }
+
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
             Enemy.prototype = Object.create(Phaser.Sprite.prototype);
             Enemy.prototype.constructor = Enemy;
@@ -339,7 +355,12 @@ function loadGame() {
                 }
             }
 
-            return {Enemy: Enemy, enemies: enemies}
+            return {
+                Enemy: Enemy,
+                enemies: enemies,
+                startEnemyCreation: startEnemyCreation,
+                stopEnemyCreation: stopEnemyCreation
+            }
         }(game)
 
         var printMsg = function () {
