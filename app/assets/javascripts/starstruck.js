@@ -128,7 +128,7 @@ function loadGame() {
                 emitter.setScale(1, 1);
                 //Need to counteract gravity
                 emitter.gravity = -1 * gravityLevel;
-                emitter.start(false, 500, 5000 * Math.random());
+                emitter.start(false, 500, 1000 + 5000 * Math.random());
                 setInterval(function () {
                     emitter.x = randX();
                     emitter.y = randY();
