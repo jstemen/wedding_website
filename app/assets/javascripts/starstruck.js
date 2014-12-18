@@ -24,6 +24,9 @@ function loadGame() {
             game.load.image('mfire', '/assets/mediumFireworks.png');
             game.load.image('sfire', '/assets/smallFireworks.png');
             game.load.image('lfire', '/assets/largeFireworks.png');
+            game.load.image('carrot', '/assets/sprites/carrot.png');
+            game.load.image('star', '/assets/misc/star_particle.png');
+            game.load.image('diamond', '/assets/sprites/diamond.png')
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
@@ -110,26 +113,26 @@ function loadGame() {
             EnemyModule.startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
+
         }
 
         var startFireworks = function () {
             var createLoc = function (x, y) {
-                var emitter = emitter || game.add.emitter(x, y, 5);
+                var emitter = emitter || game.add.emitter(x, y);
+                //  Here we're passing an array of image keys. It will pick one at random when emitting a new particle.
                 emitter.makeParticles(['sfire', 'mfire', 'lfire']);
                 emitter.minParticleSpeed.setTo(0, 0);
                 emitter.maxParticleSpeed.setTo(0, 0);
                 emitter.setRotation(0, 0);
                 emitter.setAlpha(.3, 0.8);
                 emitter.setScale(1, 1);
+                //Need to counteract gravity
                 emitter.gravity = -1 * gravityLevel;
-
-                //	false means don't explode all the sprites at once, but instead release at a rate of one particle per 100ms
-                //	The 5000 value is the lifespan of each particle before it's killed
-                emitter.start(false, 500, 2000);
+                emitter.start(false, 500, 5000*Math.random());
                 setInterval(function () {
                     emitter.x = randX();
                     emitter.y = randY();
-                }, 1000)
+                }, 7000)
             }
             var randPos = function () {
                 var number = Math.pow(Math.random(), 2);
@@ -143,7 +146,9 @@ function loadGame() {
                 var number = 200 - randPos() * 100;
                 return number
             }
-            createLoc(randX(), randY())
+            for(var i=0; i<3; i++){
+                createLoc(randX(), randY())
+            }
         }
 
 
