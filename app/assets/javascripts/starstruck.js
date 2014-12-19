@@ -146,6 +146,26 @@ function loadGame() {
             }
         }
 
+        var ShoesModule = function (game) {
+            var allShoes = []
+            var Shoes = function (x, y) {
+                //Add shoes
+                Phaser.Sprite.call(this, game, x, y, 'shoes', 1)
+                game.physics.enable(this, Phaser.Physics.ARCADE);
+                this.body.collideWorldBounds = true;
+               this.body.setSize(20, 32, 5, 16);
+                this.scale.setTo(.5, .5)
+                game.add.existing(this)
+                allShoes.push(this)
+            }
+
+            Shoes.prototype.constructor = Shoes;
+            Shoes.prototype = Object.create(Phaser.Sprite.prototype);
+            Shoes.prototype.update = function () {
+                game.physics.arcade.collide(this, layer);
+            }
+            return {Shoes: Shoes, allShoes: allShoes}
+        }(game);
 
         var PlayerModule = function (game) {
             this.player;
@@ -197,10 +217,9 @@ function loadGame() {
                 game.physics.arcade.collide(player, layer, function(bod, tile){
                     if(tile.index == 14 && bod.body.blocked.up == true && !tile.madeShoes){
                         //Add shoes
-                         shoes = game.add.sprite(tile.worldX, tile.worldY  -  tile.width * 2, 'shoes');
-                        game.physics.enable(shoes, Phaser.Physics.ARCADE);
-                        shoes.body.setSize(20, 32, 5, 16);
-                        shoes.scale.setTo(.5, .5)
+                        var y = tile.worldY - tile.width * 2;
+                        var x = tile.worldX;
+                        new ShoesModule.Shoes(x, y);
                         tile.madeShoes = true
                     }
                 });
@@ -407,12 +426,12 @@ function loadGame() {
             $.each(EnemyModule.enemies, function (index, enemy) {
                 game.physics.arcade.collide(PlayerModule.player, enemy, enemyPlayerCollisionHandler);
             });
-
-            game.physics.arcade.collide(shoes, layer);
-            game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
-                shoes.destroy();
-                player.hasShoes = true
-            });
+            $.each(ShoesModule.allShoes, function(index, shoes){
+                game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
+                    shoes.destroy();
+                    player.hasShoes = true
+                });
+            })
         }
 
         function render() {
