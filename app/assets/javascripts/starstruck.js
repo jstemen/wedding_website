@@ -87,11 +87,6 @@ function loadGame() {
             instructions.width = instructions.width * scale
             instructions.height = instructions.height * scale
 
-            //Add shoes
-            shoes = game.add.sprite(32, 32, 'shoes');
-            game.physics.enable(shoes, Phaser.Physics.ARCADE);
-            shoes.body.setSize(20, 32, 5, 16);
-            shoes.scale.setTo(.5, .5)
 
             //load sounds
             jumpSound = new Phaser.Sound(game, 'jump');
@@ -198,7 +193,17 @@ function loadGame() {
             }
             Player.prototype.update = function () {
                 var player = this
-                game.physics.arcade.collide(player, layer);
+                //game.physics.arcade.collide(player, layer);
+                game.physics.arcade.collide(player, layer, function(bod, tile){
+                    if(tile.index == 14 && bod.body.blocked.up == true && !tile.madeShoes){
+                        //Add shoes
+                         shoes = game.add.sprite(tile.worldX, tile.worldY  -  tile.width * 2, 'shoes');
+                        game.physics.enable(shoes, Phaser.Physics.ARCADE);
+                        shoes.body.setSize(20, 32, 5, 16);
+                        shoes.scale.setTo(.5, .5)
+                        tile.madeShoes = true
+                    }
+                });
                 if (player.y === game.height && player.alive) {
                     player.kill();
                 }
