@@ -231,7 +231,7 @@ function loadGame() {
                     player.hasShoes = false
                     startFireworks()
                     EnemyModule.stopEnemyCreation()
-                    printMsg("The save the date is September 26th 2015!".toUpperCase())
+                    printMsg("Save the Date! September 26, 2015".toUpperCase())
                 }
                 if (f1Button.isDown) {
                     this.enableGodMode();
