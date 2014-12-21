@@ -301,7 +301,7 @@ function loadGame() {
                 this.animations.add('right', [5, 6, 7, 8], 10, true);
                 this.anchor.setTo(.5, .5); //so it flips around its middle
                 this.speed = Math.random()
-                this.scale.setTo(2, 2)
+                this.scale.setTo(1.2, 1.2)
 
                 game.physics.enable(this, Phaser.Physics.ARCADE);
 
