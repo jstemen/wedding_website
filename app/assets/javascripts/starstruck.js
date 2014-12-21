@@ -14,7 +14,7 @@ function loadGame() {
 
         function preload() {
 
-            game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
             game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
             game.load.image('player', '/assets/sprites/phaser-dude.png');
             game.load.image('blue', '/assets/particles/blue.png');
@@ -33,6 +33,7 @@ function loadGame() {
 
             game.load.spritesheet('mummy', '/assets/jarebear.png', 32, 48);
             game.load.image('instructions', '/assets/instructions-text.png');
+            game.load.image('temple', '/assets/temple_final.png');
 
             game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
             game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
@@ -84,6 +85,10 @@ function loadGame() {
             //Add though bubble style instructions
             const scale = .5
             instructions = game.add.sprite(20, 10, 'instructions');
+            var temple = game.add.sprite(3100, 330, 'temple');
+           temple.width = temple.width *.5
+            temple.height = temple.height *.5
+
             instructions.width = instructions.width * scale
             instructions.height = instructions.height * scale
 
