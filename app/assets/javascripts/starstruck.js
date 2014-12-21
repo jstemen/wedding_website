@@ -404,7 +404,7 @@ function loadGame() {
                 if (lastMsg != null) {
                     lastMsg.destroy();
                 }
-                var style = {font: "50px Arial", fill: "white", align: "center"};
+                var style = {font: "50px Lucon", fill: "white", align: "center"};
                 Phaser.Text
                 var t = game.add.text(20, 20, msg, style);
                 t.fixedToCamera = true

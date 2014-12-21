@@ -4,6 +4,10 @@
 }
 
 @font-face {
+  font-family: LUCON;
+  src: url("/assets/LUCON.TTF") format('truetype');
+}
+@font-face {
   font-family: georgia;
   src: url("/assets/georgia.ttf") format('truetype');
 }
@@ -16,6 +20,10 @@
 @font-face {
   font-family: ostrich-rounded;
   src: url("/assets/ostrich-rounded.ttf") format('truetype');
+}
+
+.lucon{
+  font-family: LUCON;
 }
 
 .edwardian {
