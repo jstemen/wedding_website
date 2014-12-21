@@ -236,6 +236,9 @@ function loadGame() {
                     player.hasShoes = false
                     startFireworks()
                     EnemyModule.stopEnemyCreation()
+                    $.each(EnemyModule.enemies, function(i,enemy){
+                        enemy.kill()
+                    });
                     printMsg("Save the Date! September 26, 2015")
                 }
                 if (f1Button.isDown) {
