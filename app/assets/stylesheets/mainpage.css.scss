@@ -18,9 +18,18 @@
 }
 
 @font-face {
+  font-family: lavReg;
+  src: url("/assets/lavenderaReg.otf") format('truetype');
+}
+@font-face {
   font-family: ostrich-rounded;
   src: url("/assets/ostrich-rounded.ttf") format('truetype');
 }
+
+.lavReg{
+  font-family: lavReg;
+}
+
 
 .lucon{
   font-family: LUCON;
@@ -43,6 +52,7 @@
 }
 
 .hugeText{
+  text-align: center;
   font-size: 1000%;
 }
 
