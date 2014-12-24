@@ -11,7 +11,9 @@ img {
 .navbar-brand {
   font-size: inherit;
   }
-
+.navbar{
+  margin-bottom: 0px; //seems to default to 20 px somehow without this
+}
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
 // to make views framework-neutral
@@ -30,15 +32,6 @@ img {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-lg;
-  }
-// apply styles to HTML elements
-// to make views framework-neutral
-main {
-  @extend .container;
-  background-color: #eee;
-  padding-bottom: 80px;
-  width: 100%;
-  margin-top: 51px; // accommodate the navbar
   }
 section {
   @extend .row;
