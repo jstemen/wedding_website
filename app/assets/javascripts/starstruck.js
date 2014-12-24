@@ -78,7 +78,7 @@ function loadGame() {
             map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
             map.setCollision([14, 15, 16, 21, 22, 27, 28, 40]);
-            music = new Phaser.Sound(game, 'music');
+            music = game.add.audio('music');
             music.play();
             layer = map.createLayer('World1'); //Sprites must be added below this line
 
