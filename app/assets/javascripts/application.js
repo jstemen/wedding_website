@@ -13,7 +13,6 @@
 //= require jquery
 //= require underscore
 //= require jquery_ujs
-//= require turbolinks
 //= require phaser
 //= require bootstrap-sprockets
 //= require gamecontroller
