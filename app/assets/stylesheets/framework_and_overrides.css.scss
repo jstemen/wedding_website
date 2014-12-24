@@ -37,5 +37,7 @@ section {
   @extend .row;
   margin-top: 20px;
   }
-
-
+.affix{
+  top:0px;
+  position:fixed;
+}
