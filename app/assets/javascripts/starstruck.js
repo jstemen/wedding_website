@@ -228,7 +228,7 @@ function loadGame() {
                         tile.madeShoes = true
                     }
                 });
-                if (player.y === game.height && player.alive) {
+                if (player.y >= game.height && player.alive) {
                     player.kill();
                 }
                 player.body.velocity.x = 0;
@@ -361,7 +361,7 @@ function loadGame() {
             Enemy.prototype.constructor = Enemy;
             Enemy.prototype.update = function () {
                 var mummy = this
-                if (mummy.y === game.height && mummy.alive) {
+                if (mummy.y >= game.height && mummy.alive) {
                     mummy.myKill();
                 }
                 game.physics.arcade.collide(mummy, layer, enemyColHandler);
