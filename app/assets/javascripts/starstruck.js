@@ -67,15 +67,17 @@ function loadGame() {
         var shoes;
         const gravityLevel = 250
 
-         function MySpriteBase (){
-            this.myKill = function(){
+        function MySpriteBase() {
+            this.myKill = function () {
                 this.kill();
             }
-             this.myUpdate = function(){}
+            this.myUpdate = function () {
+            }
         }
+
         MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
         MySpriteBase.constructor = MySpriteBase
-        MySpriteBase.prototype.update=function(){
+        MySpriteBase.prototype.update = function () {
             if (this.y >= game.height && this.alive) {
                 this.myKill();
             }
@@ -102,8 +104,8 @@ function loadGame() {
             const scale = .5
             instructions = game.add.sprite(20, 10, 'instructions');
             var temple = game.add.sprite(3100, 330, 'temple');
-           temple.width = temple.width *.5
-            temple.height = temple.height *.5
+            temple.width = temple.width * .5
+            temple.height = temple.height * .5
 
             instructions.width = instructions.width * scale
             instructions.height = instructions.height * scale
@@ -174,7 +176,7 @@ function loadGame() {
                 Phaser.Sprite.call(this, game, x, y, 'shoes', 1)
                 game.physics.enable(this, Phaser.Physics.ARCADE);
                 this.body.collideWorldBounds = true;
-               this.body.setSize(20, 32, 5, 16);
+                this.body.setSize(20, 32, 5, 16);
                 this.scale.setTo(.5, .5)
                 game.add.existing(this)
                 allShoes.push(this)
@@ -235,8 +237,8 @@ function loadGame() {
             Player.prototype.myUpdate = function () {
                 var player = this
                 //game.physics.arcade.collide(player, layer);
-                game.physics.arcade.collide(player, layer, function(bod, tile){
-                    if(tile.index == 14 && bod.body.blocked.up == true && !tile.madeShoes){
+                game.physics.arcade.collide(player, layer, function (bod, tile) {
+                    if (tile.index == 14 && bod.body.blocked.up == true && !tile.madeShoes) {
                         //Add shoes
                         var y = tile.worldY - tile.width * 2;
                         var x = tile.worldX;
@@ -244,15 +246,12 @@ function loadGame() {
                         tile.madeShoes = true
                     }
                 });
-                if (player.y >= game.height && player.alive) {
-                    player.kill();
-                }
                 player.body.velocity.x = 0;
                 if (player.x > 3183 && player.hasShoes) {
                     player.hasShoes = false
                     startFireworks()
                     EnemyModule.stopEnemyCreation()
-                    $.each(EnemyModule.enemies, function(i,enemy){
+                    $.each(EnemyModule.enemies, function (i, enemy) {
                         enemy.kill()
                     });
                     printMsg("Save the Date! September 26, 2015")
@@ -375,11 +374,8 @@ function loadGame() {
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
             Enemy.prototype = Object.create(mySpriteBase)
             Enemy.prototype.constructor = Enemy;
-            Enemy.prototype.update = function () {
+            Enemy.prototype.myUpdate = function () {
                 var mummy = this
-                if (mummy.y >= game.height && mummy.alive) {
-                    mummy.myKill();
-                }
                 game.physics.arcade.collide(mummy, layer, enemyColHandler);
             }
 
@@ -450,7 +446,7 @@ function loadGame() {
             $.each(EnemyModule.enemies, function (index, enemy) {
                 game.physics.arcade.collide(PlayerModule.player, enemy, enemyPlayerCollisionHandler);
             });
-            $.each(ShoesModule.allShoes, function(index, shoes){
+            $.each(ShoesModule.allShoes, function (index, shoes) {
                 game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
                     shoes.destroy();
                     player.hasShoes = true
