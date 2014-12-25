@@ -67,6 +67,24 @@ function loadGame() {
         var shoes;
         const gravityLevel = 250
 
+         function MySpriteBase (){
+            this.myKill = function(){
+                this.kill();
+            }
+             this.myUpdate = function(){
+                 foo = 1
+             }
+        }
+        MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
+        MySpriteBase.constructor = MySpriteBase
+        MySpriteBase.prototype.update=function(){
+            if (this.y >= game.height && this.alive) {
+                this.myKill();
+            }
+            this.myUpdate.apply(this)
+        }
+        var mySpriteBase = new MySpriteBase();
+
         function create() {
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -207,7 +225,7 @@ function loadGame() {
                 }, 4000)
             }
 
-            Player.prototype = Object.create(Phaser.Sprite.prototype);
+            Player.prototype = mySpriteBase
             Player.prototype.constructor = Player;
             Player.prototype.enableGodMode = function () {
                 Player.prototype.origKill = Player.prototype.kill
@@ -216,7 +234,7 @@ function loadGame() {
                 this.horizSpeed = 3000;
                 this.jumpSpeed = -500;
             }
-            Player.prototype.update = function () {
+            Player.prototype.myUpdate = function () {
                 var player = this
                 //game.physics.arcade.collide(player, layer);
                 game.physics.arcade.collide(player, layer, function(bod, tile){
