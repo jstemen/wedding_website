@@ -181,8 +181,8 @@ function loadGame() {
             }
 
             Shoes.prototype.constructor = Shoes;
-            Shoes.prototype = Object.create(Phaser.Sprite.prototype);
-            Shoes.prototype.update = function () {
+            Shoes.prototype = Object.create(mySpriteBase);
+            Shoes.prototype.myUpdate = function () {
                 game.physics.arcade.collide(this, layer);
             }
             return {Shoes: Shoes, allShoes: allShoes}
