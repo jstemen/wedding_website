@@ -71,9 +71,7 @@ function loadGame() {
             this.myKill = function(){
                 this.kill();
             }
-             this.myUpdate = function(){
-                 foo = 1
-             }
+             this.myUpdate = function(){}
         }
         MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
         MySpriteBase.constructor = MySpriteBase
@@ -225,7 +223,7 @@ function loadGame() {
                 }, 4000)
             }
 
-            Player.prototype = mySpriteBase
+            Player.prototype = Object.create(mySpriteBase)
             Player.prototype.constructor = Player;
             Player.prototype.enableGodMode = function () {
                 Player.prototype.origKill = Player.prototype.kill
@@ -375,7 +373,7 @@ function loadGame() {
             }
 
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
-            Enemy.prototype = Object.create(Phaser.Sprite.prototype);
+            Enemy.prototype = Object.create(mySpriteBase)
             Enemy.prototype.constructor = Enemy;
             Enemy.prototype.update = function () {
                 var mummy = this
