@@ -11,7 +11,8 @@ function loadGame() {
             render: render
         });
 
-
+        const buttonHeight = 71
+        const buttonWidth= 192
         function preload() {
 
             game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
@@ -43,6 +44,7 @@ function loadGame() {
             game.load.audio('mariodie', '/assets/sounds/smb_mariodie.ogg');
             game.load.audio('stomp', '/assets/sounds/smb_stomp.ogg');
             game.load.audio('music', '/assets/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
+            game.load.spritesheet('button', '/assets/toggleFullscreenButton.png', buttonWidth, buttonHeight);
 
         }
 
@@ -57,6 +59,7 @@ function loadGame() {
         var bg;
         var text
         var music
+        var button
 
         var instructions;
 
@@ -131,6 +134,20 @@ function loadGame() {
             EnemyModule.startEnemyCreation();
 
             game.stage.backgroundColor = '#000000';
+            // Maintain aspect ratio
+            game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+            button = game.add.button(game.width- buttonWidth,0, 'button',function(){
+                if (game.scale.isFullScreen)
+                {
+                    game.scale.stopFullScreen();
+                }
+                else
+                {
+                    game.scale.startFullScreen(false);
+                }
+            }, this, 0  );
+            button.fixedToCamera = true
+            button.visible = true;
 
         }
 
@@ -252,7 +269,7 @@ function loadGame() {
                 }
             }
 
-            Player.prototype.jump = function() {
+            Player.prototype.jump = function () {
                 if (this.body.onFloor() && game.time.now > jumpTimer) {
                     jumpSound.play()
                     this.body.velocity.y = this.jumpSpeed;
@@ -279,9 +296,9 @@ function loadGame() {
                     this.jump();
                 } else if (pointer1.isDown) {
                     var halfWidth = game.width / 2;
-                    if(pointer1.x > halfWidth){
+                    if (pointer1.x > halfWidth) {
                         this.moveRight();
-                    }else{
+                    } else {
                         this.moveLeft();
                     }
                 }
