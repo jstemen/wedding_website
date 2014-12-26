@@ -234,6 +234,32 @@ function loadGame() {
                 this.horizSpeed = 3000;
                 this.jumpSpeed = -500;
             }
+            Player.prototype.moveRight = function () {
+                this.body.velocity.x = this.horizSpeed;
+
+                if (facing != 'right') {
+                    this.animations.play('right');
+                    facing = 'right';
+                }
+            }
+
+            Player.prototype.moveLeft = function () {
+                this.body.velocity.x = this.horizSpeed * -1;
+
+                if (facing != 'left') {
+                    this.animations.play('left');
+                    facing = 'left';
+                }
+            }
+
+            Player.prototype.jump = function() {
+                if (this.body.onFloor() && game.time.now > jumpTimer) {
+                    jumpSound.play()
+                    this.body.velocity.y = this.jumpSpeed;
+                    jumpTimer = game.time.now + 750;
+                }
+            }
+
             Player.prototype.myUpdate = function () {
                 var player = this
                 //game.physics.arcade.collide(player, layer);
@@ -247,6 +273,16 @@ function loadGame() {
                     }
                 });
                 player.body.velocity.x = 0;
+                if (game.input.mousePointer.isDown && game.input.pointer1.isDown) {
+                    this.jump();
+                } else if (game.input.mousePointer.isDown) {
+                    var halfWidth = game.width / 2;
+                    if(game.input.mousePointer.x > halfWidth){
+                        this.moveRight();
+                    }else{
+                        this.moveLeft();
+                    }
+                }
                 if (player.x > 3183 && player.hasShoes) {
                     player.hasShoes = false
                     startFireworks()
@@ -263,20 +299,10 @@ function loadGame() {
                     player.kill();
                 }
                 if (cursors.left.isDown) {
-                    player.body.velocity.x = player.horizSpeed * -1;
-
-                    if (facing != 'left') {
-                        player.animations.play('left');
-                        facing = 'left';
-                    }
+                    this.moveLeft(player);
                 }
                 else if (cursors.right.isDown) {
-                    player.body.velocity.x = player.horizSpeed;
-
-                    if (facing != 'right') {
-                        player.animations.play('right');
-                        facing = 'right';
-                    }
+                    this.moveRight(player);
                 }
                 else {
                     if (facing != 'idle') {
@@ -295,10 +321,8 @@ function loadGame() {
                 if (cursors.down.isDown) {
                     player.body.velocity.y = player.jumpSpeed * -.75;
                 }
-                if ((cursors.up.isDown || jumpButton.isDown) && player.body.onFloor() && game.time.now > jumpTimer) {
-                    jumpSound.play()
-                    player.body.velocity.y = player.jumpSpeed;
-                    jumpTimer = game.time.now + 750;
+                if (cursors.up.isDown || jumpButton.isDown) {
+                    this.jump();
                 }
             }
             return {Player: Player, died: died}
