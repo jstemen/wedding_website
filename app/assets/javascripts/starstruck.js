@@ -273,11 +273,13 @@ function loadGame() {
                     }
                 });
                 player.body.velocity.x = 0;
-                if (game.input.mousePointer.isDown && game.input.pointer1.isDown) {
+                var pointer1 = game.input.pointer1;
+                var pointer2 = game.input.pointer2;
+                if (pointer2.isDown && pointer1.isDown) {
                     this.jump();
-                } else if (game.input.mousePointer.isDown) {
+                } else if (pointer1.isDown) {
                     var halfWidth = game.width / 2;
-                    if(game.input.mousePointer.x > halfWidth){
+                    if(pointer1.x > halfWidth){
                         this.moveRight();
                     }else{
                         this.moveLeft();
