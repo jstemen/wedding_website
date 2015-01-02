@@ -7,7 +7,7 @@
             September 26th, 2015
         </div>
 
-        <div class="up-top"  data-spy="affix"  data-offset-top="400"  class="row">
+        <div class="up-top" data-spy="affix" data-offset-top="400" class="row">
 
             <div class="col-md-3"></div>
             <div class="col-md-8">
@@ -364,10 +364,40 @@
             <a href="http://www.amazon.com/gp/registry/wedding/1ERDEUJY4VYFD">Amazon</a>.
             </p>
 
+            <h2 class="text-center"><h3>Photos:</h3></h2>
         </div>
         <div class="col-md-1"></div>
     </div>
 
+
+</div>
+<div id="carousel-example-generic" class="carousel slide span6 offset3" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner front_carousel">
+        <div class="carousel-inner">
+            <% car_imgs = %w[ Ami.jpg heart.jpg ledEngagement.gif] %>
+            <% car_imgs.each { |img| %>
+
+                <% if car_imgs.first == img %>
+                    <% car_classes = "active item" %>
+                <% else %>
+                    <% car_classes = "item" %>
+                <% end %>
+                <% puts "car_classes: #{car_classes} img: #{img}" %>
+                <div class="<%= car_classes %>">
+                    <%= image_tag img, class: "carouselImg" %>
+                </div>
+            <% } %>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
 </div>
 
 
