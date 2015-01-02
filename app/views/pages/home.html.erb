@@ -392,10 +392,12 @@
                             <div class="<%= car_classes %>">
                                 <%= image_tag img, class: "carouselImg" %>
                                 <div class="carousel-caption ">
-                                    <%with_spaces = img.gsub('_', ' ')%>
-                                    <%ext = File.extname with_spaces %>
-                                    <%no_ext = with_spaces.gsub ext, '' %>
-                                    <h2><%= no_ext %></h2>
+                                    <% with_spaces = img.gsub('_', ' ') %>
+                                    <% ext = File.extname with_spaces %>
+                                    <% no_ext = with_spaces.gsub ext, '' %>
+                                    <div class="carouselCap">
+                                        <h2><%= no_ext %></h2>
+                                    </div>
                                 </div>
                             </div>
                         <% } %>

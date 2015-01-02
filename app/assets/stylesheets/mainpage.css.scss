@@ -1,3 +1,4 @@
+$carousel-max-dimension: 400px;
 @font-face {
   font-family: ITCEDSCR;
   src: url("/assets/ITCEDSCR.ttf") format('truetype');
@@ -95,9 +96,14 @@
 .carouselImg{
   height: auto;
   width: auto;
-  max-width: 400px;
-  max-height: 400px;
+  max-width: $carousel-max-dimension;
+  max-height: $carousel-max-dimension;
   border-radius: 15px;
+}
+.carouselCap{
+  width: $carousel-max-dimension;
+  margin:0 auto;
+  text-align: center;
 }
 .rotate {
   -ms-transform: rotate(90deg); /* IE 9 */
