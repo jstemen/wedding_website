@@ -370,7 +370,18 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner front_carousel">
                     <div class="carousel-inner">
-                        <% car_imgs = %w[ Ami.jpg heart.jpg ledEngagement.gif] %>
+                        <% car_imgs = %w[
+                              Palak_and_Jared_as_Cleopatra_and_Marc_Antony_for_Halloween.jpg
+                              Palak_and_Jared_on_the_National_Mall_-_December_2012.jpg
+                              Palak_and_Jared's_Engagement_-_August_2014.jpg
+                              Palak_and_Jared_at_the_GeekWire_Gala_-_December_2014.jpg
+                              Palak_and_Jared_riding_Segways_for_the_first_time.jpg
+                              Palak_and_Jared_-_Spring_2012.jpg
+                              Palak_and_Jared_at_the_National_Aquarium_-_September_2012.jpg
+                              Palak_and_Jared_rocking_out.jpg
+                              Palak_and_Jared_at_the_W_Hotel_Rooftop.jpg
+                              Palak_and_Jared's_caricature_at_her_company's_summer_picnic_2014.jpg
+                              ledEngagement.gif] %>
                         <% car_imgs.each { |img| %>
 
                             <% if car_imgs.first == img %>
@@ -378,9 +389,14 @@
                             <% else %>
                                 <% car_classes = "item" %>
                             <% end %>
-                            <% puts "car_classes: #{car_classes} img: #{img}" %>
                             <div class="<%= car_classes %>">
                                 <%= image_tag img, class: "carouselImg" %>
+                                <div class="carousel-caption ">
+                                    <%with_spaces = img.gsub('_', ' ')%>
+                                    <%ext = File.extname with_spaces %>
+                                    <%no_ext = with_spaces.gsub ext, '' %>
+                                    <h2><%= no_ext %></h2>
+                                </div>
                             </div>
                         <% } %>
                     </div>
