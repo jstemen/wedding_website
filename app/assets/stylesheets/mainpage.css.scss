@@ -148,3 +148,9 @@ main {
 .up-top{
   z-index: 99;
 }
+
+/*to fix weird white gap that is on the right of the page*/
+html, body {
+  width: auto !important;
+  overflow-x: hidden !important;
+}
