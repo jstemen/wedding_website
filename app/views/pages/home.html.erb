@@ -103,42 +103,26 @@
         <div class='col-md-5'>
             <h2 class="text-center myheading">Bridesmaids</h2>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <%= image_tag "Purvi 3.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9    ">
+            <%= render '/groom_or_brides_person', description: """
+
                     Purvi Shah (Maid of Honor): Purvi is Palak’s cousin; of the bridesmaids, Purvi and Palak go
                     back the
                     longest - they’ve known each other since Purvi was born. Over the years, Palak and Purvi
                     grew close and
                     have the relationship of sisters. Purvi lives in Corona, CA and is a dentist.
+                                                """, image: "Purvi 3.jpg" %>
 
-                </div>
-            </div>
+            <%= render '/groom_or_brides_person', description: """
 
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Martha-final.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9    ">
                     Martha Suarez: Martha and Palak met at the beginning of their freshman year of college at
                     USC. They
                     lived on the same floor - Century’s C-wing and grew close immediately. They became roommates
                     during
                     their sophomore year at USC and remained roommates until after graduating. During college,
                     Martha and
-                    Palak were inseparable - spending a mere 24 hours apart resulted in them staying up all
-                    night talking.
-                    Martha lives in Fullerton, CA and is a lawyer.
+                                                """, image: "Martha-final.jpg" %>
 
-                </div>
-            </div>
-
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-9    ">
+            <%= render '/groom_or_brides_person', description: """
                     Vanessa Au: Vanessa and Palak met at work, when they both worked at Paul Hastings. Palak was
                     a paralegal
                     and Vanessa, her supervisor, an attorney. The two commiserated over the long hours,
@@ -150,15 +134,9 @@
                     wanted. In 2013, Palak and Vanessa traveled to Turkey together. Vanessa lives in Los
                     Angeles, CA and is
                     a lawyer.
+                                                """, image: "" %>
 
-                </div>
-            </div>
-
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Seena.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9">
+            <%= render '/groom_or_brides_person', description: """
                     Seena Bakke: Like Martha, Seena and Palak met at the beginning of their freshman year at
                     USC, again in
                     Century’s C-wing. They too became roommates sophomore year. A favorite pastime Palak and
@@ -168,13 +146,8 @@
                     graduating, Seena spent a few years teaching in Iraq. Now, she lives in Syracuse, NY and is
                     the mother
                     of Noah and a soon to be born baby.
-                </div>
-            </div>
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Ami.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9">
+                                                """, image: "Seena.jpg" %>
+            <%= render '/groom_or_brides_person', description: """
                     Ami Shah: Ami and Palak are childhood friends who have known each other so long that neither
                     can
                     remember how they first met. While they haven’t lived in the same state in over a decade,
@@ -182,62 +155,35 @@
                     in touch with long, frequent phone calls. Ami lives in Atlanta, GA is a Public Health
                     Analyst at the
                     CDC.
-                </div>
-            </div>
+                                                """, image: "Ami.jpg" %>
         </div>
 
         <div class='col-md-5'>
 
             <h2 class="text-center myheading"> Groomsmen</h2>
 
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Kyle.jpg", class: "bridesmaidsAndGroomsMenPhotos rotate" %>
-                </div>
-                <div class="col-md-9">
+            <%= render '/groom_or_brides_person', description: """
+
                     Kyle Stemen (Best Man): Kyle is Jared’s brother. He, like Jared, is a software developer in
                     Seattle.
                     Kyle
                     is married and has a two year old daughter named Evelyn.
-                </div>
-            </div>
+                                                """, image: "Kyle.jpg" %>
 
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Kevin.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9">
+            <%= render '/groom_or_brides_person', description: """
                     Kevin O’Sullivan: Kevin is Jared’s childhood friend.
-                </div>
-            </div>
-
-
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Ryan.JPG", class: "bridesmaidsAndGroomsMenPhotos rotate" %>
-                </div>
-                <div class="col-md-9">
+                                                """, image: "Kevin.jpg" %>
+            <%= render '/groom_or_brides_person', description: """
                     Ryan Stemen: Ryan is Jared’s cousin. The two were born just one week apart!
-                </div>
-            </div>
+                                                """, image: "Ryan.JPG" %>
 
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "Yogi.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9">
+            <%= render '/groom_or_brides_person', description: """
                     Yogi Shah: Yogi is Palak’s brother. He endeavors to become a doctor in the future.
-                </div>
-            </div>
-            <div class="row top-buffer">
-                <div class="col-md-3">
-                    <%= image_tag "bershad.jpg", class: "bridesmaidsAndGroomsMenPhotos" %>
-                </div>
-                <div class="col-md-9">
+                                                """, image: "Yogi.jpg" %>
+            <%= render '/groom_or_brides_person', description: """
                     Mike Bershad: Jared met Mike while both were working at Lockheed Martin. They have continued their
                     friendship ever since.
-                </div>
-            </div>
+                                                """, image: "bershad.jpg" %>
 
         </div>
 
@@ -378,12 +324,14 @@
             </p>
 
             <h2 class="text-center"><h3>Photos:</h3></h2>
-            <div id="carousel-example-generic" class="carousel slide span6 offset3" data-ride="carousel">
+            <div class="carousel-height">
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner front_carousel">
-                    <div class="carousel-inner">
-                        <% car_imgs = %w[
+                <div id="carousel-example-generic" class="carousel slide span6 offset3 " data-ride="carousel">
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner front_carousel">
+                        <div class="carousel-inner">
+                            <% car_imgs = %w[
                               Palak_and_Jared_as_Cleopatra_and_Marc_Antony_for_Halloween.jpg
                               Palak_and_Jared_on_the_National_Mall_-_December_2012.jpg
                               Palak_and_Jared's_Engagement_-_August_2014.jpg
@@ -394,35 +342,35 @@
                               Palak_and_Jared_rocking_out.jpg
                               Palak_and_Jared_at_the_W_Hotel_Rooftop.jpg
                               Part_of_Palak_and_Jared's_second_date,_seeing_the_National_Christmas_Tree_-_December_2011.jpg
-                              Palak_and_Jared's_caricature_at_her_company's_summer_picnic_2014.jpg
-                              ledEngagement.gif] %>
-                        <% car_imgs.each { |img| %>
+                              Palak_and_Jared's_caricature_at_her_company's_summer_picnic_2014.jpg ledEngagement.gif] %>
+                            <% car_imgs.each { |img| %>
 
-                            <% if car_imgs.first == img %>
-                                <% car_classes = "active item" %>
-                            <% else %>
-                                <% car_classes = "item" %>
-                            <% end %>
-                            <div class="<%= car_classes %>">
-                                <%= image_tag img, class: "carouselImg" %>
-                                <div class="carousel-caption ">
-                                    <% with_spaces = img.gsub('_', ' ') %>
-                                    <% ext = File.extname with_spaces %>
-                                    <% no_ext = with_spaces.gsub ext, '' %>
-                                    <div class="carouselCap">
-                                        <h2><%= no_ext %></h2>
+                                <% if car_imgs.first == img %>
+                                    <% car_classes = "active item" %>
+                                <% else %>
+                                    <% car_classes = "item" %>
+                                <% end %>
+                                <div class="<%= car_classes %>">
+                                    <%= image_tag img, class: "carouselImg" %>
+                                    <div class="carousel-caption ">
+                                        <% with_spaces = img.gsub('_', ' ') %>
+                                        <% ext = File.extname with_spaces %>
+                                        <% no_ext = with_spaces.gsub ext, '' %>
+                                        <div class="carouselCap">
+                                            <h2><%= no_ext %></h2>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <% } %>
+                            <% } %>
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
                     </div>
-                    <!-- Controls -->
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
                 </div>
             </div>
         </div>

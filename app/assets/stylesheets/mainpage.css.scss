@@ -112,7 +112,7 @@ $carousel-max-dimension: 600px;
 }
 
 .top-buffer {
-  margin-top: 30px;
+  margin-top: 35px;
 }
 
 .teal {
@@ -153,4 +153,8 @@ main {
 html, body {
   width: auto !important;
   overflow-x: hidden !important;
+}
+
+.carousel-height{
+  height: $carousel-max-dimension;
 }
