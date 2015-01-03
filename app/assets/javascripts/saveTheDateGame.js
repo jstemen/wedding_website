@@ -12,7 +12,8 @@ function loadGame() {
         });
 
         const buttonHeight = 71
-        const buttonWidth= 192
+        const buttonWidth = 192
+
         function preload() {
 
             game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
@@ -136,16 +137,14 @@ function loadGame() {
             game.stage.backgroundColor = '#000000';
             // Maintain aspect ratio
             game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-            button = game.add.button(game.width- buttonWidth,0, 'button',function(){
-                if (game.scale.isFullScreen)
-                {
+            button = game.add.button(game.width - buttonWidth, 0, 'button', function () {
+                if (game.scale.isFullScreen) {
                     game.scale.stopFullScreen();
                 }
-                else
-                {
+                else {
                     game.scale.startFullScreen(false);
                 }
-            }, this, 0  );
+            }, this, 0);
             button.fixedToCamera = true
             button.visible = true;
 
@@ -235,7 +234,7 @@ function loadGame() {
             }
 
             function died() {
-                printMsg("YOU DIED!");
+                PrintMsg.printMsg("YOU DIED!");
                 marioDiedSound.play();
                 setTimeout(function () {
                     location.reload();
@@ -309,7 +308,9 @@ function loadGame() {
                     $.each(EnemyModule.enemies, function (i, enemy) {
                         enemy.kill()
                     });
-                    printMsg("Save the Date! September 26, 2015")
+                    PrintMsg.printMsg("Save the Date! September 26, 2015")
+                    PrintMsg.flash();
+
                 }
                 if (f1Button.isDown) {
                     this.enableGodMode();
@@ -455,21 +456,42 @@ function loadGame() {
             }
         }(game)
 
-        var printMsg = function () {
+        var PrintMsg = function () {
             var lastMsg;
+            var toggleHandler;
 
             function printMsg(msg) {
                 if (lastMsg != null) {
                     lastMsg.destroy();
+                    if (toggleHandler) {
+                        toggleHandler.cancel();
+                    }
                 }
                 var style = {font: "50px Lucon", fill: "white", align: "center"};
-                Phaser.Text
                 var t = game.add.text(20, 20, msg, style);
                 t.fixedToCamera = true
                 lastMsg = t;
             }
 
-            return printMsg;
+            function flash(interval) {
+                interval = interval ? interval : 500;
+                if (toggleHandler) {
+                    toggleHandler.cancel();
+                }
+                toggleHandler = setInterval(function () {
+                    if (lastMsg.visible) {
+                        lastMsg.visible = false;
+                    } else {
+                        lastMsg.visible = true;
+                    }
+                },interval)
+            }
+
+            function cancelFlash() {
+                toggleHandler.cancel();
+            }
+
+            return {printMsg: printMsg, flash: flash, cancelFlash: cancelFlash};
         }();
 
 
