@@ -16,5 +16,5 @@
 //= require phaser
 //= require bootstrap-sprockets
 //= require gamecontroller
-//= require starstruck
+//= require saveTheDateGame.js
 //= require_tree .
