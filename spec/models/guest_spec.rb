@@ -25,8 +25,8 @@ RSpec.describe Guest, :type => :model do
   end
 
   it "has unique email_address" do
-    guest = create :guest
-    expect{create :guest}.to raise_error ActiveRecord::RecordNotUnique
+    guest = create :guest, email_address: 'jared@gmail.com'
+    expect{create :guest, email_address: 'jared@gmail.com'}.to raise_error ActiveRecord::RecordNotUnique
   end
   
   it "has one invitation" do

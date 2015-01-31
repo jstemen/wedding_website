@@ -17,6 +17,8 @@ RSpec.describe Invitation, :type => :model do
   it "must not allow string max_guests" do
     expect { create(:invitation, {max_guests: 'dog'}) }.to raise_error ActiveRecord::RecordInvalid
   end
+  
+  
 
   it "has max_guests" do
     invitation = create :invitation
