@@ -5,5 +5,8 @@ FactoryGirl.define do
     first_name "John"
     last_name "Doe"
     email_address {"#{first_name}.#{last_name}@gmail.com"}
+    trait :bad_email do
+      email_address "123fake"
+    end
   end
 end
