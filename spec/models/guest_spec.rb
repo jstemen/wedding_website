@@ -33,6 +33,9 @@ RSpec.describe Guest, :type => :model do
   it "will not allow bad email" do
     expect{create(:guest, :bad_email)}.to raise_error(ActiveRecord::RecordInvalid)
   end
-  
+
+  it "will allow no email" do
+    create(:guest, :no_email)
+  end
   
 end

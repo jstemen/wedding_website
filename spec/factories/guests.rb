@@ -8,5 +8,9 @@ FactoryGirl.define do
     trait :bad_email do
       email_address "123fake"
     end
+
+    trait :no_email do
+      email_address ''
+    end
   end
 end
