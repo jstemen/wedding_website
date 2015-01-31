@@ -10,6 +10,14 @@ RSpec.describe Guest, :type => :model do
     guest = create :guest
     expect(guest.last_name).to be_instance_of(String)
   end
+
+  it "must have last_name" do
+    expect{create(:guest, {last_name: ''})}.to raise_error ActiveRecord::RecordInvalid
+  end
+
+  it "must have first_name" do
+    expect{create(:guest, {first_name: ''})}.to raise_error ActiveRecord::RecordInvalid
+  end
   
   it "has email_address" do
     guest = create :guest
