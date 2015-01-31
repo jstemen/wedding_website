@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131211107) do
+ActiveRecord::Schema.define(version: 20150131213747) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20150131211107) do
 
   create_table "invitations", force: true do |t|
     t.string   "code"
-    t.datetime "time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "max_guests"
   end
 
   add_index "invitations", ["code"], name: "index_invitations_on_code", unique: true

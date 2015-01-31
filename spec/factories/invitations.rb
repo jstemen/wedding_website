@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :invitation do
     code "MyString"
-    time "2015-01-31 13:08:18"
+    max_guests 9
   end
 end
