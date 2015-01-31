@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :guest do
-    first_name "MyString"
-    last_name "MyString"
-    email_address "MyString"
+    first_name "John"
+    last_name "Doe"
+    email_address {"#{first_name}.#{last_name}@gmail.com"}
   end
 end
