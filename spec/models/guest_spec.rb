@@ -29,4 +29,10 @@ RSpec.describe Guest, :type => :model do
     expect(guest.invitation).to be(invitation)
     expect(invitation.guests).to include(guest)
   end
+  
+  it "will not allow bad email" do
+    expect{create(:guest, :bad_email)}.to raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  
 end
