@@ -1,12 +1,3 @@
-class InvitationMustBeLessThanMax < ActiveModel::Validator
-  def validate(record)
-    max_guests = record.max_guests || 0
-    if record.guests.size > max_guests
-      raise ActiveRecord::RecordInvalid "You've exceeded your max number of allowed guest: #{max_guests}"
-    end
-  end
-end
-
 class Invitation < ActiveRecord::Base
   include ActiveModel::Validations
   has_and_belongs_to_many :events
