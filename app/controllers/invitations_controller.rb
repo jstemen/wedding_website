@@ -7,6 +7,12 @@ class InvitationsController < ApplicationController
     @invitations = Invitation.all
   end
 
+  # GET /invitations/search
+  def search
+    @invitation = Invitation.find_by_code(params[:code])
+    render :show
+  end
+  
   # GET /invitations/1
   # GET /invitations/1.json
   def show
