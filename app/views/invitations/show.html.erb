@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<%= "You may add up to #{@invitation.max_guests} per event" %>
+<% @invitation.events.each { |event| %>
+    <p> <%="Event: #{event.name} - #{event.time}"%> </p>
+<% } %>
+
 <%= link_to 'Edit', edit_invitation_path(@invitation) %> |
 <%= link_to 'Back', invitations_path %>
