@@ -8,5 +8,6 @@ class CreateGuests < ActiveRecord::Migration
       t.timestamps
     end
     add_index :guests, :email_address, unique: true
+    add_reference :guests, :invitation, index: true
   end
 end

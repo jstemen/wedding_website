@@ -15,9 +15,9 @@ RSpec.describe Event, :type => :model do
     event = create :event
     invitation = create :invitation
     event.invitations << invitation
-    event.save
+    event.save!
     expect(event.invitations).to include(invitation)
-    expect(invitation.events).to include(event)
+    expect(invitation.event).to be(event)
   end
   
 end

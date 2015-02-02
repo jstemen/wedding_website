@@ -1,9 +1,22 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Users</h1>
+
+
+
+<h1>Events</h1>
 <%= "You may add up to #{@invitation.max_guests} per event" %>
+
 <% @invitation.events.each { |event| %>
     <p> <%="Event: #{event.name} - #{event.time}"%> </p>
 <% } %>
+
+<%= form_tag("/invitations/search", method: "get") do %>
+    <%= label_tag(:code, "Code:") %>
+    <%= text_field_tag(:code) %>
+    <%= submit_tag("Lookup") %>
+<% end %>
+
 
 <%= link_to 'Edit', edit_invitation_path(@invitation) %> |
 <%= link_to 'Back', invitations_path %>
