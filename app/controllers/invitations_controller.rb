@@ -7,9 +7,9 @@ class InvitationsController < ApplicationController
     @invitations = Invitation.all
   end
 
-  # GET /invitations/search
+  # GE  T /invitations/search
   def search
-    @invitation = Invitation.find_by_code(params[:code])
+    @invitation_group = InvitationGroup.find_by_code(params[:code])
     render :show
   end
   
