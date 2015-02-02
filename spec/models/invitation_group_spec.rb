@@ -9,6 +9,10 @@ RSpec.describe InvitationGroup, :type => :model do
   it "must have code" do
     expect { create(:invitation_group, {code: ''}) }.to raise_error ActiveRecord::RecordInvalid
   end
+
+  it "can have code" do
+    create(:invitation_group, {code: 'foobar'})
+  end
   
   it "must have max_guests" do
     expect { create(:invitation_group, {max_guests: ''}) }.to raise_error ActiveRecord::RecordInvalid
