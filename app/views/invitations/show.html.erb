@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
+<h1>Guests</h1>
 
-
+<% @invitation_group.invitations.each { |invitation| %>
+    <% invitation.guests.each { |guest| %>
+        <p> <%= "#{guest.first_name} #{guest.last_name}" %> </p>
+    <%}%>
+<% } %>
 
 <h1>Events</h1>
 <%= "You may add up to #{@invitation_group.max_guests} per event" %>
