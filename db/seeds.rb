@@ -5,13 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-=begin
+
+invitation_group = InvitationGroup.create(max_guests: 5, code: 'monkey')
+
 
 wedding = Event.create(name: 'wedding', time: DateTime.new)
 mandi = Event.create(name: 'mandi', time: DateTime.new)
-invitation = Invitation.create(code:'monkey', max_guests: 3)
-invitation.events << wedding
-invitation.events << mandi
-invitation.save!
-=end
+
+events = [wedding, mandi]
+events.each { |event|
+  invitation = Invitation.build
+  invitation.event = event
+  invitation_group.invitations << invitation
+}
+invitation_group.save!
 
