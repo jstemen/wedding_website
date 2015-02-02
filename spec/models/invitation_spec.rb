@@ -38,7 +38,7 @@ RSpec.describe Invitation, :type => :model do
   end
   
   it "must have an invitation group" do
-
+    invitation = build(:invitation, invitation_group: nil)
   end
 
 end
