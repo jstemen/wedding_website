@@ -10,6 +10,16 @@ RSpec.describe InvitationGroup, :type => :model do
     expect { create(:invitation_group, {code: ''}) }.to raise_error ActiveRecord::RecordInvalid
   end
 
+  it "must delete associated invitations on delete" do
+    invitation_group = create(:invitation_group)
+    invitations = invitation_group.invitations
+    invitation_group.destroy
+    invitations.each{|invitation|
+      expect( Invitation.exists?(invitation)).to be(false)
+    }
+
+  end
+
   it "can have code" do
     create(:invitation_group, {code: 'foobar'})
   end
