@@ -9,6 +9,7 @@ class InvitationsController < ApplicationController
 
   # GE  T /invitations/search
   def search
+    @new_guest = Guest.new
     @invitation_group = InvitationGroup.find_by_code(params[:code])
     render :show
   end

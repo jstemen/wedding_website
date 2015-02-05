@@ -5,7 +5,7 @@ class Invitation < ActiveRecord::Base
   
   validates :event, presence: true
   validates :invitation_group, presence: true
-
+  accepts_nested_attributes_for :guests
 
   validate :guests, :invitation_must_be_less_than_max
 

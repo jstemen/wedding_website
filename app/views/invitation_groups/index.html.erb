@@ -1,0 +1,23 @@
+<h1>Listing invitation_groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invitation_groups.each do |invitation_group| %>
+      <tr>
+        <td><%= link_to 'Show', invitation_group %></td>
+        <td><%= link_to 'Edit', edit_invitation_group_path(invitation_group) %></td>
+        <td><%= link_to 'Destroy', invitation_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invitation group', new_invitation_group_path %>
