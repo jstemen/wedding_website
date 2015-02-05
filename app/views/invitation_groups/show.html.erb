@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= form_for @invitation_group do |f| %>
+    Guests:
+    <ul>
+        <%= f.fields_for :guests do |guest_form| %>
+            <li>
+                <%= guest_form.label :first_name %>
+                <%= guest_form.text_field :first_name %>
+                <%= guest_form.label :last_name %>
+                <%= guest_form.text_field :last_name %>
+            </li>
+        <% end %>
+    </ul>
+    <%= f.submit %>
+<% end %>
