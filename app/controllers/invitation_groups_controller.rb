@@ -13,8 +13,14 @@ class InvitationGroupsController < ApplicationController
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code
     @invitation_group.guests.build
-    foo = 1
   end
+
+
+  def show_events
+    code = params[:code]
+    @invitation_group = InvitationGroup.find_by_code code
+  end
+  
 
   # GET /invitation_groups/new
   def new
