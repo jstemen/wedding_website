@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= form_for @invitation_group do |f| %>
+    Events:
+    <ul>
+        <% @invitation_group.invitations.each { |invitation| %>
+            <%= f.fields_for invitation do |invitation_form| %>
+                <li>
+
+                    <%= "#{invitation.event.name} - #{invitation.event.time} " %>
+
+                    <%= invitation_form.collection_select(:guests, invitation.invitation_group.guests, :id, :first_name) %>
+
+                </li>
+            <% end %>
+        <% } %>
+    </ul>
+    <%= f.submit %>
+<% end %>
+
