@@ -9,9 +9,11 @@
                 <li>
 
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
-
-                    <%= invitation_form.collection_select(:guests, invitation.invitation_group.guests, :id, :first_name) %>
-
+                    <% @invitation_group.max_guests.times { %>
+                        <p>
+                            <%= invitation_form.collection_select(:guests, invitation.invitation_group.guests, :id, :full_name, include_blank: true) %>
+                        </p>
+                    <% } %>
                 </li>
             <% end %>
         <% } %>
