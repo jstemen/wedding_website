@@ -2,6 +2,12 @@
 
 
 <%= form_for @invitation_group do |f| %>
+
+    <%= f.fields_for :guests do |guest_form| %>
+            <%= guest_form.hidden_field :first_name%>
+            <%= guest_form.hidden_field :last_name %>
+    <% end %>
+    
     Events:
     <ul>
         <% @invitation_group.invitations.each { |invitation| %>
@@ -9,11 +15,10 @@
                 <li>
 
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
-                    <% @invitation_group.max_guests.times { %>
                         <p>
-                            <%= invitation_form.collection_select(:guests, invitation.invitation_group.guests, :id, :full_name, include_blank: true) %>
+                            <%= invitation_form.select :guest_ids, invitation.invitation_group.guests.collect {|x| [x.full_name, x.id]}, {}, :multiple => true, index: invitation.id %>
+
                         </p>
-                    <% } %>
                 </li>
             <% end %>
         <% } %>
