@@ -82,7 +82,6 @@ class InvitationGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invitation_group_params
-      params[:invitation_group]
-      params.require(:invitation_group).permit(:name,invitation:[guest_ids: []] ,guests_attributes: [:id, :first_name, :last_name])
+      params.require(:invitation_group).permit!
     end
 end

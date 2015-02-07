@@ -15,7 +15,8 @@
                 <li>
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
 
-                    <%=select_tag "invitation[#{invitation.id}]guests[]", options_for_select(
+
+                    <%=select_tag "invitation_group[invitations][#{invitation.id}]guests[id]", options_for_select(
                                                     @invitation_group.guests.map {|s| [s.full_name, s.id]},
                                                     invitation.guests.map {|j| j.id}
                                             ), {:multiple => true} %>
