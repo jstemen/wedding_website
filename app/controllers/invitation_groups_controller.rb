@@ -51,10 +51,11 @@ class InvitationGroupsController < ApplicationController
   # PATCH/PUT /invitation_groups/1
   # PATCH/PUT /invitation_groups/1.json
   def update
+    
     respond_to do |format|
       if @invitation_group.update(invitation_group_params)
         #format.html { redirect_to @invitation_group, notice: 'Invitation group was successfully updated.' }
-        format.html { redirect_to action: "show", code: @invitation_group.code, notice: 'Invitation group was successfully created.' }
+        format.html { redirect_to action: "show", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
         format.json { render :show, status: :ok, location: @invitation_group }
       else
         format.html { render :edit }
@@ -82,6 +83,6 @@ class InvitationGroupsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def invitation_group_params
       params[:invitation_group]
-      params.require(:invitation_group).permit(:name, guests_attributes: [:id, :first_name, :last_name])
+      params.require(:invitation_group).permit(:name,invitation:[guest_ids: []] ,guests_attributes: [:id, :first_name, :last_name])
     end
 end
