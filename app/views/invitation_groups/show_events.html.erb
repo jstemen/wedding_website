@@ -4,24 +4,26 @@
 <%= form_for @invitation_group do |f| %>
 
     <%= f.fields_for :guests do |guest_form| %>
-            <%= guest_form.hidden_field :first_name%>
-            <%= guest_form.hidden_field :last_name %>
+        <%= guest_form.hidden_field :first_name %>
+        <%= guest_form.hidden_field :last_name %>
     <% end %>
-    
+
     Events:
     <ul>
-        <% @invitation_group.invitations.each { |invitation| %>
+        <% @invitation_group.invitations.each do |invitation| %>
             <%= f.fields_for invitation do |invitation_form| %>
                 <li>
-
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
-                        <p>
-                            <%= invitation_form.select :guest_ids, invitation.invitation_group.guests.collect {|x| [x.full_name, x.id]}, {}, :multiple => true, index: invitation.id %>
 
-                        </p>
+                    <%=select_tag 'guests[]', options_for_select(
+                                                    @invitation_group.guests.map {|s| [s.full_name, s.id]},
+                                                    invitation.guests.map {|j| j.id}
+                                            ), {:multiple => true} %>
+                    </p>
                 </li>
             <% end %>
-        <% } %>
+        <% end %>
+
     </ul>
     <%= f.submit %>
 <% end %>
