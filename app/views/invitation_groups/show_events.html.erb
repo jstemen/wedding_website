@@ -15,7 +15,7 @@
                 <li>
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
 
-                    <%= hidden_field_tag "invitation_group[invitations_attributes][#{invitation.id}][event_id]", invitation.id%>
+                    <%= hidden_field_tag "invitation_group[invitations_attributes][#{invitation.id}][event_id]", invitation.event.id%>
 
                     <%=select_tag "invitation_group[invitations_attributes][#{invitation.id}][guest_ids]", options_for_select(
                                                     @invitation_group.guests.map {|s| [s.full_name, s.id]},
