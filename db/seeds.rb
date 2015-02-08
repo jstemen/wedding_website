@@ -21,5 +21,10 @@ events.each { |event|
   event.save!
   invitation.save!
 }
+
+5.times {
+  invitation_group.guests << Guest.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+}
+
 invitation_group.save!
 
