@@ -14,11 +14,11 @@
             <%= f.fields_for invitation do |invitation_form| %>
                 <li>
                     <%= "#{invitation.event.name} - #{invitation.event.time} " %>
+                                             invitation_group_params
 
-
-                    <%=select_tag "invitation_group[invitations][#{invitation.id}]guests[id]", options_for_select(
+                    <%=select_tag "invitation_group[invitations_attributes][#{invitation.id}][guest_ids]", options_for_select(
                                                     @invitation_group.guests.map {|s| [s.full_name, s.id]},
-                                                    invitation.guests.map {|j| j.id}
+                                                    invitation.guests.map(&:id)
                                             ), {:multiple => true} %>
                     </p>
                 </li>
