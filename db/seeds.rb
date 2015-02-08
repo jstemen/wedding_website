@@ -8,6 +8,7 @@
 
 invitation_group = InvitationGroup.new(max_guests: 5, code: 'jared')
 
+invitation_group.save!
 
 wedding = Event.new(name: 'wedding', time: DateTime.new)
 mandi = Event.new(name: 'mandi', time: DateTime.new)
@@ -17,6 +18,8 @@ events.each { |event|
   invitation = Invitation.new
   invitation.event = event
   invitation.invitation_group = invitation_group
+  event.save!
+  invitation.save!
 }
 invitation_group.save!
 
