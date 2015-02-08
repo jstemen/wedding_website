@@ -20,7 +20,7 @@ class InvitationGroupsController < ApplicationController
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code
   end
-  
+
 
   # GET /invitation_groups/new
   def new
@@ -51,8 +51,27 @@ class InvitationGroupsController < ApplicationController
   # PATCH/PUT /invitation_groups/1
   # PATCH/PUT /invitation_groups/1.json
   def update
-    
+
     respond_to do |format|
+
+      {"guests_attributes" => {"0" => {"first_name" => "bo", "last_name" => "dole", "id" => "1"},
+                               "1" => {"first_name" => "bo", "last_name" => "dole", "id" => "2"},
+                               "2" => {"first_name" => "jared", "last_name" => "stemen", "id" => "3"},
+                               "3" => {"first_name" => "tom", "last_name" => "bar", "id" => "4"},
+                               "4" => {"first_name" => "fo", "last_name" => "bar", "id" => "5"},
+                               "5" => {"first_name" => "Palak", "last_name" => "Shah", "id" => "6"}},
+       "invitations" => {"1" => {"invitation_attributes" => {"guest_ids" => ["3"]}},
+                         "2" => {"invitation_attributes" => {"guest_ids" => ["2", "4"]}}}}
+
+
+      {"guests_attributes" => {"0" => {"first_name" => "bo", "last_name" => "dole", "id" => "1"},
+                               "1" => {"first_name" => "bo", "last_name" => "dole", "id" => "2"},
+                               "2" => {"first_name" => "jared", "last_name" => "stemen", "id" => "3"},
+                               "3" => {"first_name" => "tom", "last_name" => "bar", "id" => "4"},
+                               "4" => {"first_name" => "fo", "last_name" => "bar", "id" => "5"},
+                               "5" => {"first_name" => "Palak", "last_name" => "Shah", "id" => "6"}},
+       "invitation_attributes" => {"1" => {"guest_ids" => ["2"]}, "2" => {"guest_ids" => ["2"]}}}
+
       if @invitation_group.update(invitation_group_params)
         #format.html { redirect_to @invitation_group, notice: 'Invitation group was successfully updated.' }
         format.html { redirect_to action: "show", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
@@ -75,13 +94,13 @@ class InvitationGroupsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invitation_group
-      @invitation_group = InvitationGroup.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invitation_group
+    @invitation_group = InvitationGroup.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def invitation_group_params
-      params.require(:invitation_group).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def invitation_group_params
+    params.require(:invitation_group).permit!
+  end
 end
