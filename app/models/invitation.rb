@@ -12,7 +12,7 @@ class Invitation < ActiveRecord::Base
   
   def invitation_must_be_less_than_max
     max_guests = invitation_group.max_guests || 0
-    if guests.size > max_guests
+    if guests.size > invitation_group.max_guests
       errors.add(:guests, "You've exceeded your max number of allowed guest: #{max_guests}")
     end
   end
