@@ -16,7 +16,7 @@ events = [wedding, mandi]
 events.each { |event|
   invitation = Invitation.new
   invitation.event = event
-  invitation_group.invitations << invitation
+  invitation.invitation_group = invitation_group
 }
 invitation_group.save!
 
