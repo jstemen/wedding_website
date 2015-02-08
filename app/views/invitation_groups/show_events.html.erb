@@ -21,6 +21,8 @@
                                                     @invitation_group.guests.map {|s| [s.full_name, s.id]},
                                                     invitation.guests.map(&:id)
                                             ), {:multiple => true} %>
+                    
+                    <%= hidden_field_tag "invitation_group[invitations_attributes][#{invitation.id}][id]", invitation.id %>
                     </p>
                 </li>
             <% end %>
