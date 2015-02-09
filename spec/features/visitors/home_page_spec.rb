@@ -25,17 +25,14 @@ feature 'Guest RSVPs' do
     after_guests = invitation_group.guests
     expect(submited_guests.size).to be(after_guests.size)
 
-    after_guests.each{|guest|
+    #redefine equals to only look at first and last name
+    after_guests.each { |guest|
       def guest.==(other)
-        if self.first_name == other.first_name && self.last_name == other.last_name
-          true
-        else
-          false
-        end
+        self.first_name == other.first_name && self.last_name == other.last_name ? true : false
       end
     }
-    
-    submited_guests.each{ |guest|
+
+    submited_guests.each { |guest|
       expect(after_guests).to include(guest)
     }
   end
