@@ -3,24 +3,41 @@
 #   I want to visit a home page
 #   So I can learn more about the website
 feature 'Guest RSVPs' do
+
+  def fill_in_guest_submit(selector)
+    guest = build :guest
+    within(:xpath, selector) do
+      fill_in 'First name', :with => guest.first_name
+      fill_in 'Last name', :with => guest.last_name
+    end
+    click_button 'Update Invitation group'
+    guest
+  end
+
   scenario 'and adds a new user to their invitation group' do
     invitation_group = create :invitation_group
     guest = create :guest
-    invitation_group.guests << guest
-    invitation_group.save!
     visit add_guests(invitation_group.code)
-    before_count = invitation_group.guests.size
-    out = find(:xpath, "//form/ul/li[last()]")
-    within(:xpath, "//form/ul/li[last()]") do
-      fill_in 'First name', :with => 'Jared'
-      fill_in 'Last name', :with => 'Stemen'
-    end
-    click_button 'Update Invitation group'
-    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
+    submited_guests = []
+    submited_guests << fill_in_guest_submit("//form/ul/li")
+    4.times { submited_guests << fill_in_guest_submit("//form/ul/li[last()]") }
 
-    after_count = invitation_group.guests.size
+    after_guests = invitation_group.guests
+    expect(submited_guests.size).to be(after_guests.size)
 
-    expect(before_count+1).to be(after_count)
+    after_guests.each{|guest|
+      def guest.==(other)
+        if self.first_name == other.first_name && self.last_name == other.last_name
+          true
+        else
+          false
+        end
+      end
+    }
+    
+    submited_guests.each{ |guest|
+      expect(after_guests).to include(guest)
+    }
   end
 
   def add_guests(code)
