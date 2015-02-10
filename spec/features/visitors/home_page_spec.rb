@@ -4,14 +4,12 @@
 #   So I can learn more about the website
 feature 'Guest RSVPs' do
 
-  def fill_in_guest_submit(selector)
-    guest = build :guest
-    within(:xpath, selector) do
-      fill_in 'First name', :with => guest.first_name
-      fill_in 'Last name', :with => guest.last_name
-    end
-    click_button 'Update Invitation group'
-    guest
+  scenario 'and clicks "Continue To Events Page" link.  They are taken to the Events page' do
+    invitation_group = create :invitation_group
+    guest = create :guest
+    visit add_guests(invitation_group.code)
+    click_link 'events_page'
+    expect(page).to have_content 'Please select which guests will be attending which events.'
   end
 
   scenario 'and adds a new user to their invitation group' do
@@ -37,10 +35,6 @@ feature 'Guest RSVPs' do
     }
   end
 
-  def add_guests(code)
-    "/invitation_groups/show/#{code}/guests"
-  end
-
   # Scenario: Visit the home page
   #   Given I am a visitor
   #   When I visit the home page
@@ -52,6 +46,25 @@ feature 'Guest RSVPs' do
     click_button 'Lookup'
     expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
   end
+  
+  def fill_in_guest_submit(selector)
+    guest = build :guest
+    within(:xpath, selector) do
+      fill_in 'First name', :with => guest.first_name
+      fill_in 'Last name', :with => guest.last_name
+    end
+    click_button 'Update Invitation group'
+    guest
+  end
+  
+  def add_guests(code)
+    "/invitation_groups/show/#{code}/guests"
+  end
+  
+  def link_guests_to_events(code)
+    "/invitation_groups/show/#{code}/events"
+  end
+
 
 
 end
