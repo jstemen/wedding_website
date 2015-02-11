@@ -17,16 +17,23 @@ feature 'Guest RSVPs' do
     
     visit link_guests_to_events(invitation_group.code)
 
-    invitation_group.guests{|guest|
+    group_guests = invitation_group.guests
+    
+    group_guests.each{|guest|
       select(guest.full_name, :from => 'invitation_group_invitations_attributes_1_guest_ids')
     }
-    #print page.html
+    
     click_button 'Update Invitation group'
 
-    group_guests = invitation_group.guests.to_a
     redefine_equals group_guests, :last_name, :first_name
+    inv_guests = []
+    count = 0
+    while inv_guests.empty? && count < 60
+      inv_guests = invitation_group.invitations.first.guests.to_a
+      sleep 1
+      count +=1
+    end
 
-    inv_guests = invitation_group.invitations.first.guests
     expect(inv_guests).to include(*group_guests)
 
   end
