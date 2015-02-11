@@ -53,25 +53,6 @@ class InvitationGroupsController < ApplicationController
   def update
 
     respond_to do |format|
-
-      {"guests_attributes" => {"0" => {"first_name" => "bo", "last_name" => "dole", "id" => "1"},
-                               "1" => {"first_name" => "bo", "last_name" => "dole", "id" => "2"},
-                               "2" => {"first_name" => "jared", "last_name" => "stemen", "id" => "3"},
-                               "3" => {"first_name" => "tom", "last_name" => "bar", "id" => "4"},
-                               "4" => {"first_name" => "fo", "last_name" => "bar", "id" => "5"},
-                               "5" => {"first_name" => "Palak", "last_name" => "Shah", "id" => "6"}},
-       "invitations" => {"1" => {"invitation_attributes" => {"guest_ids" => ["3"]}},
-                         "2" => {"invitation_attributes" => {"guest_ids" => ["2", "4"]}}}}
-
-
-      {"guests_attributes" => {"0" => {"first_name" => "bo", "last_name" => "dole", "id" => "1"},
-                               "1" => {"first_name" => "bo", "last_name" => "dole", "id" => "2"},
-                               "2" => {"first_name" => "jared", "last_name" => "stemen", "id" => "3"},
-                               "3" => {"first_name" => "tom", "last_name" => "bar", "id" => "4"},
-                               "4" => {"first_name" => "fo", "last_name" => "bar", "id" => "5"},
-                               "5" => {"first_name" => "Palak", "last_name" => "Shah", "id" => "6"}},
-       "invitation_attributes" => {"1" => {"guest_ids" => ["2"]}, "2" => {"guest_ids" => ["2"]}}}
-
       if @invitation_group.update(invitation_group_params)
         #format.html { redirect_to @invitation_group, notice: 'Invitation group was successfully updated.' }
         format.html { redirect_to action: "show", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
