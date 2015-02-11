@@ -4,6 +4,34 @@
 #   So I can learn more about the website
 feature 'Guest RSVPs' do
 
+  scenario 'can select guests' do
+    invitation = create :invitation
+    invitation_group = invitation.invitation_group
+    5.times{
+      guest = create(:guest)
+      invitation_group.guests << guest
+      guest.save!
+    }
+    invitation.save!
+    invitation_group.save!
+    
+    visit link_guests_to_events(invitation_group.code)
+
+    invitation_group.guests{|guest|
+      select(guest.full_name, :from => 'invitation_group_invitations_attributes_1_guest_ids')
+    }
+    #print page.html
+    click_button 'Update Invitation group'
+
+    group_guests = invitation_group.guests.to_a
+    redefine_equals group_guests, :last_name, :first_name
+
+    inv_guests = invitation_group.invitations.first.guests
+    expect(inv_guests).to include(*group_guests)
+
+  end
+  
+  
   scenario 'and clicks "Continue To Events Page" link.  They are taken to the Events page' do
     invitation_group = create :invitation_group
     guest = create :guest
@@ -23,16 +51,33 @@ feature 'Guest RSVPs' do
     after_guests = invitation_group.guests
     expect(submited_guests.size).to be(after_guests.size)
 
-    #redefine equals to only look at first and last name
-    after_guests.each { |guest|
-      def guest.==(other)
-        self.first_name == other.first_name && self.last_name == other.last_name ? true : false
-      end
-    }
+    redefine_equals after_guests, :last_name, :first_name
 
     submited_guests.each { |guest|
       expect(after_guests).to include(guest)
     }
+  end
+  
+  def redefine_equals(objs,*args)
+    #redefine equals to only look at first and last name
+    my_args = args
+    
+    code = """
+    objs.each { |obj|
+      def obj.==(other)
+        comp = true
+        #{my_args.inspect}.each{|arg|
+          if self.send(arg) != other.send(arg)
+            comp= false
+            break
+          end
+        }
+        comp
+      end
+    }
+    """
+    eval code
+    
   end
 
   # Scenario: Visit the home page

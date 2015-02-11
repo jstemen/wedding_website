@@ -10,13 +10,12 @@ FactoryGirl.define do
   
   # post factory with a `belongs_to` association for the user
   factory :invitation do
-    event
-    invitation_group
-
+    event {create(:event)}
+    invitation_group {create(:invitation_group)}
   end
 
   factory :invitation_group do
-    code "MyString"
+    code {Faker::Internet.password}
     max_guests 2
     factory :invitation_group_with_invitations do
       # posts_count is declared as a transient attribute and available in
