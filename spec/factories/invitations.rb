@@ -4,8 +4,8 @@
 FactoryGirl.define do
 
   factory :event do
-    name "wedding"
-    time "2015-01-31 13:06:43"
+    name {Faker::Lorem.words.join ' '}
+    time {Faker::Time.between(3.months.from_now, 4.months.from_now)}
   end
   
   # post factory with a `belongs_to` association for the user
