@@ -4,37 +4,28 @@
 FactoryGirl.define do
 
   factory :event do
-    name {Faker::Lorem.words.join ' '}
-    time {Faker::Time.between(3.months.from_now, 4.months.from_now)}
+    name { Faker::Lorem.words.join ' ' }
+    time { Faker::Time.between(3.months.from_now, 4.months.from_now) }
   end
-  
+
   # post factory with a `belongs_to` association for the user
   factory :invitation do
-    event {create(:event)}
-    invitation_group {create(:invitation_group)}
+    event { create(:event) }
+    invitation_group
   end
 
   factory :invitation_group do
-    code {Faker::Internet.password}
+    code {
+      Faker::Internet.password
+    }
     max_guests 2
-    factory :invitation_group_with_invitations do
-      # posts_count is declared as a transient attribute and available in
-      # attributes on the factory, as well as the callback via the evaluator
-=begin
-      transient do
-        invitations_count 5
-      end
-=end
-
-      # the after(:create) yields two values; the user instance itself and the
-      # evaluator, which stores all values from the factory, including transient
-      # attributes; `create_list`'s second argument is the number of records
-      # to create and we make sure the user is associated properly to the post
-      after(:create) do |invitation_group, evaluator|
-        create_list(:invitation, 5, invitation: invitation)
-      end
-    end
     
+    factory :invitation_group_with_invitations do
+      invitations {
+        (1..4).collect{create(:invitation)}
+      }
+    end
+
   end
 
 end

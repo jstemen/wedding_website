@@ -3,18 +3,20 @@
 #   I want to visit a home page
 #   So I can learn more about the website
 feature 'Guest RSVPs' do
+  
+  scenario 'can see their existing RSVPs on the events page' do
+    invitation_group = create :invitation_group_with_invitations
+
+    visit link_guests_to_events(invitation_group.code)
+
+    fail 'not implemented'
+
+  end
+  
 
   scenario 'can select guests' do
-    invitation = create :invitation
-    invitation_group = invitation.invitation_group
-    5.times{
-      guest = create(:guest)
-      invitation_group.guests << guest
-      guest.save!
-    }
-    invitation.save!
-    invitation_group.save!
-    
+    invitation_group = create :invitation_group_with_invitations
+
     visit link_guests_to_events(invitation_group.code)
 
     group_guests = invitation_group.guests
