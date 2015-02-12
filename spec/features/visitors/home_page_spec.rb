@@ -5,17 +5,30 @@
 feature 'Guest RSVPs' do
   
   scenario 'can see their existing RSVPs on the events page' do
-    invitation_group = create :invitation_group_with_invitations
+    invitation_group = create(:invitation_group_with_invitations, :five_guests)
 
+
+    expected_selected_arry = invitation_group.invitations.collect{|inv|
+      inv.guests = invitation_group.guests.sample(2) 
+    }
+    invitation_group.invitations.first.guests = invitation_group.guests
+
+    invitation_group.invitations.first.save!
+    
     visit link_guests_to_events(invitation_group.code)
+    
+    save_and_open_page
 
-    fail 'not implemented'
-
+    expected_selected_arry.each_with_index { |inv_guests, i|
+      selected_guest_names = page.all("#invitation_group_invitations_attributes_#{i+1}_guest_ids > option [selected]").collect &:text
+      expected_guest_names = inv_guests.collect &:full_name
+      expect(selected_guest_names).to include *expected_guest_names
+    }
   end
   
 
   scenario 'can select guests' do
-    invitation_group = create :invitation_group_with_invitations
+    invitation_group = create(:invitation_group_with_invitations, :five_guests)
 
     visit link_guests_to_events(invitation_group.code)
 
@@ -24,23 +37,18 @@ feature 'Guest RSVPs' do
     group_guests.each{|guest|
       select(guest.full_name, :from => 'invitation_group_invitations_attributes_1_guest_ids')
     }
-    
+
     click_button 'Update Invitation group'
 
     redefine_equals group_guests, :last_name, :first_name
-    inv_guests = []
-    count = 0
-    while inv_guests.empty? && count < 60
-      inv_guests = invitation_group.invitations.first.guests.to_a
-      sleep 1
-      count +=1
-    end
+    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
+    inv_guests = invitation_group.invitations.first.guests.to_a
 
     expect(inv_guests).to include(*group_guests)
 
   end
-  
-  
+
+
   scenario 'and clicks "Continue To Events Page" link.  They are taken to the Events page' do
     invitation_group = create :invitation_group
     guest = create :guest
@@ -57,8 +65,10 @@ feature 'Guest RSVPs' do
     submited_guests << fill_in_guest_submit("//form/ul/li")
     4.times { submited_guests << fill_in_guest_submit("//form/ul/li[last()]") }
 
+    expect(page).to have_content 'Please Enter The Guests That Will Be Coming'
+
     after_guests = invitation_group.guests
-    expect(submited_guests.size).to be(after_guests.size)
+    expect(after_guests.size).to eq(submited_guests.size)
 
     redefine_equals after_guests, :last_name, :first_name
 
@@ -66,11 +76,11 @@ feature 'Guest RSVPs' do
       expect(after_guests).to include(guest)
     }
   end
-  
+
   def redefine_equals(objs,*args)
     #redefine equals to only look at first and last name
     my_args = args
-    
+
     code = """
     objs.each { |obj|
       def obj.==(other)
@@ -86,7 +96,7 @@ feature 'Guest RSVPs' do
     }
     """
     eval code
-    
+
   end
 
   # Scenario: Visit the home page

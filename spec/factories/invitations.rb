@@ -18,7 +18,12 @@ FactoryGirl.define do
     code {
       Faker::Internet.password
     }
-    max_guests 2
+    guests []
+    max_guests 5
+
+    trait :five_guests do
+      guests  {(1..5).collect{create :guest}}
+    end
     
     factory :invitation_group_with_invitations do
       invitations {
@@ -26,6 +31,7 @@ FactoryGirl.define do
       }
     end
 
+    
   end
 
 end

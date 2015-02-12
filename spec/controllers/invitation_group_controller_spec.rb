@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe InvitationGroupsController do
 
-  it "should be successful" do
+=begin
+  xit "should be successful" do
 
 
     {"guests_attributes" => {"0" => {"first_name" => "bo", "last_name" => "dole", "id" => "1"},
@@ -16,5 +17,6 @@ describe InvitationGroupsController do
     get :index
     response.should be_successful
   end
+=end
 
 end
