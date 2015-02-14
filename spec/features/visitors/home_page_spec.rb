@@ -3,20 +3,20 @@
 #   I want to visit a home page
 #   So I can learn more about the website
 feature 'Guest RSVPs' do
-  
+
   scenario 'can see their existing RSVPs on the events page' do
-    invitation_group = create(:invitation_group_with_invitations, :five_guests)
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
 
     expected_selected_arry = invitation_group.invitations.collect{|inv|
-      inv.guests = invitation_group.guests.sample(2) 
+      inv.guests = invitation_group.guests.sample(2)
     }
     invitation_group.invitations.first.guests = invitation_group.guests
 
     invitation_group.invitations.first.save!
-    
+
     visit link_guests_to_events(invitation_group.code)
-    
+
     save_and_open_page
 
     expected_selected_arry.each_with_index { |inv_guests, i|
@@ -25,15 +25,15 @@ feature 'Guest RSVPs' do
       expect(selected_guest_names).to include *expected_guest_names
     }
   end
-  
+
 
   scenario 'can select guests' do
-    invitation_group = create(:invitation_group_with_invitations, :five_guests)
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
     visit link_guests_to_events(invitation_group.code)
 
     group_guests = invitation_group.guests
-    
+
     group_guests.each{|guest|
       select(guest.full_name, :from => 'invitation_group_invitations_attributes_1_guest_ids')
     }

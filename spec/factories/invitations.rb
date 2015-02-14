@@ -22,12 +22,11 @@ FactoryGirl.define do
 
     trait :five_guests do
       guests  {
-        [FactoryGirl.create(:guest)]
-
+        (1..5).collect{FactoryGirl.create(:guest)}
       }
     end
 
-    factory :invitation_group_with_invitations do
+    trait :four_invitations do
       invitations {
         (1..4).collect{create(:invitation)}
       }
