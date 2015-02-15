@@ -41,6 +41,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     begin
       DatabaseCleaner.start
+      PrettyBacktrace.enable
       FactoryGirl.lint
     ensure
       DatabaseCleaner.clean
