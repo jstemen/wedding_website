@@ -1,36 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 
-<%= form_for @invitation_group do |f| %>
 
-    <%= f.fields_for :guests do |guest_form| %>
-        <%= guest_form.hidden_field :first_name %>
-        <%= guest_form.hidden_field :last_name %>
-    <% end %>
+Please select which guests will be attending which events.
 
-    Please select which guests will be attending which events.
-    
-    Events:
+Events:
+<%= semantic_form_for @invitation_group do |f| %>
+
     <ul>
-        <% @invitation_group.invitations.each do |invitation| %>
-            <%= f.fields_for invitation do |invitation_form| %>
-                <li>
-                    <%= "#{invitation.event.name} - #{invitation.event.time} " %>
-
-                    <%= hidden_field_tag "invitation_group[invitations_attributes][#{invitation.id}][event_id]", invitation.event.id%>
-
-                    <%=select_tag "invitation_group[invitations_attributes][#{invitation.id}][guest_ids]", options_for_select(
-                                                    @invitation_group.guests.map {|s| [s.full_name, s.id]},
-                                                    invitation.guests.map(&:id)
-                                            ), {:multiple => true} %>
-                    
-                    <%= hidden_field_tag "invitation_group[invitations_attributes][#{invitation.id}][id]", invitation.id %>
-                    </p>
-                </li>
-            <% end %>
+        <%= f.semantic_fields_for :invitations do |invitation| %>
+            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests %>
         <% end %>
-
     </ul>
-    <%= f.submit %>
+    <%= f.actions %>
 <% end %>
 
