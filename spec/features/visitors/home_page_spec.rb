@@ -17,7 +17,6 @@ feature 'Guest RSVPs' do
 
     visit link_guests_to_events(invitation_group.code)
 
-    save_and_open_page
 
     expected_selected_arry.each_with_index { |inv_guests, i|
       selected_guest_names = page.all("#invitation_group_invitations_attributes_#{i+1}_guest_ids > option [selected]").collect &:text
