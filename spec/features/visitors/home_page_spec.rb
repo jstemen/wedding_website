@@ -41,7 +41,8 @@ feature 'Guest RSVPs' do
 
     redefine_equals group_guests, :last_name, :first_name
     expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
-    inv_guests = invitation_group.invitations.first.guests.to_a
+    #Need to look up IG from db to get updated copy
+    inv_guests = InvitationGroup.find(invitation_group.id).invitations.first.guests.to_a
 
     expect(inv_guests).to include(*group_guests)
 
@@ -76,6 +77,19 @@ feature 'Guest RSVPs' do
     }
   end
 
+
+  # Scenario: Visit the home page
+  #   Given I am a visitor
+  #   When I visit the home page
+  #   Then I see "Welcome"
+  scenario 'by visiting the home page and entering a invitation code' do
+    visit root_path
+    invitation_group = create :invitation_group
+    fill_in('code', :with => invitation_group.code)
+    click_button 'Lookup'
+    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
+  end
+
   def redefine_equals(objs,*args)
     #redefine equals to only look at first and last name
     my_args = args
@@ -98,18 +112,6 @@ feature 'Guest RSVPs' do
 
   end
 
-  # Scenario: Visit the home page
-  #   Given I am a visitor
-  #   When I visit the home page
-  #   Then I see "Welcome"
-  scenario 'by visiting the home page and entering a invitation code' do
-    visit root_path
-    invitation_group = create :invitation_group
-    fill_in('code', :with => invitation_group.code)
-    click_button 'Lookup'
-    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
-  end
-  
   def fill_in_guest_submit(selector)
     guest = build :guest
     within(:xpath, selector) do
@@ -119,11 +121,11 @@ feature 'Guest RSVPs' do
     click_button 'Update Invitation group'
     guest
   end
-  
+
   def add_guests(code)
     "/invitation_groups/show/#{code}/guests"
   end
-  
+
   def link_guests_to_events(code)
     "/invitation_groups/show/#{code}/events"
   end

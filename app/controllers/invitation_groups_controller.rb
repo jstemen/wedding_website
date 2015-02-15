@@ -51,6 +51,15 @@ class InvitationGroupsController < ApplicationController
   # PATCH/PUT /invitation_groups/1
   # PATCH/PUT /invitation_groups/1.json
   def update
+=begin
+    inv_attr_arry = invitation_group_params[:invitations_attributes] || []
+    inv_attr_arry.each{|inv_id, inv_attrs|
+      inv = Invitation.find inv_id
+      guests_ids = inv_attrs[:guest_ids] || []
+      inv.guests = guests_ids.collect{|id| Guest.find(id)}
+      inv.save!
+    }
+=end
 
     respond_to do |format|
       if @invitation_group.update(invitation_group_params)
