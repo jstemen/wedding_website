@@ -15,7 +15,6 @@ gem 'unicorn'
 gem 'unicorn-rails'
 gem 'underscore-rails'
 
-gem 'faker'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -33,6 +32,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'sqlite3'
+  gem 'guard'
 end
 group :production do
   gem 'pg'
