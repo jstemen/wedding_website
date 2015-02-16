@@ -1,5 +1,5 @@
 class Invitation < ActiveRecord::Base
-  has_many :guests
+  has_and_belongs_to_many :guests
   belongs_to :invitation_group
   belongs_to :event
   
