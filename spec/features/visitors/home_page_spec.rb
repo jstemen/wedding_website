@@ -34,7 +34,7 @@ feature 'Guest RSVPs' do
     group_guests = invitation_group.guests
 
     group_guests.each{|guest|
-      select(guest.full_name, :from => 'invitation_group_invitations_attributes_1_guest_ids')
+      check "invitation_group_invitations_attributes_0_guest_ids_#{guest.id}"
     }
 
     click_button 'Update Invitation group'
