@@ -22,6 +22,7 @@
                 </button>
                 <button type="button" class="btn btn-default white mynavigation" onclick=scrollToId("#accommodations")>Accommodations</button>
                 <button type="button" class="btn btn-default blue mynavigation" onclick=scrollToId("#registry")>Other</button>
+                <button type="button" class="btn btn-default pea mynavigation" onclick=scrollToId("#rsvp")>RSVP</button>
             </div>
 
 
@@ -402,8 +403,8 @@
             <p>Please enter the RSVP code included in your invitation.</p>
             <%= form_tag("/invitation_groups/search", method: "get") do %>
                 <%= label_tag(:code, "Code:") %>
-                <%= text_field_tag(:code) %>
-                <%= submit_tag("Lookup") %>
+                <%= text_field_tag(:code, '', class: "bg-primary") %>
+                <%= submit_tag("Lookup", class: 'btn btn-default') %>
             <% end %>
         </div>
         <div class="col-md-3"></div>
