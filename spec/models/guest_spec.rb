@@ -29,12 +29,12 @@ RSpec.describe Guest, :type => :model do
     expect{create :guest, email_address: 'jared@gmail.com'}.to raise_error ActiveRecord::RecordNotUnique
   end
   
-  it "has one invitation" do
+  it "has many invitation" do
     guest = create :guest
     invitation = create :invitation
-    guest.invitation = invitation
+    guest.invitations << invitation
     guest.save
-    expect(guest.invitation).to be(invitation)
+    expect(guest.invitations).to include(invitation)
     expect(invitation.guests).to include(guest)
   end
   
