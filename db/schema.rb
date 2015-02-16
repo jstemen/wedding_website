@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150215235335) do
     t.integer "invitation_id", null: false
   end
 
-  add_index "guests_invitations", ["invitation_id", "guest_id"], name: "index_guests_invitations_on_invitation_id_and_guest_id", unique: true
+  add_index "guests_invitations", ["invitation_id", "guest_id"], name: "index_guests_invitations_on_invitation_id_and_guest_id"
 
   create_table "invitation_groups", force: true do |t|
     t.string   "code"
