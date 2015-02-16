@@ -389,16 +389,16 @@
 
 </div>
 
-<div id="rsvp" class=" glitter content-section ">
+<div id="rsvp" class=" pea content-section ">
 
     <div class="row ">
         <h1 class="text-center myheading">
         </h1>
     </div>
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
             <h2 class="text-center myheading">RSVP:</h2>
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
             <p>Please enter the RSVP code included in your invitation.</p>
             <%= form_tag("/invitation_groups/search", method: "get") do %>
                 <%= label_tag(:code, "Code:") %>
@@ -406,7 +406,7 @@
                 <%= submit_tag("Lookup") %>
             <% end %>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 
