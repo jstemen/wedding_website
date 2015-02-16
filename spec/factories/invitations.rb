@@ -28,7 +28,7 @@ FactoryGirl.define do
 
     trait :four_invitations do
       invitations {
-        (1..4).collect{create(:invitation)}
+        (1..4).collect{FactoryGirl.create(:invitation)}
       }
     end
 
