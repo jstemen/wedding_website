@@ -7,11 +7,11 @@ Please select which guests will be attending which events.
 Events:
 <%= semantic_form_for @invitation_group do |f| %>
 
-    <ul>
-        <%= f.semantic_fields_for :invitations do |invitation| %>
-            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests %>
-        <% end %>
-    </ul>
+    <%= f.semantic_fields_for :invitations do |invitation| %>
+        <%= "#{invitation.object.event.name} - #{invitation.object.event.time}" %>
+        <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => 'Guests coming to event' %>
+    <% end %>
+
     <%= f.actions %>
 <% end %>
 
