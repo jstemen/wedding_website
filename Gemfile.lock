@@ -116,8 +116,6 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     pg (0.17.1)
-    pretty_backtrace (0.1.2)
-      debug_inspector (~> 0.0.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -252,7 +250,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg
-  pretty_backtrace
   quiet_assets
   rails (= 4.1.6)
   rails_12factor
