@@ -8,20 +8,23 @@ feature 'Guest RSVPs' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
 
-    expected_selected_arry = invitation_group.invitations.collect{|inv|
-      inv.guests = invitation_group.guests.sample(2)
+    expected_selected_arry = invitation_group.invitations.collect { |inv|
+      guests_sample = invitation_group.guests.sample 2
+      inv.guests = guests_sample
+      inv.save!
+      guests_sample
     }
-    invitation_group.invitations.first.guests = invitation_group.guests
-
-    invitation_group.invitations.first.save!
 
     visit link_guests_to_events(invitation_group.code)
 
-
     expected_selected_arry.each_with_index { |inv_guests, i|
-      selected_guest_names = page.all("#invitation_group_invitations_attributes_#{i+1}_guest_ids > option [selected]").collect &:text
-      expected_guest_names = inv_guests.collect &:full_name
-      expect(selected_guest_names).to include *expected_guest_names
+      within("#invitation_group_invitations_attributes_#{i}_guests_input") do
+        selected_guest_ids =page.all("[checked]").collect{|t|t.value.to_i}
+        expected_guest_ids = inv_guests.collect &:id
+        expect(selected_guest_ids.size).to eq(expected_guest_ids.size)
+        expect(selected_guest_ids).to include *expected_guest_ids
+      end
+
     }
   end
 
@@ -33,7 +36,7 @@ feature 'Guest RSVPs' do
 
     group_guests = invitation_group.guests
 
-    group_guests.each{|guest|
+    group_guests.each { |guest|
       check "invitation_group_invitations_attributes_0_guest_ids_#{guest.id}"
     }
 
@@ -90,11 +93,11 @@ feature 'Guest RSVPs' do
     expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
   end
 
-  def redefine_equals(objs,*args)
+  def redefine_equals(objs, *args)
     #redefine equals to only look at first and last name
     my_args = args
 
-    code = """
+    code = "" "
     objs.each { |obj|
       def obj.==(other)
         comp = true
@@ -107,7 +110,7 @@ feature 'Guest RSVPs' do
         comp
       end
     }
-    """
+    " ""
     eval code
 
   end
@@ -129,7 +132,6 @@ feature 'Guest RSVPs' do
   def link_guests_to_events(code)
     "/invitation_groups/show/#{code}/events"
   end
-
 
 
 end
