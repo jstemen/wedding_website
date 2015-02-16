@@ -3,7 +3,7 @@ class InvitationGroup < ActiveRecord::Base
   validates :max_guests, numericality: true, presence: true
 
   has_many :invitations,  dependent: :destroy
-  has_many :guests
+  has_many :guests, dependent: :destroy
 
   accepts_nested_attributes_for :guests
   accepts_nested_attributes_for :invitations
