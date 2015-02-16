@@ -14,7 +14,6 @@ gem 'therubyracer', :platform=>:ruby
 gem 'unicorn'
 gem 'unicorn-rails'
 gem 'underscore-rails'
-gem 'pretty_backtrace'
 gem 'formtastic'
 
 group :development do
