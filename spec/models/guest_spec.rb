@@ -29,13 +29,17 @@ RSpec.describe Guest, :type => :model do
     expect{create :guest, email_address: 'jared@gmail.com'}.to raise_error ActiveRecord::RecordNotUnique
   end
   
-  it "has many invitation" do
+  it "has many invitations" do
     guest = create :guest
-    invitation = create :invitation
-    guest.invitations << invitation
+    invitation_one = create :invitation
+    invitation_two = create :invitation
+    guest.invitations << invitation_one
+    guest.invitations << invitation_two
     guest.save
-    expect(guest.invitations).to include(invitation)
-    expect(invitation.guests).to include(guest)
+    expect(guest.invitations).to include(invitation_one)
+    expect(guest.invitations).to include(invitation_two)
+    expect(invitation_one.guests).to include(guest)
+    expect(invitation_two.guests).to include(guest)
   end
   
   it "will not allow bad email" do
