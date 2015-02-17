@@ -5,16 +5,27 @@
         RSVP
     </div>
 
-    Please select which guests will be attending each event.
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <div>
+                Please select which guests will be attending each event.
+            </div>
+            <%= semantic_form_for @invitation_group do |f| %>
 
-    <%= semantic_form_for @invitation_group do |f| %>
+                <%= f.semantic_fields_for :invitations do |invitation| %>
+                    <h1 class="myheading">
+                        <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
+                    </h1>
 
-        <%= f.semantic_fields_for :invitations do |invitation| %>
-            <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
-            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => 'Guests coming to event' %>
-        <% end %>
+                    <div class="names">
+                        <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => false %>
+                    </div>
+                <% end %>
 
-        <%= f.actions %>
-    <% end %>
+                <%= f.actions %>
+            <% end %>
 
+        </div>
+    </div>
 </div>
