@@ -50,9 +50,17 @@ $carousel-max-dimension: 600px;
   background-color: #ffb90b;
 }
 
+$gold-color: #e09a1d;
+$deep-red: #b10007;
+
 .gold-on-red{
-  color: #e09a1d;
-  background-color: #b10007;
+  color: $gold-color;
+  background-color:$deep-red;
+}
+
+.red-on-gold{
+  color: $deep-red;
+  background-color:$gold-color;
 }
 
 .hugeText{
@@ -143,7 +151,10 @@ $carousel-max-dimension: 600px;
 
 .names {
   font-family: GOTHIC;
-  list-style:none
+}
+.no-list-style{
+  list-style:none;
+  list-style-type:none;
 }
 .padding-top-20{
   padding-top: 20px;
