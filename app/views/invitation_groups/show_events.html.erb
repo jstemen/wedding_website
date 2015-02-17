@@ -1,17 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<div class="gold-on-red">
+    <div class="lavReg row hugeText">
+        RSVP
+    </div>
 
+    Please select which guests will be attending which events.
 
-Please select which guests will be attending which events.
+    Events:
+    <%= semantic_form_for @invitation_group do |f| %>
 
-Events:
-<%= semantic_form_for @invitation_group do |f| %>
+        <%= f.semantic_fields_for :invitations do |invitation| %>
+            <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
+            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => 'Guests coming to event' %>
+        <% end %>
 
-    <%= f.semantic_fields_for :invitations do |invitation| %>
-        <%= "#{invitation.object.event.name} - #{invitation.object.event.time}" %>
-        <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => 'Guests coming to event' %>
+        <%= f.actions %>
     <% end %>
 
-    <%= f.actions %>
-<% end %>
-
+</div>
