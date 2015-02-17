@@ -10,10 +10,12 @@ invitation_group = InvitationGroup.new(max_guests: 5, code: 'jared')
 
 invitation_group.save!
 
-wedding = Event.new(name: 'wedding', time: DateTime.new)
-mandi = Event.new(name: 'mandi', time: DateTime.new)
+mehndi = Event.new(name: 'Mehndi', time: Date.new(2015,9,24))
+mang = Event.new(name: 'Manglik Prasang', time: Date.new(2015,9,25))
+wedding = Event.new(name: 'Wedding Ceremony', time: Date.new(2015,9,26))
+party = Event.new(name: 'After Party', time: Date.new(2015,9,26))
 
-events = [wedding, mandi]
+events = [mehndi,mang, wedding, party]
 events.each { |event|
   invitation = Invitation.new
   invitation.event = event
