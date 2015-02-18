@@ -156,8 +156,12 @@ $deep-red: #b10007;
   list-style:none;
   list-style-type:none;
 }
-.padding-top-20{
-  padding-top: 20px;
+$positions: top bottom left right;
+
+@each $pos in $positions{
+  .padding-#{$pos}-20{
+    padding-#{$pos}: 20px;
+  }
 }
 
 
