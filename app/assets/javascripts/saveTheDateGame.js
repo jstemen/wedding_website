@@ -3,17 +3,6 @@ function loadGame() {
     var stageSize = {width: $(window).width(), height: 432}
 
     if (length > 0) {
-
-        game = new Phaser.Game(stageSize.width, stageSize.height, Phaser.CANVAS, 'phaser-game', {
-            preload: preload,
-            create: create,
-            update: update,
-            render: render
-        });
-
-        const buttonHeight = 71
-        const buttonWidth = 192
-
         function preload() {
 
             game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
@@ -48,46 +37,6 @@ function loadGame() {
             game.load.spritesheet('button', '/assets/toggleFullscreenButton.png', buttonWidth, buttonHeight);
 
         }
-
-        var map;
-        var tileset;
-        var layer;
-        var facing = 'left';
-        var jumpTimer = 0;
-        var cursors;
-        var jumpButton;
-        var f1Button;
-        var bg;
-        var text
-        var music
-        var button
-
-        var instructions;
-
-        var jumpSound;
-        var gameOverSound;
-        var marioDiedSound;
-        var stompSound;
-        var shoes;
-        const gravityLevel = 250
-
-        function MySpriteBase() {
-            this.myKill = function () {
-                this.kill();
-            }
-            this.myUpdate = function () {
-            }
-        }
-
-        MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
-        MySpriteBase.constructor = MySpriteBase
-        MySpriteBase.prototype.update = function () {
-            if (this.y >= game.height && this.alive) {
-                this.myKill();
-            }
-            this.myUpdate.apply(this)
-        }
-        var mySpriteBase = new MySpriteBase();
 
         function create() {
 
@@ -149,6 +98,74 @@ function loadGame() {
             button.visible = true;
 
         }
+
+        function update() {
+
+            $.each(EnemyModule.enemies, function (index, enemy) {
+                game.physics.arcade.collide(PlayerModule.player, enemy, enemyPlayerCollisionHandler);
+            });
+            $.each(ShoesModule.allShoes, function (index, shoes) {
+                game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
+                    shoes.destroy();
+                    player.hasShoes = true
+                });
+            })
+        }
+
+        function render() {}
+
+        game = new Phaser.Game(stageSize.width, stageSize.height, Phaser.CANVAS, 'phaser-game', {
+            preload: preload,
+            create: create,
+            update: update,
+            render: render
+        });
+
+        const buttonHeight = 71
+        const buttonWidth = 192
+
+
+        var map;
+        var tileset;
+        var layer;
+        var facing = 'left';
+        var jumpTimer = 0;
+        var cursors;
+        var jumpButton;
+        var f1Button;
+        var bg;
+        var text
+        var music
+        var button
+
+        var instructions;
+
+        var jumpSound;
+        var gameOverSound;
+        var marioDiedSound;
+        var stompSound;
+        var shoes;
+        const gravityLevel = 250
+
+        function MySpriteBase() {
+            this.myKill = function () {
+                this.kill();
+            }
+            this.myUpdate = function () {
+            }
+        }
+
+        MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
+        MySpriteBase.constructor = MySpriteBase
+        MySpriteBase.prototype.update = function () {
+            if (this.y >= game.height && this.alive) {
+                this.myKill();
+            }
+            this.myUpdate.apply(this)
+        }
+        var mySpriteBase = new MySpriteBase();
+
+
 
         var startFireworks = function () {
             var createLoc = function (x, y) {
@@ -509,22 +526,8 @@ function loadGame() {
         }
 
 
-        function update() {
-
-            $.each(EnemyModule.enemies, function (index, enemy) {
-                game.physics.arcade.collide(PlayerModule.player, enemy, enemyPlayerCollisionHandler);
-            });
-            $.each(ShoesModule.allShoes, function (index, shoes) {
-                game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
-                    shoes.destroy();
-                    player.hasShoes = true
-                });
-            })
-        }
-
-        function render() {
 
 
-        }
+
     }
 }
