@@ -40,7 +40,7 @@ feature 'Guest RSVPs' do
       check "invitation_group_invitations_attributes_0_guest_ids_#{guest.id}"
     }
 
-    click_button 'Update Invitation group'
+    click_button 'submitSaveGuestSelections'
 
     redefine_equals group_guests, :last_name, :first_name
     expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
@@ -57,7 +57,8 @@ feature 'Guest RSVPs' do
     guest = create :guest
     visit add_guests(invitation_group.code)
     click_link 'events_page'
-    expect(page).to have_content 'Please select which guests will be attending which events.'
+    find("#eventsSelectionPage")
+    expect(page).to have_content 'Please select which guests will be attending each event.'
   end
 
   scenario 'and adds a new user to their invitation group' do

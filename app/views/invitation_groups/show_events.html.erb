@@ -1,4 +1,4 @@
-<div class="gold-on-red">
+<div id="eventsSelectionPage" class="gold-on-red">
     <div class="lavReg row hugeText padding-bottom-20">
         RSV P
     </div>
@@ -21,7 +21,7 @@
                     </div>
                 <% end %>
 
-                <%= f.action :submit, :label => "Save Guest Selections", :button_html => { :class => "red-on-gold btn" } %>
+                <%= f.action :submit, :label => "Save Guest Selections", :button_html => { :id => 'submitSaveGuestSelections', :class => "red-on-gold btn" } %>
             <% end %>
 
         </div>
