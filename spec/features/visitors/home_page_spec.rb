@@ -1,3 +1,7 @@
+def expect_to_be_on_events_page
+  find("#eventsSelectionPage")
+end
+
 # Feature: Home page
 #   As a visitor
 #   I want to visit a home page
@@ -57,7 +61,7 @@ feature 'Guest RSVPs' do
     guest = create :guest
     visit add_guests(invitation_group.code)
     click_link 'events_page'
-    find("#eventsSelectionPage")
+    expect_to_be_on_events_page
     expect(page).to have_content 'Please select which guests will be attending each event.'
   end
 
@@ -81,17 +85,12 @@ feature 'Guest RSVPs' do
     }
   end
 
-
-  # Scenario: Visit the home page
-  #   Given I am a visitor
-  #   When I visit the home page
-  #   Then I see "Welcome"
   scenario 'by visiting the home page and entering a invitation code' do
     visit root_path
     invitation_group = create :invitation_group
     fill_in('code', :with => invitation_group.code)
     click_button 'Lookup'
-    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
+    expect_to_be_on_events_page
   end
 
   def redefine_equals(objs, *args)
