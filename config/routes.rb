@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
-  get '/invitations/search', to: 'invitations#search'
+  get '/invitation_groups/search', to: 'invitation_groups#search'
   resources :invitations
   resources :guests
 
