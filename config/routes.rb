@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   get '/invitation_groups/search', to: 'invitation_groups#search'
+  get '/invitation_groups/confirmation', to: 'invitation_groups#confirmation'
   resources :invitations
   resources :guests
 
