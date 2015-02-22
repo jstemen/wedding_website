@@ -10,7 +10,8 @@ class InvitationGroup < ActiveRecord::Base
   accepts_nested_attributes_for :invitations
 
   def has_attendees
-     not invitations.collect(&:guests).empty?
+     guests = invitations.collect(&:guests).flatten
+     not guests.empty?
   end
 end
 

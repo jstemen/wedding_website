@@ -20,6 +20,11 @@ RSpec.describe InvitationGroup, :type => :model do
   end
 
   it "has_attendees must return false there are no guests" do
+    invitation_group = create(:invitation_group, :four_invitations)
+    expect(invitation_group.has_attendees).to be(false)
+  end
+
+  it "has_attendees must return false there are no guests and no invitations" do
     invitation_group = create(:invitation_group)
     expect(invitation_group.has_attendees).to be(false)
   end
