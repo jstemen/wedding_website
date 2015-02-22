@@ -3,18 +3,17 @@
         Thank You
     </div>
 
-    <div class="row no-list-style padding-bottom-20">
-        <div class="col-md-1"></div>
-        <div class="col-md-11">
-            <% if @invitation_group.has_attendees %>
-                <div>
-                    We look forward to celebrating with you!
-                </div>
-            <% else %>
-                <div>
-                    We're sorry to miss you!
-                </div>
-            <% end %>
-        </div>
+    <div class="center-text padding-bottom-20">
+
+        <% if @invitation_group.has_attendees %>
+            <h2>
+                We look forward to celebrating with you!
+            </h2>
+        <% else %>
+            <h2>
+                We're sorry to miss you!
+            </h2>
+        <% end %>
+
     </div>
 </div>
