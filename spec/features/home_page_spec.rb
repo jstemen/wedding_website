@@ -1,7 +1,16 @@
-
 describe "The RSVP Process", :type => :feature do
 
-  it 'If a user tries to reused a code from am a confirmed invitation group, they get an error message'do
+  error_msg = 'You have entered an invalid RSVP code.  If you believe that you have received this message in error, please contact palakandjared@gmail.com'
+  it "If a user enters an invalid invitation group code on the home page, they receive the error message: #{error_msg}" do
+    visit root_path
+    invitation_group = create :invitation_group
+    fill_in('code', :with => 'I am not a valid code')
+    click_button 'Lookup'
+    expect_to_be_on_home_page
+    expect(page).to have_content error_msg
+  end
+
+  it 'If a user tries to reused a code from am a confirmed invitation group, they get an error message' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations, is_confirmed: true)
     visit link_guests_to_events(invitation_group.code)
     expect_to_be_on_events_page
@@ -26,7 +35,7 @@ describe "The RSVP Process", :type => :feature do
     expect(page).to have_content not_coming
   end
 
-  it 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'do
+  it 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
     visit link_confirmation(invitation_group.code)
@@ -60,7 +69,7 @@ describe "The RSVP Process", :type => :feature do
 
     expected_selected_arry.each_with_index { |inv_guests, i|
       within("#invitation_group_invitations_attributes_#{i}_guests_input") do
-        selected_guest_ids =page.all("[checked]").collect{|t|t.value.to_i}
+        selected_guest_ids =page.all("[checked]").collect { |t| t.value.to_i }
         expected_guest_ids = inv_guests.collect &:id
         expect(selected_guest_ids.size).to eq(expected_guest_ids.size)
         expect(selected_guest_ids).to include *expected_guest_ids
@@ -141,9 +150,11 @@ describe "The RSVP Process", :type => :feature do
   def link_guests_to_events(code)
     "/invitation_groups/show/#{code}/events"
   end
+
   def link_confirmation(code)
     "/invitation_groups/confirmation?code=#{code}"
   end
+
   def link_thank_you(code)
     "/invitation_groups/show/#{code}/thank_you"
   end
@@ -154,6 +165,10 @@ describe "The RSVP Process", :type => :feature do
 
   def expect_to_be_on_confirmation_page
     expect(find('#confirmationPage')).not_to be_nil
+  end
+
+  def expect_to_be_on_home_page
+    expect(find('#homePage')).not_to be_nil
   end
 
   def expect_to_be_on_thank_you_page
