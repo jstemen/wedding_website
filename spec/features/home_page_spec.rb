@@ -2,6 +2,15 @@
 describe "The RSVP Process", :type => :feature do
 
 
+  is_coming = "We look forward to celebrating with you!"
+  it "Thank-you page should say '#{is_coming}' when there is at least one guest attending" do
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group.invitations.first.guests << invitation_group.guests.first
+    invitation_group.save!
+    visit link_thank_you(invitation_group.code)
+    expect_to_be_on_thank_you_page
+    expect(page).to have_content is_coming
+  end
 
   not_coming = "We're sorry to miss you!"
   it "Thank-you page should say '#{not_coming}' when there are no guests attending" do
