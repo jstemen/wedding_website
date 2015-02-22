@@ -7,11 +7,6 @@ class InvitationGroupsController < ApplicationController
     @invitation_groups = InvitationGroup.all
   end
 
-  def search
-    @new_guest = Guest.new
-    @invitation_group = InvitationGroup.find_by_code(params[:code])
-    render :show_events
-  end
 
   # GET /invitation_groups/1
   # GET /invitation_groups/1.json
