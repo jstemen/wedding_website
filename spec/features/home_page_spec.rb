@@ -1,6 +1,12 @@
 
 describe "The RSVP Process", :type => :feature do
 
+  it 'If a user tries to reused a code from am a confirmed invitation group, they get an error message'do
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations, is_confirmed: true)
+    visit link_guests_to_events(invitation_group.code)
+    expect_to_be_on_events_page
+    expect(page).to have_content 'We have already received your RSVP.  Please contact palakandjared@gmail.com with any questions.'
+  end
 
   is_coming = "We look forward to celebrating with you!"
   it "Thank-you page should say '#{is_coming}' when there is at least one guest attending" do
