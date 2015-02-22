@@ -25,7 +25,7 @@
                 <%= f.input :is_confirmed, :as => :hidden%>
                 <%= f.action :submit, :label => "Confirmation", :button_html => {:id => 'confirmRsvp', :class => "red-on-gold btn"} %>
             <% end %>
-            <%= link_to :link_guests_to_events%>
+            <%= link_to 'Back', link_guests_to_events_path(:code => @invitation_group.code)%>
 
         </div>
     </div>
