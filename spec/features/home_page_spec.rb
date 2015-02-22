@@ -1,7 +1,9 @@
 
 describe "The RSVP Process", :type => :feature do
 
-
+  xit 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'
+  xit 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page'
+  xit 'Upon clicking the "Save Guest Selections" button on the events page, guests are taken to the confirmation page'
 
   it 'users can see their existing RSVPs on the events page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
@@ -101,7 +103,7 @@ describe "The RSVP Process", :type => :feature do
   end
 
   def expect_to_be_on_events_page
-    find("#eventsSelectionPage")
+    expect(find('#eventsSelectionPage')).not_to be_nil
   end
 
 
