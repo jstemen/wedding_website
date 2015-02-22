@@ -19,6 +19,18 @@ RSpec.describe InvitationGroup, :type => :model do
     expect { create(:invitation_group, {code: ''}) }.to raise_error ActiveRecord::RecordInvalid
   end
 
+  it "has_attendees must return false there are no guests" do
+    invitation_group = create(:invitation_group)
+    expect(invitation_group.has_attendees).to be(false)
+  end
+
+  it "has_attendees must return true there are guests" do
+    invitation_group = create(:invitation_group, :four_invitations)
+    invitation_group.invitations.first().guests << create(:guest)
+    invitation_group.save!
+    expect(invitation_group.has_attendees).to be(true)
+  end
+
   it "must delete associated invitations on delete" do
     invitation_group = create(:invitation_group)
     invitations = invitation_group.invitations
