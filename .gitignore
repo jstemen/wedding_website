@@ -78,4 +78,5 @@ pickle-email-*.html
 .env
 .powenv
 
+*[a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9].*
 
