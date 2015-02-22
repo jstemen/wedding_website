@@ -1,4 +1,4 @@
-describe "The RSVP Process", :type => :feature do
+describe 'The RSVP Process', :type => :feature do
 
   error_msg = 'You have entered an invalid RSVP code.  If you believe that you have received this message in error, please contact palakandjared@gmail.com'
   it "If a user enters an invalid invitation group code on the home page, they receive the error message: #{error_msg}" do
@@ -114,7 +114,7 @@ describe "The RSVP Process", :type => :feature do
   def redefine_equals(objs, *args)
     #redefine equals to only look at first and last name
     my_args = args
-
+    # Ruby doesn't like passing variables to inner method, so we'll abuse eval
     code = "" "
     objs.each { |obj|
       def obj.==(other)
