@@ -1,6 +1,16 @@
 
 describe "The RSVP Process", :type => :feature do
 
+
+
+  not_coming = "We're sorry to miss you!"
+  it "Thank-you page should say '#{not_coming}' when there are no guests attending" do
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    visit link_thank_you(invitation_group.code)
+    expect_to_be_on_thank_you_page
+    expect(page).to have_content not_coming
+  end
+
   it 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
@@ -118,6 +128,9 @@ describe "The RSVP Process", :type => :feature do
   end
   def link_confirmation(code)
     "/invitation_groups/confirmation?code=#{code}"
+  end
+  def link_thank_you(code)
+    "/invitation_groups/show/#{code}/thank_you"
   end
 
   def expect_to_be_on_events_page

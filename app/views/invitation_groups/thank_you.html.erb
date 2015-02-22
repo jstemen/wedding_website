@@ -1,4 +1,4 @@
-<div id="thankYouPage" class="gold-on-red">
+<div id="thankYouPage" class="yellow-on-pink">
     <div class="lavReg row hugeText padding-bottom-20">
         Thank You
     </div>
@@ -6,9 +6,15 @@
     <div class="row no-list-style padding-bottom-20">
         <div class="col-md-1"></div>
         <div class="col-md-11">
-            <div>
-                We look forward to seeing you!
-            </div>
+            <% if @invitation_group.has_attendees %>
+                <div>
+                    We look forward to celebrating with you!
+                </div>
+            <% else %>
+                <div>
+                    We're sorry to miss you!
+                </div>
+            <% end %>
         </div>
     </div>
 </div>
