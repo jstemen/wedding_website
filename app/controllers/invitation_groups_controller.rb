@@ -20,6 +20,10 @@ class InvitationGroupsController < ApplicationController
   def show_events
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code
+    if @invitation_group.nil?
+      flash[:danger] = 'You have entered an invalid RSVP code.  If you believe that you have received this message in error, please contact palakandjared@gmail.com'
+      redirect_to root_path
+    end
   end
 
 
