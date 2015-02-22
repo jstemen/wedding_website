@@ -1,4 +1,5 @@
 class InvitationGroup < ActiveRecord::Base
+  validates :is_confirmed, :inclusion => {:in => [true, false]}
   validates :code, presence: true
   validates :max_guests, numericality: true, presence: true
 
