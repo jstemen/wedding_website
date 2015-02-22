@@ -2,7 +2,16 @@
 describe "The RSVP Process", :type => :feature do
 
   xit 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'
-  xit 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page'
+
+  it 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page' do
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+
+    visit link_confirmation(invitation_group.code)
+
+    click_button 'confirmRsvp'
+    expect_to_be_on_thank_you_page
+  end
+
 
   it 'users can see their existing RSVPs on the events page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
@@ -99,6 +108,9 @@ describe "The RSVP Process", :type => :feature do
 
   def link_guests_to_events(code)
     "/invitation_groups/show/#{code}/events"
+  end
+  def link_confirmation(code)
+    "/invitation_groups/confirmation?code=#{code}"
   end
 
   def expect_to_be_on_events_page

@@ -57,16 +57,23 @@ class InvitationGroupsController < ApplicationController
   def confirmation
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code
+    @invitation_group.is_confirmed = true
   end
-
+  def thank_you
+    code = params[:code]
+    @invitation_group = InvitationGroup.find_by_code code
+  end
   # PATCH/PUT /invitation_groups/1
   # PATCH/PUT /invitation_groups/1.json
   def update
 
     respond_to do |format|
       if @invitation_group.update(invitation_group_params)
-        #format.html { redirect_to @invitation_group, notice: 'Invitation group was successfully updated.' }
-        format.html { redirect_to action: "confirmation", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
+        if @invitation_group.is_confirmed
+          format.html { redirect_to action: "thank_you", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
+        else
+          format.html { redirect_to action: "confirmation", code: @invitation_group.code, notice: 'Invitation group was successfully updated.' }
+        end
         format.json { render :show, status: :ok, location: @invitation_group }
       else
         format.html { render :edit }
