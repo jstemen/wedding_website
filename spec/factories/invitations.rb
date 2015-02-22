@@ -19,6 +19,7 @@ FactoryGirl.define do
       Faker::Internet.password
     }
     max_guests 5
+    is_confirmed false
 
     trait :five_guests do
       guests  {
