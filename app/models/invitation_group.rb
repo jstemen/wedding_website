@@ -8,5 +8,9 @@ class InvitationGroup < ActiveRecord::Base
 
   accepts_nested_attributes_for :guests
   accepts_nested_attributes_for :invitations
+
+  def has_attendees
+     not invitations.collect(&:guests).empty?
+  end
 end
 
