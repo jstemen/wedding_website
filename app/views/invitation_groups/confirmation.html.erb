@@ -9,28 +9,31 @@
             <div>
                 You have indicated the following:
             </div>
-            <div class="padding-top-20 padding-bottom-20">
-                <% @invitation_group.invitations.each { |invitation| %>
-                    <p>
-                        <%= "#{invitation.event.name}: #{print_attending invitation} attending" %>
-                    </p>
-                <% } %>
-            </div>
-
+            <ul>
+                <div class="padding-top-20 padding-bottom-20">
+                    <% @invitation_group.invitations.each { |invitation| %>
+                        <li>
+                            <b> <%= "#{invitation.event.name}:" %>  </b>
+                            <%= "#{print_attending invitation} attending" %>
+                        </li>
+                    <% } %>
+                </div>
+            </ul>
             <div>
                 Is this correct?
             </div>
 
-            <div>
-                Your RSVP will not be received until you click "Confirm"
-            </div>
 
             <div class="padding-top-20 padding-bottom-20">
                 <%= semantic_form_for @invitation_group do |f| %>
                     <%= f.input :is_confirmed, :as => :hidden %>
-                    <%= f.action :submit, :label => "Confirmation", :button_html => {:id => 'confirmRsvp', :class => "red-on-gold btn"} %>
+                    <%= f.action :submit, :label => "Confirm", :button_html => {:id => 'confirmRsvp', :class => "red-on-gold btn"} %>
                 <% end %>
                 <%= link_to 'Back', link_guests_to_events_path(:code => @invitation_group.code) %>
+            </div>
+
+            <div>
+                Your RSVP will not be received until you click "Confirm"
             </div>
 
         </div>
