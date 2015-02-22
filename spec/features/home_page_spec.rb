@@ -1,7 +1,14 @@
 
 describe "The RSVP Process", :type => :feature do
 
-  xit 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'
+  it 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'do
+    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+
+    visit link_confirmation(invitation_group.code)
+    click_link('Back')
+    expect_to_be_on_events_page
+  end
+
 
   it 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
