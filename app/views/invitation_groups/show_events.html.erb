@@ -3,27 +3,33 @@
         RSV P
     </div>
 
-    <div class="row no-list-style padding-bottom-20">
-        <div class="col-md-1"></div>
-        <div class="col-md-11">
-            <div>
-                Please select which guests will be attending each event.
-            </div>
-            <%= semantic_form_for @invitation_group do |f| %>
+    <% if @invitation_group.is_confirmed %>
+        <div class="alert alert-danger">
+            We have already received your RSVP. Please contact palakandjared@gmail.com with any questions.
+        </div>
+    <% else %>
+        <div class="row no-list-style padding-bottom-20">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+                <div>
+                    Please select which guests will be attending each event.
+                </div>
+                <%= semantic_form_for @invitation_group do |f| %>
 
-                <%= f.semantic_fields_for :invitations do |invitation| %>
-                    <h1 class="myheading">
-                        <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
-                    </h1>
+                    <%= f.semantic_fields_for :invitations do |invitation| %>
+                        <h1 class="myheading">
+                            <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
+                        </h1>
 
-                    <div class="names">
-                        <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => false %>
-                    </div>
+                        <div class="names">
+                            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => false %>
+                        </div>
+                    <% end %>
+
+                    <%= f.action :submit, :label => "Save Guest Selections", :button_html => {:id => 'submitSaveGuestSelections', :class => "red-on-gold btn"} %>
                 <% end %>
 
-                <%= f.action :submit, :label => "Save Guest Selections", :button_html => { :id => 'submitSaveGuestSelections', :class => "red-on-gold btn" } %>
-            <% end %>
-
+            </div>
         </div>
-    </div>
+    <% end %>
 </div>
