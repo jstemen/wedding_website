@@ -3,7 +3,6 @@ describe "The RSVP Process", :type => :feature do
 
   xit 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page'
   xit 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page'
-  xit 'Upon clicking the "Save Guest Selections" button on the events page, guests are taken to the confirmation page'
 
   it 'users can see their existing RSVPs on the events page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
@@ -30,7 +29,7 @@ describe "The RSVP Process", :type => :feature do
   end
 
 
-  it 'users can select guests' do
+  it 'users can select guests and be sent to the confirmation page' do
     invitation_group = create(:invitation_group, :five_guests, :four_invitations)
 
     visit link_guests_to_events(invitation_group.code)
@@ -44,7 +43,7 @@ describe "The RSVP Process", :type => :feature do
     click_button 'submitSaveGuestSelections'
 
     redefine_equals group_guests, :last_name, :first_name
-    expect(page).to have_content 'Please Enter The Guests That Will Be Coming:'
+    expect_to_be_on_confirmation_page
     #Need to look up IG from db to get updated copy
     inv_guests = InvitationGroup.find(invitation_group.id).invitations.first.guests.to_a
 
@@ -106,5 +105,12 @@ describe "The RSVP Process", :type => :feature do
     expect(find('#eventsSelectionPage')).not_to be_nil
   end
 
+  def expect_to_be_on_confirmation_page
+    expect(find('#confirmationPage')).not_to be_nil
+  end
+
+  def expect_to_be_on_thank_you_page
+    expect(find('#thankYouPage')).not_to be_nil
+  end
 
 end

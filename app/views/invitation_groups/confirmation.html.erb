@@ -1,0 +1,27 @@
+<div id="confirmationPage" class="gold-on-red">
+    <div class="lavReg row hugeText padding-bottom-20">
+        Confirmation
+    </div>
+
+    <div class="row no-list-style padding-bottom-20">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <div>
+                You have indicated the following:
+            </div>
+            <% @invitation_group.invitations
+                       .each { |invitation| %>
+                <%= "#{invitation.event.name}: #{invitation.guests.collect(&:full_name).join(', ')} attending" %>
+            <% } %>
+
+            <div>
+                Is this correct?
+            </div>
+
+            <div>
+                Your RSVP will not be received until you click "Confirm"
+            </div>
+
+        </div>
+    </div>
+</div>
