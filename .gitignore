@@ -78,5 +78,7 @@ pickle-email-*.html
 .env
 .powenv
 
+wedding_website_test
+
 *[a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9].*
 
