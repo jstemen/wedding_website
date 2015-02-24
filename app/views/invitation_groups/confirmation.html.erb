@@ -11,10 +11,11 @@
             </div>
             <ul>
                 <div class="padding-top-20 padding-bottom-20">
-                    <% @invitation_group.invitations.each { |invitation| %>
+                    <% @invitation_group.invitations.group_by(&:event).each { |key, values| %>
+
                         <li>
-                            <b> <%= "#{invitation.event.name}:" %>  </b>
-                            <%= "#{print_attending invitation} attending" %>
+                            <b> <%= "#{key.name}:" %>  </b>
+                            <%= "#{print_attending values} attending" %>
                         </li>
                     <% } %>
                 </div>

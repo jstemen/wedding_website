@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222042743) do
+ActiveRecord::Schema.define(version: 20150223172220) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -26,22 +26,12 @@ ActiveRecord::Schema.define(version: 20150222042743) do
     t.string   "email_address"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "invitation_group_id"
   end
 
   add_index "guests", ["email_address"], name: "index_guests_on_email_address", unique: true
-  add_index "guests", ["invitation_group_id"], name: "index_guests_on_invitation_group_id"
-
-  create_table "guests_invitations", id: false, force: true do |t|
-    t.integer "guest_id",      null: false
-    t.integer "invitation_id", null: false
-  end
-
-  add_index "guests_invitations", ["invitation_id", "guest_id"], name: "index_guests_invitations_on_invitation_id_and_guest_id"
 
   create_table "invitation_groups", force: true do |t|
     t.string   "code"
-    t.integer  "max_guests"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_confirmed", default: false, null: false
@@ -52,11 +42,14 @@ ActiveRecord::Schema.define(version: 20150222042743) do
   create_table "invitations", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "event_id"
     t.integer  "invitation_group_id"
+    t.boolean  "is_accepted"
+    t.integer  "event_id"
+    t.integer  "guest_id"
   end
 
   add_index "invitations", ["event_id"], name: "index_invitations_on_event_id"
+  add_index "invitations", ["guest_id"], name: "index_invitations_on_guest_id"
   add_index "invitations", ["invitation_group_id"], name: "index_invitations_on_invitation_group_id"
 
 end

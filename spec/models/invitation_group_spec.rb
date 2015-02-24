@@ -13,7 +13,7 @@ RSpec.describe InvitationGroup, :type => :model do
     expect(invitation_group.code).to be_instance_of(String)
   end
 
-  it "has confirmed" do
+  it "has is_confirmed" do
     invitation_group = create :invitation_group
     invitation_group.is_confirmed
   end
@@ -38,7 +38,9 @@ RSpec.describe InvitationGroup, :type => :model do
 
   it "has_attendees must return true there are guests" do
     invitation_group = create(:invitation_group, :four_invitations)
-    invitation_group.invitations.first().guests << create(:guest)
+    invitation = invitation_group.invitations.first()
+    invitation.is_accepted = true
+    invitation.guest= create(:guest)
     invitation_group.save!
     expect(invitation_group.has_attendees).to be(true)
   end
@@ -57,16 +59,4 @@ RSpec.describe InvitationGroup, :type => :model do
     create(:invitation_group, {code: 'foobar'})
   end
 
-  it "must have max_guests" do
-    expect { create(:invitation_group, {max_guests: ''}) }.to raise_error ActiveRecord::RecordInvalid
-  end
-
-  it "must not allow string max_guests" do
-    expect { create(:invitation_group, {max_guests: 'dog'}) }.to raise_error ActiveRecord::RecordInvalid
-  end
-
-  it "has max_guests" do
-    invitation_group = create :invitation_group
-    expect(invitation_group.max_guests).to be_instance_of(Fixnum)
-  end
 end
