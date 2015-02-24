@@ -97,7 +97,7 @@ class InvitationGroupsController < ApplicationController
     @invitation_group = InvitationGroup.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  #ToDo lock this down
   def invitation_group_params
     params.require(:invitation_group).permit!
   end

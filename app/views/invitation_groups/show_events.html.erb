@@ -16,13 +16,16 @@
                 </div>
                 <%= semantic_form_for @invitation_group do |f| %>
 
+                    <% last_event = nil %>
                     <%= f.semantic_fields_for :invitations do |invitation| %>
+                        <% event = invitation.object.event%>
                         <h1 class="myheading">
-                            <%= "#{invitation.object.event.name} - #{invitation.object.event.time.strftime("%A %B %d, %Y ")}" %>
+                            <%= "#{event.name} - #{event.time.strftime("%A %B %d, %Y ")}" unless event == last_event %>
+                            <% last_event = event %>
                         </h1>
 
                         <div class="names">
-                            <%= invitation.input :guests, :as => :check_boxes, :collection => @invitation_group.guests, :label => false %>
+                            <%= invitation.input :is_accepted, label: invitation.object.guest.full_name %>
                         </div>
                     <% end %>
 

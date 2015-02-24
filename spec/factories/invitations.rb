@@ -12,18 +12,20 @@ FactoryGirl.define do
   factory :invitation do
     event { create(:event) }
     invitation_group
+    trait :with_guest do
+      guest {create(:guest)}
+    end
   end
 
   factory :invitation_group do
     code {
       Faker::Internet.password
     }
-    max_guests 5
     is_confirmed false
 
     trait :five_guests do
-      guests  {
-        (1..5).collect{FactoryGirl.create(:guest)}
+      invitations  {
+        (1..5).collect{FactoryGirl.create(:invitation, :with_guest)}
       }
     end
 

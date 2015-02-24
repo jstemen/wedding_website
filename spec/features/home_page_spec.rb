@@ -10,18 +10,21 @@ describe 'The RSVP Process', :type => :feature do
     expect(page).to have_content error_msg
   end
 
-  it 'If a user tries to reused a code from am a confirmed invitation group, they get an error message' do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations, is_confirmed: true)
+  reuse_error_msg = 'We have already received your RSVP.  Please contact palakandjared@gmail.com with any questions.'
+  it "If a user tries to reuse a code from am a confirmed invitation group, they get the error message #{reuse_error_msg}" do
+    invitation_group = create(:invitation_group, :five_guests, is_confirmed: true)
     visit link_guests_to_events(invitation_group.code)
     expect_to_be_on_events_page
-    expect(page).to have_content 'We have already received your RSVP.  Please contact palakandjared@gmail.com with any questions.'
+    expect(page).to have_content reuse_error_msg
   end
 
   is_coming = "We look forward to celebrating with you!"
   it "Thank-you page should say '#{is_coming}' when there is at least one guest attending" do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
-    invitation_group.invitations.first.guests << invitation_group.guests.first
+    invitation_group = create(:invitation_group, :five_guests)
+    invitation = invitation_group.invitations.first
+    invitation.is_accepted = true
     invitation_group.save!
+    invitation.save!
     visit link_thank_you(invitation_group.code)
     expect_to_be_on_thank_you_page
     expect(page).to have_content is_coming
@@ -29,14 +32,14 @@ describe 'The RSVP Process', :type => :feature do
 
   not_coming = "We're sorry to miss you!"
   it "Thank-you page should say '#{not_coming}' when there are no guests attending" do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group = create(:invitation_group, :five_guests)
     visit link_thank_you(invitation_group.code)
     expect_to_be_on_thank_you_page
     expect(page).to have_content not_coming
   end
 
   it 'Upon clicking the "Back" button on the confirmation page, guests are taken back to the events page' do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group = create(:invitation_group, :five_guests)
 
     visit link_confirmation(invitation_group.code)
     click_link('Back')
@@ -45,7 +48,7 @@ describe 'The RSVP Process', :type => :feature do
 
 
   it 'Upon clicking the "Confirm RSVP" button on the confirmation page, guests are taken to the thank-you page' do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group = create(:invitation_group, :five_guests)
 
     visit link_confirmation(invitation_group.code)
 
@@ -55,49 +58,46 @@ describe 'The RSVP Process', :type => :feature do
 
 
   it 'users can see their existing RSVPs on the events page' do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group = create(:invitation_group, :five_guests)
 
 
-    expected_selected_arry = invitation_group.invitations.collect { |inv|
-      guests_sample = invitation_group.guests.sample 2
-      inv.guests = guests_sample
-      inv.save!
-      guests_sample
+    expected_selected_arry = invitation_group.invitations.sample(invitation_group.invitations.size/2)
+    expected_selected_arry.each { |i|
+      i.is_accepted=true
+      i.save!
     }
+
 
     visit link_guests_to_events(invitation_group.code)
 
-    expected_selected_arry.each_with_index { |inv_guests, i|
-      within("#invitation_group_invitations_attributes_#{i}_guests_input") do
-        selected_guest_ids =page.all("[checked]").collect { |t| t.value.to_i }
-        expected_guest_ids = inv_guests.collect &:id
-        expect(selected_guest_ids.size).to eq(expected_guest_ids.size)
-        expect(selected_guest_ids).to include *expected_guest_ids
-      end
-
+    expected_selected_arry.each{|invitation|
+      node  = find("#invitation_group_invitations_attributes_#{invitation.id}_is_accepted")
+      expect(node.value).to eq("1")
     }
+    expect(page.all("[checked]").size).to eq(expected_selected_arry.size)
+
   end
 
 
   it 'users can select guests and be sent to the confirmation page' do
-    invitation_group = create(:invitation_group, :five_guests, :four_invitations)
+    invitation_group = create(:invitation_group, :five_guests)
 
     visit link_guests_to_events(invitation_group.code)
 
-    group_guests = invitation_group.guests
+    invitations = invitation_group.invitations
 
-    group_guests.each { |guest|
-      check "invitation_group_invitations_attributes_0_guest_ids_#{guest.id}"
+    invitations.each { |inv|
+      check "#invitation_group_invitations_attributes_#{inv.id}_is_accepted"
     }
 
     click_button 'submitSaveGuestSelections'
 
-    redefine_equals group_guests, :last_name, :first_name
+    redefine_equals invitations, :last_name, :first_name
     expect_to_be_on_confirmation_page
     #Need to look up IG from db to get updated copy
     inv_guests = InvitationGroup.find(invitation_group.id).invitations.first.guests.to_a
 
-    expect(inv_guests).to include(*group_guests)
+    expect(inv_guests).to include(*invitations)
 
   end
 

@@ -72,6 +72,10 @@ $deep-red: #b10007;
   text-align: center;
 }
 
+.stretch-vertical {
+  height: 100%;
+}
+
 .pea {
   background-image: asset-data-url("peacock.jpg");
   background-size: auto 100%;

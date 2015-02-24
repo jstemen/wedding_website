@@ -38,8 +38,8 @@ RSpec.describe Guest, :type => :model do
     guest.save
     expect(guest.invitations).to include(invitation_one)
     expect(guest.invitations).to include(invitation_two)
-    expect(invitation_one.guests).to include(guest)
-    expect(invitation_two.guests).to include(guest)
+    expect(invitation_one.guest).to eq(guest)
+    expect(invitation_two.guest).to eq(guest)
   end
   
   it "will not allow bad email" do
