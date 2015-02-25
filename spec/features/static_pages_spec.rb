@@ -2,7 +2,7 @@ describe 'The site\'s static pages', :type => :feature do
 
   it "should include the Save The Date Game" do
     visit url_for save_the_date_path
-    find('#phaser-game')
+    expect(find('#phaser-game')).not_to be_nil
   end
 
   it "should include The Non Indian\'s Guide'" do
