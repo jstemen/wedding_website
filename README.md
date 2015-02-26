@@ -1,6 +1,6 @@
 Wedding Website
 ================
-[![Build Status](https://semaphoreapp.com/api/v1/projects/c40331c6-c0cc-4fb6-b6b5-63be2d22e595/359612/badge.png)](https://semaphoreapp.com/jstemen/wedding_website)
+[![Build Status](https://semaphoreapp.com/api/v1/projects/c40331c6-c0cc-4fb6-b6b5-63be2d22e595/359615/badge.png)](https://semaphoreapp.com/jstemen/wedding_website)
 
 Ruby on Rails
 -------------
