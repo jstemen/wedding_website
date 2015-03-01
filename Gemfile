@@ -15,6 +15,7 @@ gem 'unicorn'
 gem 'unicorn-rails'
 gem 'underscore-rails'
 gem 'formtastic'
+gem 'faker'
 
 group :development do
   gem 'better_errors'
@@ -30,13 +31,12 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'guard'
 end
 group :production do
-  gem 'pg'
+  gem 'mysql2'
   gem 'rails_12factor'
 end
 group :test do
