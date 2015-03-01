@@ -52,9 +52,14 @@ test:
   password:
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: wedding_website_production
-  pool: 5
-  username: wedding_website
-  password:
+    adapter: mysql2
+    encoding: utf8
+    database: wedding
+    pool: 5
+    username: <%= ENV["WEDDING_WEBSITE_SECRET_DB_USERNAME"] %>
+    password: <%= ENV["WEDDING_WEBSITE_SECRET_DB_PASSWORD"] %>
+    host: <%= ENV["WEDDING_WEBSITE_SECRET_DB_HOST"] %>
+    database: wedding
+    reconnect: true
+    adapter: mysql2
+    port: 3306
