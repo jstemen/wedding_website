@@ -21,11 +21,11 @@ function loadGame() {
             game.load.spritesheet('dude', '/sprites/palakFull.png', 32, 48);
             game.load.spritesheet('shoes', '/sprites/shoes.png', 46, 39);
 
-            game.load.audio('jump', '/sounds/smb_jump-small.ogg');
-            game.load.audio('gameover', '/sounds/smb_gameover.ogg');
-            game.load.audio('mariodie', '/sounds/smb_mariodie.ogg');
-            game.load.audio('stomp', '/sounds/smb_stomp.ogg');
-            game.load.audio('music', '/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
+            game.load.audio('jump', "<%=audio_path('smb_jump-small.ogg')%>");
+            game.load.audio('gameover', "<%=audio_path('smb_gameover.ogg')%>");
+            game.load.audio('mariodie', "<%=audio_path('smb_mariodie.ogg')%>");
+            game.load.audio('stomp', "<%=audio_path('smb_stomp.ogg')%>");
+            game.load.audio('music', "<%=audio_path('JooteDoPaiseLoHumAapkeHainKounsamwep.ogg') %>");
             game.load.spritesheet('button', '/sprites/toggleFullscreenButton.png', buttonWidth, buttonHeight);
 
         }
