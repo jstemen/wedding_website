@@ -5,7 +5,7 @@ function loadGame() {
     if (length > 0) {
         function preload() {
 
-            game.load.tilemap('mario', '/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.tilemap('mario', "<%= asset_url('super_mario3.json') %>", null, Phaser.Tilemap.TILED_JSON);
             game.load.image('tiles', "<%= image_path('tilemaps/super_mario.png') %>");
             game.load.image('mfire', "<%= image_path('sprites/mediumFireworks.png') %>");
             game.load.image('sfire', "<%= image_path('sprites/smallFireworks.png') %>");
