@@ -5,36 +5,28 @@ function loadGame() {
     if (length > 0) {
         function preload() {
 
-            game.load.tilemap('mario', '/assets/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
-            game.load.image('tiles', '/assets/tilemaps/jared/super_mario.png');
-            game.load.image('player', '/assets/sprites/phaser-dude.png');
-            game.load.image('blue', '/assets/particles/blue.png');
-            game.load.image('red', '/assets/particles/red.png');
-            game.load.image('yellow', '/assets/particles/yellow.png');
-            game.load.image('green', '/assets/particles/green.png');
-            game.load.image('mfire', '/assets/mediumFireworks.png');
-            game.load.image('sfire', '/assets/smallFireworks.png');
-            game.load.image('lfire', '/assets/largeFireworks.png');
-            game.load.image('carrot', '/assets/sprites/carrot.png');
-            game.load.image('star', '/assets/misc/star_particle.png');
-            game.load.image('diamond', '/assets/sprites/diamond.png')
+            game.load.tilemap('mario', '/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.image('tiles', '/tilemaps/jared/super_mario.png');
+            game.load.image('mfire', '/sprites/mediumFireworks.png');
+            game.load.image('sfire', '/sprites/smallFireworks.png');
+            game.load.image('lfire', '/sprites/largeFireworks.png');
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
 
-            game.load.spritesheet('mummy', '/assets/jarebear.png', 32, 48);
-            game.load.image('instructions', '/assets/instructions-text.png');
-            game.load.image('temple', '/assets/temple_final.png');
+            game.load.spritesheet('mummy', '/sprites/jarebear.png', 32, 48);
+            game.load.image('instructions', '/sprites/instructions-text.png');
+            game.load.image('temple', '/sprites/temple_final.png');
 
-            game.load.spritesheet('dude', '/assets/palakFull.png', 32, 48);
-            game.load.spritesheet('shoes', '/assets/shoes.png', 46, 39);
+            game.load.spritesheet('dude', '/sprites/palakFull.png', 32, 48);
+            game.load.spritesheet('shoes', '/sprites/shoes.png', 46, 39);
 
-            game.load.audio('jump', '/assets/sounds/smb_jump-small.ogg');
-            game.load.audio('gameover', '/assets/sounds/smb_gameover.ogg');
-            game.load.audio('mariodie', '/assets/sounds/smb_mariodie.ogg');
-            game.load.audio('stomp', '/assets/sounds/smb_stomp.ogg');
-            game.load.audio('music', '/assets/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
-            game.load.spritesheet('button', '/assets/toggleFullscreenButton.png', buttonWidth, buttonHeight);
+            game.load.audio('jump', '/sounds/smb_jump-small.ogg');
+            game.load.audio('gameover', '/sounds/smb_gameover.ogg');
+            game.load.audio('mariodie', '/sounds/smb_mariodie.ogg');
+            game.load.audio('stomp', '/sounds/smb_stomp.ogg');
+            game.load.audio('music', '/sounds/JooteDoPaiseLoHumAapkeHainKounsamwep.ogg');
+            game.load.spritesheet('button', '/sprites/toggleFullscreenButton.png', buttonWidth, buttonHeight);
 
         }
 
