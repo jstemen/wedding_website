@@ -6,27 +6,27 @@ function loadGame() {
         function preload() {
 
             game.load.tilemap('mario', '/tilemaps/jared/super_mario3.json', null, Phaser.Tilemap.TILED_JSON);
-            game.load.image('tiles', '/tilemaps/jared/super_mario.png');
-            game.load.image('mfire', '/sprites/mediumFireworks.png');
-            game.load.image('sfire', '/sprites/smallFireworks.png');
-            game.load.image('lfire', '/sprites/largeFireworks.png');
+            game.load.image('tiles', "<%= image_path('tilemaps/super_mario.png') %>");
+            game.load.image('mfire', "<%= image_path('sprites/mediumFireworks.png') %>");
+            game.load.image('sfire', "<%= image_path('sprites/smallFireworks.png') %>");
+            game.load.image('lfire', "<%= image_path('sprites/largeFireworks.png') %>");
             //  37x45 is the size of each frame
             //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
             //  blank frames at the end, so we tell the loader how many to load
 
-            game.load.spritesheet('mummy', '/sprites/jarebear.png', 32, 48);
+            game.load.spritesheet('mummy', "<%= image_path('sprites/jarebear.png') %>", 32, 48);
             game.load.image('instructions', '/sprites/instructions-text.png');
-            game.load.image('temple', '/sprites/temple_final.png');
+            game.load.image('temple', "<%= image_path('sprites/temple_final.png') %>");
 
-            game.load.spritesheet('dude', '/sprites/palakFull.png', 32, 48);
-            game.load.spritesheet('shoes', '/sprites/shoes.png', 46, 39);
+            game.load.spritesheet('dude', "<%= image_path('sprites/palakFull.png') %>", 32, 48);
+            game.load.spritesheet('shoes', "<%= image_path('sprites/shoes.png') %>", 46, 39);
 
             game.load.audio('jump', "<%=audio_path('smb_jump-small.ogg')%>");
             game.load.audio('gameover', "<%=audio_path('smb_gameover.ogg')%>");
             game.load.audio('mariodie', "<%=audio_path('smb_mariodie.ogg')%>");
             game.load.audio('stomp', "<%=audio_path('smb_stomp.ogg')%>");
             game.load.audio('music', "<%=audio_path('JooteDoPaiseLoHumAapkeHainKounsamwep.ogg') %>");
-            game.load.spritesheet('button', '/sprites/toggleFullscreenButton.png', buttonWidth, buttonHeight);
+            game.load.spritesheet('button', "<%= image_path('sprites/toggleFullscreenButton.png') %>", buttonWidth, buttonHeight);
 
         }
 
