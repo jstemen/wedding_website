@@ -15,7 +15,7 @@ function loadGame() {
             //  blank frames at the end, so we tell the loader how many to load
 
             game.load.spritesheet('mummy', "<%= image_path('sprites/jarebear.png') %>", 32, 48);
-            game.load.image('instructions', '/sprites/instructions-text.png');
+            game.load.image('instructions', "<%= image_path('sprites/instructions-text.png') %>");
             game.load.image('temple', "<%= image_path('sprites/temple_final.png') %>");
 
             game.load.spritesheet('dude', "<%= image_path('sprites/palakFull.png') %>", 32, 48);
