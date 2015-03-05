@@ -25,13 +25,20 @@
             </div>
 
 
-            <div class="padding-top-20 padding-bottom-20">
-                <%= link_to 'Back', link_guests_to_events_path(:code => @invitation_group.code), {class: 'btn btn-info', style: "display:inline-block"}  %>
-                <%= semantic_form_for @invitation_group, html: {style: "display:inline-block"} do |f| %>
-                    <%= f.input :is_confirmed, :as => :hidden %>
-                    <%= f.action :submit, :label => "Confirm", :button_html => {:id => 'confirmRsvp', :class => "red-on-gold btn"} %>
-                <% end %>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1">
+                        <%= link_to 'Back', link_guests_to_events_path(:code => @invitation_group.code), {class: 'btn'} %>
+                    </div>
+                    <div class="col-md-1">
+                        <%= semantic_form_for @invitation_group do |f| %>
+                            <%= f.input :is_confirmed, :as => :hidden %>
+                            <%= f.action :submit, :label => "Confirm", :button_html => {:id => 'confirmRsvp', :class => "red-on-gold btn"} %>
+                        <% end %>
+                    </div>
+                </div>
             </div>
+
 
             <div>
                 Your RSVP will not be received until you click "Confirm"
