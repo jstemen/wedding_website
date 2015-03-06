@@ -44,12 +44,18 @@ $positions: top bottom left right;
   text-align: center;
 }
 
-.white-on-green {
+.white-on-see-through-turquoise {
   color: #ffffff;
   background-color: darkgreen;
   background-color: rgba(55, 162, 171, 0.71);
   border-radius: $rounding-radius;
 
+  padding: 100px;
+}
+
+.center-it {
+  display: inline-block;
+  text-align: center;
 }
 
 
@@ -166,6 +172,11 @@ $deep-red: #b10007;
 .blue {
   background-color: #0800ba;
   color: #fff8fd;
+}
+
+.black-on-white {
+  background-color: whitesmoke;
+  color: black;
 }
 
 .banner, .content-section {
