@@ -139,17 +139,15 @@
                                                 " "", image: "Martha-final.jpg" %>
 
                 <%= render '/groom_or_brides_person', description: "" "
-                    Vanessa Au: Vanessa and Palak met at work, when they both worked at Paul Hastings. Palak was
-                    a paralegal
-                    and Vanessa, her supervisor, an attorney. The two commiserated over the long hours,
-                    workload, and a
-                    shared bitterness toward upper management. They would often call each other from their
-                    respective
-                    offices and leave the line open for hours with the speakerphone on, just to be able to talk
-                    if they
-                    wanted. In 2013, Palak and Vanessa traveled to Turkey together. Vanessa lives in Los
-                    Angeles, CA and is
-                    a lawyer.
+                    Vanessa Au: Vanessa and Palak met at work, when they both worked at Paul Hastings.
+                    Palak was a paralegal and Vanessa, her supervisor, an attorney. The two commiserated
+                    over the long hours, never-ending workload, and a shared bitterness toward upper
+                    management. They would often call each other from their respective offices and leave
+                    the line open for hours with the speakerphone on, just to be able to vent when they
+                    wanted. In 2013, Palak and Vanessa traveled to Turkey together. One of the highlights
+                    of their trip was a breathtaking hot air balloon ride over the \"fairy chimneys\"
+                    of Cappadocia at sunrise. Vanessa lives in Los Angeles, CA and enjoys outdoor
+                    activities such as hiking.
                                                 " "", image: "vanessa.jpg" %>
 
                 <%= render '/groom_or_brides_person', description: "" "
@@ -432,7 +430,7 @@
                     <h1 class="text-center myheading">RSVP:</h1>
 
                     <p>Please enter the RSVP code included in your invitation.</p>
-                    <%= form_tag("/invitation_groups/search", method: "get", html:{class: 'center-it'}) do %>
+                    <%= form_tag("/invitation_groups/search", method: "get", html: {class: 'center-it'}) do %>
                         <%= label_tag(:code, "Code:") %>
                         <%= text_field_tag(:code, '', class: "black-on-white") %>
                         <%= submit_tag("Lookup", class: 'btn btn-default') %>
