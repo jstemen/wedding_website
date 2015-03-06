@@ -34,4 +34,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  #config.assets.compile = false
+
+  # Generate digests for assets URLs.
+  #config.assets.digest = true
 end
