@@ -1,4 +1,7 @@
 $carousel-max-dimension: 600px;
+$rounding-radius: 25px;
+$positions: top bottom left right;
+
 @font-face {
   font-family: ITCEDSCR;
   src: font-url("ITCEDSCR.ttf") ;
@@ -44,6 +47,15 @@ $carousel-max-dimension: 600px;
 .white-on-green {
   color: #ffffff;
   background-color: darkgreen;
+  background-color: rgba(55, 162, 171, 0.71);
+  border-radius: $rounding-radius;
+
+}
+
+
+.vertical-align {
+  display: flex;
+  align-items: center;
 }
 
 .yellow-on-pink {
@@ -158,7 +170,7 @@ $deep-red: #b10007;
 
 .banner, .content-section {
   padding-bottom: 25px;
-  border-radius: 25px;
+  border-radius: $rounding-radius;
   font-family: GOTHIC;
 }
 
@@ -169,7 +181,7 @@ $deep-red: #b10007;
   list-style:none;
   list-style-type:none;
 }
-$positions: top bottom left right;
+
 
 @each $pos in $positions{
   .padding-#{$pos}-20{
