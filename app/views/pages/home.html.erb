@@ -428,6 +428,7 @@
                 <div class="jumbotron white-on-see-through-turquoise vcenter">
 
                     <h1 class="text-center myheading">RSVP:</h1>
+                    <%= render 'layouts/messages' %>
 
                     <p>Please enter the RSVP code included in your invitation.</p>
                     <%= form_tag("/invitation_groups/search", method: "get", html: {class: 'center-it'}) do %>
