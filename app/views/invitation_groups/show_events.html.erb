@@ -4,8 +4,15 @@
     </div>
 
     <% if @invitation_group.is_confirmed %>
-        <div class="alert alert-danger">
-            We have already received your RSVP. Please contact palakandjared@gmail.com with any questions.
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="alert alert-info">
+                    We have already received your RSVP. Please contact palakandjared@gmail.com with any questions.
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+
         </div>
     <% else %>
         <div class="row no-list-style padding-bottom-20">
@@ -18,7 +25,7 @@
 
                     <% last_event = nil %>
                     <%= f.semantic_fields_for :invitations do |invitation| %>
-                        <% event = invitation.object.event%>
+                        <% event = invitation.object.event %>
                         <h1 class="myheading">
                             <%= "#{event.name} - #{event.time.strftime("%A %B %d, %Y ")}" unless event == last_event %>
                             <% last_event = event %>
