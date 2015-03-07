@@ -1,10 +1,11 @@
 describe 'The RSVP Process', :type => :feature do
 
-  error_msg = 'You have entered an invalid RSVP code.  If you believe that you have received this message in error, please contact palakandjared@gmail.com'
+  invalid_code = 'I am not a valid code'
+  error_msg = "You have entered the invalid RSVP code: \"#{invalid_code}\".  If you believe that you have received this message in error, please contact us via palakandjared@gmail.com"
   it "If a user enters an invalid invitation group code on the home page, they receive the error message: #{error_msg}" do
     visit root_path
     invitation_group = create :invitation_group
-    fill_in('code', :with => 'I am not a valid code')
+    fill_in('code', :with => invalid_code)
     click_button 'Lookup'
     expect_to_be_on_home_page
     expect(page).to have_content error_msg
