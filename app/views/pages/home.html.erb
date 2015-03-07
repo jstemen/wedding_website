@@ -427,15 +427,23 @@
             <div class="col-md-8">
                 <div class="jumbotron white-on-see-through-turquoise vcenter">
 
-                    <h1 class="text-center myheading">RSVP:</h1>
-                    <%= render 'layouts/messages' %>
-
-                    <p>Please enter the RSVP code included in your invitation.</p>
-                    <%= form_tag("/invitation_groups/search", method: "get", html: {class: 'center-it'}) do %>
-                        <%= label_tag(:code, "Code:") %>
-                        <%= text_field_tag(:code, '', class: "black-on-white") %>
-                        <%= submit_tag("Lookup", class: 'btn btn-default') %>
-                    <% end %>
+                    <div class="row">
+                        <h1 class="text-center myheading">RSVP:</h1>
+                        <%= render 'layouts/messages' %>
+                    </div>
+                    <div class="row">
+                        <p class="text-center">Please enter the RSVP code included in your invitation.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-8">
+                            <%= form_tag("/in   vitation_groups/search", method: "get", html: {class: 'center-it'}) do %>
+                                <%= label_tag(:code, "Code:") %>
+                                <%= text_field_tag(:code, '', class: "black-on-white") %>
+                                <%= submit_tag("Lookup", class: 'btn btn-default') %>
+                            <% end %>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="col-md-2"></div>
