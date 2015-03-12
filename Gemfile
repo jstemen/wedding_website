@@ -19,6 +19,8 @@ gem 'faker'
 
 group :development do
   gem 'better_errors'
+  gem 'guard-livereload'
+  gem "rack-livereload"
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
   gem 'guard-rails'
