@@ -26,6 +26,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'smarter_csv'
+  gem "awesome_print"
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
