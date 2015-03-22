@@ -10,11 +10,12 @@ def create_guest(first_name, last_name)
 end 
 total_failed =0
 total_succeeded =0
+time_zone = DateTime.now.in_time_zone
 event_str_to_event = {
-    'number_invited_guests_-_wedding' => Event.create!(name: 'Wedding', time: Date.new),
-    'mehndi_invited' => Event.create!(name: 'Wedding', time: Date.new),
-    'number_invited_guests_-_vidhi' => Event.create!(name: 'Wedding', time: Date.new),
-    'number_invited_guests_-_after_party' => Event.create!(name: 'Wedding', time: Date.new)
+    'number_invited_guests_-_wedding' => Event.create!(name: 'Wedding', time: time_zone),
+    'mehndi_invited' => Event.create!(name: 'Mehndi', time: time_zone),
+    'number_invited_guests_-_vidhi' => Event.create!(name: 'Vidhi', time: time_zone),
+    'number_invited_guests_-_after_party' => Event.create!(name: 'After Party', time: time_zone)
 }
 event_sym_to_event = {}
 event_str_to_event.each{|key,value|
@@ -25,7 +26,7 @@ SmarterCSV.process('db/spreadsheet_data.csv', remove_empty_values: false) do |ch
 
   chunk.each { |row|
     begin
-      code = (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+      code = (0..7).map { (('a'..'z').to_a + (0..9).to_a)[rand(36)] }.join
       invitation_group = InvitationGroup.new(code: code)
       guests = []
       unless row['first-name-primary'.to_sym].blank?
