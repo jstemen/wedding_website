@@ -1,0 +1,459 @@
+<div class="container-fluid">
+    <div id="homePage" class="pea banner" xmlns="http://www.w3.org/1999/html">
+        <div class="row">
+            <div class="lavReg row hugeText">
+                Palak & Jared
+            </div>
+            <div class="lavReg row hugeText">
+                September 26th, 2015
+            </div>
+
+            <div class="up-top" data-spy="affix" data-offset-top="400" class="row">
+
+                <div class="col-md-3"></div>
+                <div class="col-md-8">
+                    <button type="button" class="btn btn-default purple mynavigation" onclick=scrollToId("#the_couple")>The
+                        Couple
+                    </button>
+                    <button type="button" class="btn btn-default teal mynavigation" onclick=scrollToId("#wedding_party")>Wedding
+                        Party
+                    </button>
+                    <button type="button" class="btn btn-default glitter mynavigation" onclick=scrollToId("#wedding_events")>Wedding
+                        Events
+                    </button>
+                    <button type="button" class="btn btn-default white mynavigation" onclick=scrollToId("#accommodations")>Accommodations</button>
+                    <button type="button" class="btn btn-default blue mynavigation" onclick=scrollToId("#registry")>Other</button>
+                    <button type="button" class="btn btn-default pea mynavigation" onclick=scrollToId("#rsvp")>RSVP</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div id="the_couple" class="purple content-section">
+        <div class="row ">
+            <div class="row ">
+                <h1 class="text-center myheading">The Couple</h1>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="row ">
+
+                <div class='col-md-5'>
+                    <h2 class="text-center myheading">About the Bride</h2>
+                    <%= image_tag "lips.png" %>
+                    <p>Palak was born in New Jersey and raised in the suburbs outside of Atlanta, GA. After high school,
+                        she
+                        moved to Los Angeles, CA to attend the University of Southern California. Upon graduation, Palak
+                        began
+                        her legal career working at a large law firm. After two years of work, she decided it was time
+                        to
+                        get
+                        her law degree. Palak graduated with a J.D. from The George Washington University Law School in
+                        Washington, D.C. and began working in-house at large companies in the area. Her most recent
+                        position
+                        brought her to Seattle, WA.
+                        Palak's favorite pastimes include spending time with her amazing friends, reading, photography,
+                        and
+                        crafting.</p>
+
+                </div>
+                <div class='col-md-5 '>
+                    <h2 class="text-center myheading">About the Groom</h2>
+                    <%= image_tag "mustache.png" %>
+                    <p>Jared was born and raised in Columbus, Ohio. After high school, he remained in Columbus to attend
+                        Ohio
+                        State University. During his final year of undergrad, Jared was offered a position as a defense
+                        contractor in Washington, D.C., so he embarked on his journey to the nation's capital shortly
+                        after
+                        graduation. After two years of work, Jared decided to pursue a masters degree in his newest
+                        passion,
+                        software engineering. During this schooling, Jared began working at a start-up in the area. His
+                        new
+                        experience and education made him particularly desirable to many companies, and shortly after,
+                        he
+                        was
+                        offered an amazing opportunity in Seattle, WA. Jared continued his education and received a
+                        masters
+                        degree from the Johns Hopkins University in May 2014.
+                        Jared’s favorite pastimes include programming, bicycling, and working out.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+
+            <div class='col-md-1'>
+            </div>
+
+            <div class='col-md-10'>
+                <h1 class="text-center myheading">Our Story</h1>
+                Palak and Jared met in Washington, D.C. where they began their relationship. After two and half years of
+                dating, the couple decided to move to Seattle, WA to further their careers. With nearly three years of
+                dating under their belts, Jared decided it was time to pop the question. A year prior to the proposal,
+                Jared
+                had secretly requested Palak's parents' blessing for her hand. In the months leading up to the proposal,
+                Jared worked with Palak's friends to develop a proposal she was sure to say yes to. While visiting Los
+                Angeles over labor day weekend, Jared proposed to Palak on the beach in Santa Monica, just after sunset,
+                with the lights of the Santa Monica pier and ferris wheel providing a picturesque backdrop. He had hired
+                a
+                plane with an LED bottom to fly around the beach and water scrolling the following, "Palak Shah, will
+                you
+                marry me? <3 <3 <3." As they began walking onto the sand, Jared pointed up into the sky and asked her to
+                look up. Tears filled her eyes when she finally realized what was happening. With her friends cheering
+                them
+                on, Jared got down on one knee, presented Palak with a gorgeous ring, and asked her to marry him. She
+                said
+                yes, of course.
+            </div>
+        </div>
+    </div>
+
+    <div id="wedding_party" class="teal content-section">
+
+        <div class="row ">
+            <h1 class="text-center myheading"> Wedding Party </h1>
+        </div>
+        <div class="row ">
+            <div class="col-md-1"></div>
+            <div class='col-md-5'>
+                <h1 class="text-center myheading">Bridesmaids</h1>
+
+                <%= render '/groom_or_brides_person', description: "" "
+
+                    Purvi Shah (Maid of Honor): Purvi is Palak’s cousin; of the bridesmaids, Purvi and Palak go
+                    back the
+                    longest - they’ve known each other since Purvi was born. Over the years, Palak and Purvi
+                    grew close and
+                    have the relationship of sisters. Purvi lives in Corona, CA and is a dentist.
+                                                " "", image: "Purvi 3.jpg" %>
+
+                <%= render '/groom_or_brides_person', description: "" "
+
+                    Martha Suarez: Martha and Palak met at the beginning of their freshman year of college at
+                    USC. They
+                    lived on the same floor - Century’s C-wing and grew close immediately. They became roommates
+                    during
+                    their sophomore year at USC and remained roommates until after graduating. During college,
+                    Martha and
+                                                " "", image: "Martha-final.jpg" %>
+
+                <%= render '/groom_or_brides_person', description: "" "
+                    Vanessa Au: Vanessa and Palak met at work, when they both worked at Paul Hastings.
+                    Palak was a paralegal and Vanessa, her supervisor, an attorney. The two commiserated
+                    over the long hours, never-ending workload, and a shared bitterness toward upper
+                    management. They would often call each other from their respective offices and leave
+                    the line open for hours with the speakerphone on, just to be able to vent when they
+                    wanted. In 2013, Palak and Vanessa traveled to Turkey together. One of the highlights
+                    of their trip was a breathtaking hot air balloon ride over the \"fairy chimneys\"
+                    of Cappadocia at sunrise. Vanessa lives in Los Angeles, CA and enjoys outdoor
+                    activities such as hiking.
+                                                " "", image: "vanessa.jpg" %>
+
+                <%= render '/groom_or_brides_person', description: "" "
+                    Seena Bakke: Like Martha, Seena and Palak met at the beginning of their freshman year at
+                    USC, again in
+                    Century’s C-wing. They too became roommates sophomore year. A favorite pastime Palak and
+                    Seena shared
+                    during their time in LA was their Sunday ritual of cooking and watching reality television.
+                    After
+                    graduating, Seena spent a few years teaching in Iraq. Now, she lives in Syracuse, NY and is
+                    the mother
+                    of Noah and Leo.
+                                                " "", image: "Seena.jpg" %>
+                <%= render '/groom_or_brides_person', description: "" "
+                    Ami Shah: Ami and Palak are childhood friends who have known each other so long that neither
+                    can
+                    remember how they first met. While they haven’t lived in the same state in over a decade,
+                    the two keep
+                    in touch with long, frequent phone calls. Ami lives in Atlanta, GA is a Public Health
+                    Analyst at the
+                    CDC.
+                                                " "", image: "Ami.jpg" %>
+            </div>
+
+            <div class='col-md-5'>
+
+                <h2 class="text-center myheading"> Groomsmen</h2>
+
+                <%= render '/groom_or_brides_person', description: "" "
+
+                    Kyle Stemen (Best Man): Kyle is Jared’s brother. He, like Jared, is a software developer in
+                    Seattle.
+                    Kyle
+                    is married and has a two year old daughter named Evelyn.  He enjoys science fiction and preforming acrobatics.
+                    Fun fact: growing up, the first time Kyle got a computer virus the family computer he fully disassembled it to try to find the problem.
+                    He lives in Seattle, WA.
+                                                " "", image: "Kyle.jpg" %>
+
+                <%= render '/groom_or_brides_person', description: "" '
+                    Kevin O’Sullivan: Kevin is Jared’s childhood friend.  They enjoyed playing video games together and talking about life.
+                    In college, Jared joined Kevin and his family for weekly for Wednesday Burger Night at a local bar.  He lives in Columbus, OH and works as an airplane mechanic.
+                                                ' "", image: "Kevin.jpg" %>
+                <%= render '/groom_or_brides_person', description: "" "
+                    Ryan Stemen: Ryan is Jared’s cousin. The two were born just one week apart!  Ryan is a game tools developer and loves playing games too!
+                    Like all Stemens, he enjoys finding a good deal.  He lives in Seattle, WA.
+                                                " "", image: "Ryan.JPG" %>
+
+                <%= render '/groom_or_brides_person', description: "" "
+                    Yogi Shah: Yogi is Palak’s brother. He endeavors to become a doctor in the future.  He lives in Atlanta, GA.
+                                                " "", image: "Yogi.jpg" %>
+                <%= render '/groom_or_brides_person', description: "" "
+                    Mike Bershad: Jared met Mike while both were working at Lockheed Martin.  Both also started their masters degrees around the sametime at Johns Hopkins.  They have continued their
+                    friendship ever since. Mike is a Systems Engineer and lives in Washington, D.C.
+                                                " "", image: "bershad.jpg" %>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="wedding_events" class="glitter content-section">
+
+        <div class="row">
+            <h1 class="text-center myheading">Wedding Events</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h2 class="text-center"><h3>Mehndi:</h3></h2>
+                <p>The Mehndi event is a colorful celebration held a few nights before the wedding, which is
+                    traditionally
+                    celebrated by the women on the bride's side of the family. Generally, a professional mehndi
+                    artist
+                    or
+                    relative will apply henna in intricate designs to the hands and feet of the bride and other
+                    women in
+                    the
+                    family. These intricate designs symbolize joy, beauty, spiritual awakening and offering. Guests
+                    create a
+                    festive atmosphere by dressing in bright colors, singing traditional wedding songs, and dancing
+                    to
+                    popular music. This event will take place at Palak’s parents’ house on Thursday, September 24th
+                    at
+                    4:00pm.</p>
+
+                <h2 class="text-center"><h3>Vidhi:</h3></h2>
+                <p>The pithi ceremony is an auspicious ritual performed for good luck. Pithi is a paste made mainly
+                    of
+                    turmeric, chickpea flour and rose water. Family members and well-wishers of the bride apply the
+                    paste on
+                    the bride's skin. This yellow paste is thought to brighten and even the skin tone and is applied
+                    on
+                    one
+                    of the days prior to the wedding ceremony. This event will take place at Palak’s parents’ house
+                    on
+                    Friday, September 25th at 4:00pm.</p>
+
+                <h2 class="text-center"><h3>Wedding Day, September 26, 2015</h3></h2>
+                <ul>
+                    <li>Baraat (The Groom's Procession): Accompanied by his family and friends in a festive
+                        procession
+                        known
+                        as the baraat, the groom arrives at the entrance of the wedding venue on a horse. The
+                        procession
+                        consists of his family and friends singing and dancing around him to music generally played
+                        by a
+                        professional dhol (large bass drum) player. The baraat is met by the bride's family at the
+                        entrance
+                        to the wedding venue. Jared’s baraat will begin promptly at 4:30pm.
+                    </li>
+                    <li>The ceremony will begin at 5:30pm. To learn about the ceremony and our wedding, check out
+                        this
+                        guide
+                        we put together: <%= link_to 'Non Indian\'s Guide', non_indian_guide_path %>.
+                    </li>
+                    <li>Dinner 7:30pm</li>
+                </ul>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+    <div id="accommodations" class=" white content-section">
+
+        <div class="row">
+            <h1 class="text-center myheading">Accommodations</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                Maecenas eleifend justo et purus cursus, in pretium turpis ultricies. Sed vulputate erat a sapien
+                auctor,
+                commodo feugiat ex iaculis. Curabitur imperdiet suscipit malesuada. Donec feugiat maximus ex, id
+                elementum
+                ipsum fermentum at. Aenean faucibus risus turpis, vel eleifend risus ultricies sit amet. Ut eu
+                tortor
+                urna.
+                Praesent enim lorem, tristique non nulla ut, pretium ultricies ex. Curabitur quam augue, commodo ut
+                dui
+                a,
+                posuere consequat lorem. Vestibulum ac sapien laoreet, interdum tellus in, scelerisque lectus.
+                Nullam
+                mauris
+                lacus, fringilla quis vestibulum quis, cursus vitae ex.
+
+                Duis semper eleifend nunc quis faucibus. Nunc at justo vel augue posuere tristique pretium a sapien.
+                Nulla
+                ut diam magna. Ut magna arcu, lobortis a augue eget, mattis tempor mi. Aliquam id metus et lectus
+                vehicula
+                tristique. Praesent consequat, lectus quis dictum sollicitudin, neque tellus aliquam elit, sed
+                tincidunt
+                felis magna vel justo. Duis vulputate dui ac urna laoreet ultricies. Nunc accumsan ut purus vel
+                sagittis.
+
+                In hendrerit enim eget turpis imperdiet, et aliquet ligula venenatis. Aenean ut sem et diam feugiat
+                maximus
+                nec in velit. Aliquam mollis tristique mauris, eget tincidunt lorem vestibulum in. Integer vel
+                pulvinar
+                dolor. Etiam vitae tempus lorem, quis luctus magna. Sed augue ipsum, auctor eu neque non, sodales
+                dictum
+                nisi. Nam pharetra ut mi ut pharetra. Maecenas posuere ipsum sed nulla eleifend, at pellentesque
+                purus
+                cursus. Vestibulum efficitur tincidunt tellus nec sagittis. Aliquam cursus tellus mi, eu interdum
+                ante
+                volutpat ac. Praesent vulputate enim risus, malesuada tristique justo rhoncus et. Cras nec fermentum
+                nisi.
+                Vivamus tincidunt id nisl non cursus. Vestibulum quis nulla at est bibendum blandit ac quis mi.
+                Morbi eu
+                tincidunt magna.
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+    </div>
+
+
+    <div id="registry" class=" blue content-section ">
+
+        <div class="row ">
+            <h1 class="text-center myheading">
+                Other Information
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h2 class="text-center myheading">Registry:</h2>
+
+                <p></p>Traditionally, guests at Indian weddings give gifts of cash or gold. For those who would
+                rather
+                not
+                participate in this tradition, Palak and Jared have registered for a small number of items at
+                <a href="http://www.amazon.com/gp/registry/wedding/1ERDEUJY4VYFD">Amazon</a>. If you decide to give a
+                non-cash gift, please do not bring it to the wedding as it would be difficult for us to transport it
+                back
+                the West Coast. Instead, please use the shipping address below:
+
+                <p></p>
+                523 Broadway E <br>
+                Apt 332 <br>
+                Seattle, WA 98102 <br>
+
+
+                <h2 class="text-center myheading">Social Media:</h2>
+
+                <p>If you use social media, please use #SHAHdi to document this special occasion!</p>
+
+                <h2 class="text-center myheading">Photos:</h2>
+
+                <div class="carousel-height">
+
+                    <div id="carousel-example-generic" class="carousel slide span6 offset3 " data-ride="carousel">
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner front_carousel">
+                            <div class="carousel-inner">
+                                <% car_imgs = %w[
+                              Palak_and_Jared_as_Cleopatra_and_Marc_Antony_for_Halloween.jpg
+                              Palak_and_Jared_on_the_National_Mall_-_December_2012.jpg
+                              Palak_and_Jared's_Engagement_-_August_2014.jpg
+                              Palak_and_Jared_at_the_GeekWire_Gala_-_December_2014.jpg
+                              Point_Inside_Holiday_Party.jpg
+                              Jared_proposing_to_Palak.jpg
+                              Palak's_bridesmaid_invitation.jpg
+                              Jared's_groomsmen_invitation.jpg
+                              Aria_accepting_flowergirl_position.jpg
+                              Aria's_flowergirl_invitation.jpg
+                              Maanvy's_flowergirl_invitation.jpg
+                              Palak_and_Jared_riding_Segways_for_the_first_time.jpg
+                              Palak_and_Jared_-_Spring_2012.jpg
+                              Palak_and_Jared_at_the_National_Aquarium_-_September_2012.jpg
+                              Palak_and_Jared_rocking_out.jpg
+                              Palak_and_Jared_at_the_W_Hotel_Rooftop.jpg
+                              Part_of_Palak_and_Jared's_second_date,_seeing_the_National_Christmas_Tree_-_December_2011.jpg
+                              Palak_and_Jared's_caricature_at_her_company's_summer_picnic_2014.jpg
+                              Jared's_Proposal_with_LED_Display_on_Bottom_of_Plane.gif] %>
+                                <% car_imgs.each { |img| %>
+
+                                    <% if car_imgs.first == img %>
+                                        <% car_classes = "active item" %>
+                                    <% else %>
+                                        <% car_classes = "item" %>
+                                    <% end %>
+                                    <div class="<%= car_classes %>">
+                                        <%= image_tag img, class: "carouselImg" %>
+                                        <div class="carousel-caption ">
+                                            <% with_spaces = img.gsub('_', ' ') %>
+                                            <% ext = File.extname with_spaces %>
+                                            <% no_ext = with_spaces.gsub ext, '' %>
+                                            <div class="carouselCap">
+                                                <h2><%= no_ext %></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+
+    </div>
+
+    <div id="rsvp" class=" pea content-section ">
+
+        <div class="row ">
+            <h1 class="text-center myheading">
+            </h1>
+        </div>
+        <div class="row vertical-align">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="jumbotron white-on-see-through-turquoise vcenter">
+
+                    <div class="row">
+                        <h1 class="text-center myheading">RSVP:</h1>
+                        <%= render 'layouts/messages' %>
+                    </div>
+                    <div class="row">
+                        <p class="text-center">Please enter the RSVP code included in your invitation.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-8">
+                            <%= form_tag("/invitation_groups/search", method: "get", html: {class: 'center-it'}) do %>
+                                <%= label_tag(:code, "Code:") %>
+                                <%= text_field_tag(:code, '', class: "black-on-white") %>
+                                <%= submit_tag("Lookup", class: 'btn btn-default') %>
+                            <% end %>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -13,5 +13,5 @@ SmarterCSV.process('./spreadsheet_data.csv', remove_empty_values: false) do |row
     count = row[event_str] || 0
     (1..count).collect { |i| Invitation.create(guest: guests[i], invitation_group: invitation_group) }
   }
+  invitation_group.save!
 end
-puts groups

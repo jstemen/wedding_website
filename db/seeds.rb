@@ -5,6 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+def create_guest(first_name, last_name)
+  Guest.create!(first_name: first_name, last_name: last_name) 
+end 
 total_failed =0
 total_succeeded =0
 event_str_to_event = {
