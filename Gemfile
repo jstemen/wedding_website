@@ -17,6 +17,8 @@ gem 'underscore-rails'
 gem 'formtastic'
 gem 'faker'
 
+gem 'smarter_csv'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -25,7 +27,7 @@ group :development do
   gem 'guard-rspec'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'smarter_csv'
+
   gem "awesome_print"
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
