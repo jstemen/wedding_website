@@ -19,7 +19,7 @@ event_str_to_event = {
 }
 event_sym_to_event = {}
 event_str_to_event.each{|key,value|
-  event_sym_to_event[key.to_s] = value
+  event_sym_to_event[key.to_sym] = value
 }
 
 SmarterCSV.process('db/spreadsheet_data.csv', remove_empty_values: false) do |chunk|
@@ -27,7 +27,7 @@ SmarterCSV.process('db/spreadsheet_data.csv', remove_empty_values: false) do |ch
   chunk.each { |row|
     begin
       code = (0..7).map { (('a'..'z').to_a + (0..9).to_a)[rand(36)] }.join
-      invitation_group = InvitationGroup.new(code: code)
+      invitation_group = InvitationGroup.create(code: code)
       guests = []
       unless row['first-name-primary'.to_sym].blank?
         guests << Guest.create!(first_name: row['first-name-primary'.to_sym], last_name: row['last-name-primary'.to_sym])
@@ -40,8 +40,9 @@ SmarterCSV.process('db/spreadsheet_data.csv', remove_empty_values: false) do |ch
         row[:children].split(',').each { |c| guests << Guest.create!(first_name: c) }
       end
       event_sym_to_event.each { |event_sym, event|
-        count = row[event_sym] || 0
-        (0..(count-1)).each { |i| invitation_group.invitations << Invitation.create!(guest: guests[i], event: event) }
+
+        count = row[event_sym]
+        (0..(count-1)).each { |i| invitation_group.invitations << Invitation.create!(guest: guests[i], event: event, invitation_group: invitation_group) }
       }
       invitation_group.save!
       total_succeeded += 1
