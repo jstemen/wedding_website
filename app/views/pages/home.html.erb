@@ -118,8 +118,15 @@
             <div class="col-md-1"></div>
             <div class='col-md-5'>
                 <h1 class="text-center myheading">Bridesmaids</h1>
+            </div>
 
-                <%= render '/groom_or_brides_person', description: "" "
+            <div class="col-md-1"></div>
+            <div class='col-md-5'>
+                <h2 class="text-center myheading"> Groomsmen</h2>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <%= render '/groom_or_brides_person', description: "" "
 
                     Purvi Shah (Maid of Honor): Purvi is Palak’s cousin; of the bridesmaids, Purvi and Palak go
                     back the
@@ -128,17 +135,37 @@
                     have the relationship of sisters. Purvi lives in Corona, CA and is a dentist.
                                                 " "", image: "Purvi 3.jpg" %>
 
-                <%= render '/groom_or_brides_person', description: "" "
+            <%= render '/groom_or_brides_person', description: "" "
+
+                    Kyle Stemen (Best Man): Kyle is Jared’s brother. He, like Jared, is a software developer in
+                    Seattle.
+                    Kyle
+                    is married and has a two year old daughter named Evelyn.  He enjoys science fiction and preforming acrobatics.
+                    Fun fact: growing up, the first time Kyle got a computer virus the family computer he fully disassembled it to try to find the problem.
+                    He lives in Seattle, WA.
+                                                " "", image: "Kyle.jpg" %>
+
+        </div>
+        <div class="row top-buffer">
+            <%= render '/groom_or_brides_person', description: "" "
 
                     Martha Suarez: Martha and Palak met at the beginning of their freshman year of college at USC.
-                      They lived on the same floor - Century’s C-wing and grew close immediately.
                         They became roommates during their sophomore year at USC and remained roommates
                          until after graduating.  During college, Martha and Palak were inseparable - spending
                           a mere 24 hours apart resulted in them staying up all night talking.  Martha
                            lives in Fullerton, CA and is a lawyer.
                                                 " "", image: "Martha-final.jpg" %>
 
-                <%= render '/groom_or_brides_person', description: "" "
+            <%= render '/groom_or_brides_person', description: "" '
+                    Kevin O’Sullivan: Kevin and Jared are childhood friends, having known each other for nearly 20 years.  Growing up, they enjoyed playing video games together.  Jared would never leave their house without breaking something.
+                    Throughout college, Jared joined Kevin and his family for weekly dinners and good conversation.  Kevin lives in Columbus, OH and works as an airplane mechanic.
+                                                ' "", image: "Kevin.jpg" %>
+
+        </div>
+
+        <div class="row top-buffer">
+            <%= render '/groom_or_brides_person', description: "" "
+                      They lived on the same floor - Century’s C-wing and grew close immediately.
                     Vanessa Au: Vanessa and Palak met in 2007, when they both worked at Paul Hastings.
                     Palak was a paralegal and Vanessa, her supervisor, an attorney. The two commiserated
                     over the long hours and never-ending workload. They would often call each other from
@@ -149,8 +176,14 @@
                     of Cappadocia at sunrise. Vanessa lives in Los Angeles, CA and enjoys outdoor
                     activities such as hiking.
                                                 " "", image: "vanessa.jpg" %>
+            <%= render '/groom_or_brides_person', description: "" "
+                    Ryan Stemen: Ryan is Jared’s cousin. The two were born just one week apart!  Ryan is a game tools developer and loves playing games too!
+                    Like all Stemens, he enjoys finding a good deal.  One of his favorite pasttimes is playing ultimate frisbee. Like Jared and Kyle, Ryan lives in Seattle, WA.
+                                                " "", image: "Ryan.JPG" %>
+        </div>
 
-                <%= render '/groom_or_brides_person', description: "" "
+        <div class="row top-buffer">
+            <%= render '/groom_or_brides_person', description: "" "
                     Seena Bakke: Like Martha, Seena and Palak met at the beginning of their freshman year at
                     USC, again in
                     Century’s C-wing. They too became roommates sophomore year. A favorite pastime Palak and
@@ -161,7 +194,16 @@
                     the mother
                     of Noah and Leo.
                                                 " "", image: "Seena.jpg" %>
-                <%= render '/groom_or_brides_person', description: "" "
+            <%= render '/groom_or_brides_person', description: "" "
+                    Nate Smith: Jared and Nate met each other their senior year at OSU.  After college, Nate went to Japan to teach English.
+                    In 2012, Jared traveled to Japan where he and Nate shared a 150 square foot space for a period of one month.
+                    Highlights of the visit included climbing Mt. Fuji, futuristic buffets, and attending a friends wedding.  Nate is an
+                    avid gamer and the two are able to spend time together without traversing continents by playing xbox live.
+                                                " "", image: "nate_fuji.jpg" %>
+        </div>
+
+        <div class="row top-buffer">
+            <%= render '/groom_or_brides_person', description: "" "
                     Ami Shah: Ami and Palak are childhood friends who have known each other so long that neither
                     can
                     remember how they first met. While they haven’t lived in the same state in over a decade,
@@ -170,42 +212,15 @@
                     Analyst at the
                     CDC.
                                                 " "", image: "Ami.jpg" %>
-            </div>
-
-            <div class='col-md-5'>
-
-                <h2 class="text-center myheading"> Groomsmen</h2>
-
-                <%= render '/groom_or_brides_person', description: "" "
-
-                    Kyle Stemen (Best Man): Kyle is Jared’s brother. He, like Jared, is a software developer in
-                    Seattle.
-                    Kyle
-                    is married and has a two year old daughter named Evelyn.  He enjoys science fiction and preforming acrobatics.
-                    Fun fact: growing up, the first time Kyle got a computer virus the family computer he fully disassembled it to try to find the problem.
-                    He lives in Seattle, WA.
-                                                " "", image: "Kyle.jpg" %>
-
-                <%= render '/groom_or_brides_person', description: "" '
-                    Kevin O’Sullivan: Kevin and Jared are childhood friends, having known each other for nearly 20 years.  Growing up, they enjoyed playing video games together.  Jared would never leave their house without breaking something.
-                    Throughout college, Jared joined Kevin and his family for weekly dinners and good conversation.  Kevin lives in Columbus, OH and works as an airplane mechanic.
-                                                ' "", image: "Kevin.jpg" %>
-                <%= render '/groom_or_brides_person', description: "" "
-                    Ryan Stemen: Ryan is Jared’s cousin. The two were born just one week apart!  Ryan is a game tools developer and loves playing games too!
-                    Like all Stemens, he enjoys finding a good deal.  One of his favorite pasttimes is playing ultimate frisbee. Like Jared and Kyle, Ryan lives in Seattle, WA.
-                                                " "", image: "Ryan.JPG" %>
-
-                <%= render '/groom_or_brides_person', description: "" "
-                    Nate Smith: Jared and Nate met each other their senior year at OSU.  After college, Nate went to Japan to teach English.  In 2012, Jared traveled to Japan where he and Nate shared a 150 square foot space for a period of one month.  Highlights of the visit included climbing Mt. Fuji, futuristic buffets, and attending a friends wedding.  Nate is an avid gamer and the two are able to spend time together without traversing continents by playing xbox live.
-                                                " "", image: "nate_fuji.jpg" %>
-                <%= render '/groom_or_brides_person', description: "" "
-                    Mike Bershad: Jared met Bershad while both were working at Lockheed Martin.  The two also began their masters degrees around the same time at Johns Hopkins. They like each other so much that they actually help each other move!  Bershad enjoys photography and he and Palak often go on photo shoots together.
+            <%= render '/groom_or_brides_person', description: "" "
+                    Mike Bershad: Jared met Bershad while both were working at Lockheed Martin.  The two also began their masters
+                    degrees around the same time at Johns Hopkins. They like each other so much that they actually help each
+                    other move!  Bershad enjoys photography and he and Palak often go on photo shoots together.
                     Big Mikey B is a Systems Engineer and lives in Washington, D.C.
                                                 " "", image: "bershad.jpg" %>
-
-            </div>
-
         </div>
+
+
     </div>
     <div id="wedding_events" class="glitter content-section">
 
@@ -282,15 +297,20 @@
                 Airport: Hartsfield-Jackson Atlanta International Airport (ATL)
                 <br>
                 <br>
+
                 <h3>Accommodations</h3>
                 <br>
-                Special group rates will be available at the Holiday Inn in Roswell, GA.  The rate of $XX.00+tax includes a hot breakfast. To reserve a room, visit ______ and use code _____ at checkout.
+                Special group rates will be available at the Holiday Inn in Roswell, GA. The rate of $XX.00+tax
+                includes
+                a
+                hot breakfast. To reserve a room, visit ______ and use code _____ at checkout.
                 <br>
                 <br>
 
                 <h3>Transportation</h3>
                 <br>
-                Getting around Atlanta requires a car.  Rent a car from budget.com using code U112000 for reduced rates.
+                Getting around Atlanta requires a car. Rent a car from budget.com using code U112000 for reduced
+                rates.
                 <br>
                 <br>
 
@@ -299,20 +319,23 @@
                 <iframe src="https://www.google.com/maps/embed?pb=!1m29!1m12!1m3!1d105901.51024406526!2d-84.33126484552818!3d33.95598636264278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m14!1i0!3e6!4m5!1s0x88f574b5c36ecffb%3A0x62e7ae80d3fc1adc!2sHoliday+Inn+Atlanta%2FRoswell%2C+Roswell%2C+GA!3m2!1d34.026004!2d-84.33504599999999!4m5!1s0x88f5a43587a5f1f9%3A0x6ea3efddc624805d!2sBAPS+Shri+Swaminarayan+Mandir%2C+460+Rockbridge+Rd+NW%2C+Lilburn%2C+GA+30047!3m2!1d33.8853!2d-84.162024!5e0!3m2!1sen!2sus!4v1427162067803" width="400" height="300" frameborder="0" style="border:0"></iframe>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m29!1m12!1m3!1d105801.00274658909!2d-84.2931730928317!3d34.03665370241084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m14!1i0!3e6!4m5!1s0x88f574b5c36ecffb%3A0x62e7ae80d3fc1adc!2sHoliday+Inn+Atlanta%2FRoswell%2C+Roswell%2C+GA!3m2!1d34.026004!2d-84.33504599999999!4m5!1s0x88f5a2a9a555482b%3A0xed23c5198de7b5a6!2s3317+Bagley+Terrace%2C+Duluth%2C+GA+30097!3m2!1d34.010279!2d-84.108541!5e0!3m2!1sen!2sus!4v1427162437416" width="400" height="300" frameborder="0" style="border:0"></iframe>
                 <br>
+
                 <h3>Things To Do</h3>
                 <br>
                 During your visit, check out some of what Atlanta has to offer, including:
                 <br>
-                <ul><li><a href="http://www.georgiaaquarium.org/">Georgia Aquarium</a> </li>
-                    <li><a href="http://www.centennialpark.com/">Centennial Olympic Park</a> </li>
-                    <li><a href="http://www.worldofcoca-cola.com/">The World of Coca Cola</a> </li>
-                    <li><a href="http://www.cnn.com/tour/">CNN Center</a> </li>
-                    <li><a href="http://www.underground-atlanta.com/">Underground Atlanta</a> </li>
-                    <li><a href="http://www.stonemountainpark.com/">Stone Mountain Park</a> </li>
-                    <li><a href="http://www.atlantahistorycenter.com/mmh">Margaret Mitchell House</a> </li>
-                    <li><a href="http://www.atlantacyclorama.org/">Cyclorama</a> </li>
-                    <li><a href="http://www.fernbankmuseum.org/">Fernbank Museum</a> </li>
-                <li><a href="http://www.thevarsity.com/">The Varsity</a></li></ul>
+                <ul>
+                    <li><a href="http://www.georgiaaquarium.org/">Georgia Aquarium</a></li>
+                    <li><a href="http://www.centennialpark.com/">Centennial Olympic Park</a></li>
+                    <li><a href="http://www.worldofcoca-cola.com/">The World of Coca Cola</a></li>
+                    <li><a href="http://www.cnn.com/tour/">CNN Center</a></li>
+                    <li><a href="http://www.underground-atlanta.com/">Underground Atlanta</a></li>
+                    <li><a href="http://www.stonemountainpark.com/">Stone Mountain Park</a></li>
+                    <li><a href="http://www.atlantahistorycenter.com/mmh">Margaret Mitchell House</a></li>
+                    <li><a href="http://www.atlantacyclorama.org/">Cyclorama</a></li>
+                    <li><a href="http://www.fernbankmuseum.org/">Fernbank Museum</a></li>
+                    <li><a href="http://www.thevarsity.com/">The Varsity</a></li>
+                </ul>
             </div>
             <div class="col-md-1"></div>
         </div>
@@ -336,7 +359,8 @@
                 rather
                 not
                 participate in this tradition, Palak and Jared have registered for a small number of items at
-                <a href="http://www.amazon.com/gp/registry/wedding/1ERDEUJY4VYFD">Amazon</a>. If you decide to give a
+                <a href="http://www.amazon.com/gp/registry/wedding/1ERDEUJY4VYFD">Amazon</a>. If you decide to give
+                a
                 non-cash gift, please do not bring it to the wedding as it would be difficult for us to transport it
                 back
                 the West Coast. Instead, please use the shipping address below:
