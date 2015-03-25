@@ -1,7 +1,7 @@
 describe 'The RSVP Process', :type => :feature do
 
   invalid_code = 'I am not a valid code'
-  error_msg = "You have entered the invalid RSVP code: \"#{invalid_code}\".  If you believe that you have received this message in error, please contact us via palakandjared@gmail.com"
+  error_msg = "You have entered the invalid RSVP code: \"#{invalid_code}\".  If you believe that you have received this message in error, please contact us via palakandjared@gmail.com, or call Veena at 678-232-4506."
   it "If a user enters an invalid invitation group code on the home page, they receive the error message: #{error_msg}" do
     visit root_path
     invitation_group = create :invitation_group
@@ -11,7 +11,7 @@ describe 'The RSVP Process', :type => :feature do
     expect(page).to have_content error_msg
   end
 
-  reuse_error_msg = 'We have already received your RSVP.  Please contact palakandjared@gmail.com with any questions.'
+  reuse_error_msg = 'We have already received your RSVP.  Please contact palakandjared@gmail.com, or call Veena at 678-232-4506 with any questions.'
   it "If a user tries to reuse a code from am a confirmed invitation group, they get the error message #{reuse_error_msg}" do
     invitation_group = create(:invitation_group, :five_guests, is_confirmed: true)
     visit link_guests_to_events(invitation_group.code)
