@@ -30,7 +30,8 @@ if File.exist? file_path
 
     chunk.each { |row|
       begin
-        code = (0..7).map { (('a'..'z').to_a + (0..9).to_a)[rand(36)] }.join
+        pool_array =[('A'..'Z'),('a'..'z'), (0..9)].inject{|a,b|a.to_a + b.to_a}
+        code = (0..7).map { pool_array[rand(pool_array.size)] }.join
         invitation_group = InvitationGroup.create(code: code)
         guests = []
         unless row['first-name-primary'.to_sym].blank?
