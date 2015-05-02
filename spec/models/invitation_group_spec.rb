@@ -45,6 +45,18 @@ RSpec.describe InvitationGroup, :type => :model do
     expect(invitation_group.has_attendees).to be(true)
   end
 
+  it "must not return duplicates when calling accepted_attendees" do
+    invitation_group = create(:invitation_group, :four_invitations)
+    guest =  create(:guest)
+    invitation_group.invitations.each { |invitation|
+      invitation.is_accepted = true
+      invitation.guest= guest
+    }
+    invitation_group.save!
+    accepted_attendees = invitation_group.accepted_attendees
+    expect(accepted_attendees.size).to equal(accepted_attendees.uniq.size)
+  end
+
   it "must delete associated invitations on delete" do
     invitation_group = create(:invitation_group)
     invitations = invitation_group.invitations

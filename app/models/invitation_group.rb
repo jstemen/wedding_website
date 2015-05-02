@@ -11,7 +11,7 @@ class InvitationGroup < ActiveRecord::Base
   end
 
   def accepted_attendees
-    invitations.select(&:is_accepted).collect(&:guest).compact
+    invitations.select(&:is_accepted).collect(&:guest).uniq.compact
   end
 end
 
