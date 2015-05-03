@@ -1,3 +1,5 @@
+require_relative '../features/feature_spec_helper'
+
 describe 'The RSVP Process', :type => :feature do
 
   invalid_code = 'I am not a valid code'
