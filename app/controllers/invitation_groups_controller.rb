@@ -65,16 +65,6 @@ class InvitationGroupsController < ApplicationController
 
 
   def invitation_group_params
-    white_list_sub = [:is_accepted, :id]
-    #binding.pry
-    res= params.permit(:invitation_group).tap do |whitelisted|
-      whitelisted[:invitations_attributes] = params["invitation_group"]["invitations_attributes"]
-    end
-    binding.pry
-
-
-
-    res
 =begin
     {
         "invitations_attributes" => {"0" => {"is_accepted" => "1", "id" => "30"},
@@ -82,5 +72,18 @@ class InvitationGroupsController < ApplicationController
         }
     }
 =end
+    inv_grp_params = params["invitation_group"]
+    res= params.permit(:invitation_group).tap do |whitelisted|
+      is_confirmed = inv_grp_params["is_confirmed"]
+      if is_confirmed
+        whitelisted[:is_confirmed] = is_confirmed
+      end
+
+      invi_attrs = inv_grp_params["invitations_attributes"]
+      if invi_attrs
+        whitelisted[:invitations_attributes] = invi_attrs
+      end
+    end
+    res
   end
 end
