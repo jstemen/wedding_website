@@ -32,10 +32,12 @@ class InvitationGroupsController < ApplicationController
     @invitation_group = InvitationGroup.find_by_code code
     @invitation_group.is_confirmed = true
   end
+
   def thank_you
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code
   end
+
   # PATCH/PUT /invitation_groups/1
   # PATCH/PUT /invitation_groups/1.json
   def update
@@ -61,8 +63,24 @@ class InvitationGroupsController < ApplicationController
     @invitation_group = InvitationGroup.find(params[:id])
   end
 
-  #ToDo lock this down
+
   def invitation_group_params
-    params.require(:invitation_group).permit!
+    white_list_sub = [:is_accepted, :id]
+    #binding.pry
+    res= params.permit(:invitation_group).tap do |whitelisted|
+      whitelisted[:invitations_attributes] = params["invitation_group"]["invitations_attributes"]
+    end
+    binding.pry
+
+
+
+    res
+=begin
+    {
+        "invitations_attributes" => {"0" => {"is_accepted" => "1", "id" => "30"},
+                                     "1" => {"is_accepted" => "0", "id" => "31"}
+        }
+    }
+=end
   end
 end
