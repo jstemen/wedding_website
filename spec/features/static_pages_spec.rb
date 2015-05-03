@@ -1,5 +1,3 @@
-require_relative '../features/feature_spec_helper'
-
 describe 'The site\'s static pages', :type => :feature do
 
   it "should include the Save The Date Game" do

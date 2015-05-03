@@ -1,5 +1,3 @@
-require_relative '../features/feature_spec_helper'
-
 describe 'The Save The Date Game', :type => :feature, :js => true do
 
   xit "should render on the page", :driver => :webkit do
