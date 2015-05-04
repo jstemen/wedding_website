@@ -72,16 +72,18 @@ class InvitationGroupsController < ApplicationController
         }
     }
 =end
-    sub_allowed = {}
-    size = params[:invitation_group][:invitations_attributes].size rescue 0
-    size.times { |i|
+    inv_grp_params = params["invitation_group"]
+    res= params.permit(:invitation_group).tap do |whitelisted|
+      is_confirmed = inv_grp_params["is_confirmed"]
+      if is_confirmed
+        whitelisted[:is_confirmed] = is_confirmed
+      end
 
-      sub_allowed[i] = [:is_accepted, :id]
-      #sub_allowed[i.to_s] = []
-    }
-    allowed = {:invitation_group => [:is_confirmed, {:invitations_attributes => sub_allowed}]}
-    res_one = params.permit(allowed)
-      binding.pry
-    res_one
+      invi_attrs = inv_grp_params["invitations_attributes"]
+      if invi_attrs
+        whitelisted[:invitations_attributes] = invi_attrs
+      end
+    end
+    res
   end
 end
