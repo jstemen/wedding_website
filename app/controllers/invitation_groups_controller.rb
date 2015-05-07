@@ -27,6 +27,11 @@ class InvitationGroupsController < ApplicationController
     end
   end
 
+  def index
+    @invitation_groups = InvitationGroup.all
+
+  end
+
   def confirmation
     code = params[:code]
     @invitation_group = InvitationGroup.find_by_code code

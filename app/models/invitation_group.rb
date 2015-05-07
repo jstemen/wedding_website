@@ -13,5 +13,15 @@ class InvitationGroup < ActiveRecord::Base
   def accepted_attendees
     invitations.select(&:is_accepted).collect(&:guest).uniq.compact
   end
+
+  def guests
+    res = invitations.collect(&:guest).uniq.compact.to_a
+    res
+  end
+
+  def guest_names
+    res = guests.collect(&:full_name).join(', ')
+    res
+  end
 end
 

@@ -1,0 +1,27 @@
+<table class="red-on-gold" style="width:100%">
+    <thead>
+    <td>
+        Names in Invitation Group
+    </td>
+    <td>
+        RSVP Code
+    </td>
+    <% Event.all.each { |eve| %>
+        <td>
+            <%= eve.name %>
+        </td>
+    <% } %>
+
+
+    </thead>
+    <% @invitation_groups.each { |inv| %>
+        <tr>
+            <td>
+                <%= inv.guest_names %>
+            </td>
+            <td>
+                <%= inv.code %>
+            </td>
+        </tr>
+    <% } %>
+</table>
