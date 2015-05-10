@@ -12,7 +12,7 @@ describe 'The site\'s static pages', :type => :feature do
 
   it "should include Home page'" do
     visit root_path
-    expect(page).to have_content('Palak & Jared September 26th, 2015')
+    expect(page).to have_content('About the Groom')
   end
 
 end
