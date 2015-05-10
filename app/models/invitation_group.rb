@@ -11,7 +11,12 @@ class InvitationGroup < ActiveRecord::Base
   end
 
   def accepted_attendees
-    invitations.select(&:is_accepted).collect(&:guest).uniq.compact
+    find_accepted_guests invitations
+  end
+
+  def accepted_attends_for(event)
+    Guest.joins(invitations: [:guest, :event, :invitation_group]).where('invitation_groups.id' => id, 'events.id' => event.id, 'invitations.is_accepted' => true)
+
   end
 
   def guests
@@ -22,6 +27,12 @@ class InvitationGroup < ActiveRecord::Base
   def guest_names
     res = guests.collect(&:full_name).join(', ')
     res
+  end
+
+  private
+
+  def find_accepted_guests(invitations)
+    invitations.select(&:is_accepted).collect(&:guest).uniq.compact
   end
 end
 

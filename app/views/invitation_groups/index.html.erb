@@ -22,6 +22,11 @@
             <td>
                 <%= inv.code %>
             </td>
+            <% Event.all.each { |eve| %>
+                <td>
+                    <%= inv.accepted_attends_for(eve).collect{|g|g.full_name}.join ',' %>
+                </td>
+            <% } %>
         </tr>
     <% } %>
 </table>

@@ -39,7 +39,6 @@ guard :rspec, cmd: 'bundle exec rspec' do
 end
 
 
-=begin
 guard 'rails' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
@@ -52,4 +51,3 @@ guard 'livereload' do
   # Rails Assets Pipeline
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
 end
-=end
