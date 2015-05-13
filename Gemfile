@@ -16,6 +16,7 @@ gem 'unicorn-rails'
 gem 'underscore-rails'
 gem 'formtastic'
 gem 'faker'
+gem 'devise'
 
 gem 'smarter_csv'
 

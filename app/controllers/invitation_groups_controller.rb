@@ -28,8 +28,8 @@ class InvitationGroupsController < ApplicationController
   end
 
   def index
+    authenticate_admin!
     @invitation_groups = InvitationGroup.all
-
   end
 
   def confirmation
