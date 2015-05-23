@@ -1,36 +1,46 @@
-<table class="red-on-gold" style="width:100%">
-    <thead>
-    <td>
-        All Names in Invitation Group
-    </td>
-    <td>
-        RSVP Code
-    </td>
-    <td>Last Mod Date</td>
-    <% Event.all.each { |eve| %>
+<div class="red-on-gold">
+
+
+    <h3>Total Invitation Group Count: <%= InvitationGroup.count %></h3>
+    <h3>Total Finalized Invitation Group Count: <%= InvitationGroup.where(is_confirmed: true).count %></h3>
+    <table style="width:100%">
+        <thead>
         <td>
-            <%= eve.name %>
+            All Names in Invitation Group
         </td>
-    <% } %>
+        <td>
+            RSVP Code
+        </td>
+        <td>Last Mod Date</td>
+        <td>Is Finalized</td>
+        <% Event.all.each { |eve| %>
+            <td>
+                <%= eve.name %>
+            </td>
+        <% } %>
 
 
-    </thead>
-    <% @invitation_groups.each { |inv| %>
-        <tr>
-            <td>
-                <%= inv.guest_names %>
-            </td>
-            <td>
-                <%= inv.code %>
-            </td>
-            <td>
-                <%= inv.updated_at %>
-            </td>
-            <% Event.all.each { |eve| %>
+        </thead>
+        <% @invitation_groups.each { |inv| %>
+            <tr>
                 <td>
-                    <%= inv.accepted_attends_for(eve).collect{|g|g.full_name}.join ',' %>
+                    <%= inv.guest_names %>
                 </td>
-            <% } %>
-        </tr>
-    <% } %>
-</table>
+                <td>
+                    <%= inv.code %>
+                </td>
+                <td>
+                    <%= inv.updated_at %>
+                </td>
+                <td>
+                    <%= inv.is_confirmed %>
+                </td>
+                <% Event.all.each { |eve| %>
+                    <td>
+                        <%= inv.accepted_attends_for(eve).collect { |g| g.full_name }.join ',' %>
+                    </td>
+                <% } %>
+            </tr>
+        <% } %>
+    </table>
+</div>
