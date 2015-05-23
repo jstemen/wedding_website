@@ -6,6 +6,7 @@
     <td>
         RSVP Code
     </td>
+    <td>Last Mod Date</td>
     <% Event.all.each { |eve| %>
         <td>
             <%= eve.name %>
@@ -21,6 +22,9 @@
             </td>
             <td>
                 <%= inv.code %>
+            </td>
+            <td>
+                <%= inv.updated_at %>
             </td>
             <% Event.all.each { |eve| %>
                 <td>
