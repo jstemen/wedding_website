@@ -85,3 +85,8 @@ wedding_website_test
 
 *[a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9][a-z 0-9].*
 
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
