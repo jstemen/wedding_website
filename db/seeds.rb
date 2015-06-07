@@ -51,6 +51,7 @@ if File.exist? file_path
         }
         invitation_group.save!
         total_succeeded += 1
+        puts "sucessfully processed #{row['first-name-primary'.to_sym]}"
       rescue ActiveRecord::RecordInvalid => e
         puts "Failed to process: "
         ap row
