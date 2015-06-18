@@ -33,11 +33,10 @@ end
 
 if File.exist? file_path
 
+  pool_array =[('a'..'z'), (0..9)].inject { |a, b| a.to_a + b.to_a }
   SmarterCSV.process(file_path, remove_empty_values: false) do |chunk|
-
     chunk.each { |row|
       begin
-        pool_array =[('A'..'Z'),('a'..'z'), (0..9)].inject{|a,b|a.to_a + b.to_a}
         code = (0..7).map { pool_array[rand(pool_array.size)] }.join
         invitation_group = InvitationGroup.create(code: code)
         guests = []
