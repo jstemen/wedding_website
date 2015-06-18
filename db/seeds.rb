@@ -24,6 +24,13 @@ event_str_to_event.each { |key, value|
 }
 
 file_path = 'db/spreadsheet_data.csv'
+
+def save_a_guest(first_name_secondary, guests, last_name_secondary)
+  unless first_name_secondary.blank?
+    guests << Guest.create!(first_name: first_name_secondary, last_name: last_name_secondary)
+  end
+end
+
 if File.exist? file_path
 
   SmarterCSV.process(file_path, remove_empty_values: false) do |chunk|
@@ -34,24 +41,27 @@ if File.exist? file_path
         code = (0..7).map { pool_array[rand(pool_array.size)] }.join
         invitation_group = InvitationGroup.create(code: code)
         guests = []
-        unless row['first-name-primary'.to_sym].blank?
-          guests << Guest.create!(first_name: row['first-name-primary'.to_sym], last_name: row['last-name-primary'.to_sym])
-        end
-        unless row['first-name-secondary'.to_sym].blank?
-          guests << Guest.create!(first_name: row['first-name-secondary'.to_sym], last_name: row['last-name-secondary'.to_sym])
+
+        first_name_primary = row['first-name-primary'.to_sym]
+        last_name_primary = row['last-name-primary'.to_sym]
+        save_a_guest(first_name_primary, guests, last_name_primary)
+
+        first_name_secondary = row['first-name-secondary'.to_sym]
+        last_name_secondary = row['last-name-secondary'.to_sym]
+        save_a_guest(first_name_secondary, guests, last_name_secondary)
+
+        children = row[:children]
+        unless children.blank?
+          children.split(',').each { |c| guests << Guest.create!(first_name: c) }
         end
 
-        unless row[:children].blank?
-          row[:children].split(',').each { |c| guests << Guest.create!(first_name: c) }
-        end
         event_sym_to_event.each { |event_sym, event|
-
           count = row[event_sym]
           (0..(count-1)).each { |i| invitation_group.invitations << Invitation.create!(guest: guests[i], event: event, invitation_group: invitation_group) }
         }
         invitation_group.save!
         total_succeeded += 1
-        puts "sucessfully processed #{row['first-name-primary'.to_sym]}"
+        puts "Sucessfully processed #{first_name_primary} #{last_name_primary}"
       rescue ActiveRecord::RecordInvalid => e
         puts "Failed to process: "
         ap row
