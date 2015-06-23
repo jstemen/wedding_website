@@ -6,6 +6,14 @@ class InvitationGroup < ActiveRecord::Base
 
   accepts_nested_attributes_for :invitations
 
+  def readonly?
+    if new_record?
+      super
+    else
+      InvitationGroup.find(id).is_confirmed
+    end
+  end
+
   def has_attendees
     not accepted_attendees.empty?
   end
