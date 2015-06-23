@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, :controllers => { :registrations => "admins/registrations" }
   root to: 'pages#home'
   get '/invitation_groups/search', to: 'invitation_groups#show_events'
   get '/invitation_groups/confirmation', to: 'invitation_groups#confirmation'
