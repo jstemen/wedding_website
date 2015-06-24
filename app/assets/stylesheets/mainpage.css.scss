@@ -1,7 +1,7 @@
 $carousel-max-dimension: 600px;
 $rounding-radius: 25px;
 $positions: top bottom left right;
-
+$paddings: 20 50 100;
 @font-face {
   font-family: ITCEDSCR;
   src: font-url("ITCEDSCR.ttf") ;
@@ -11,6 +11,7 @@ $positions: top bottom left right;
   font-family: LUCON;
   src: font-url("LUCON.TTF") ;
 }
+
 @font-face {
   font-family: georgia;
   src: font-url("georgia.ttf") ;
@@ -25,17 +26,17 @@ $positions: top bottom left right;
   font-family: lavReg;
   src: font-url("lavenderaReg.otf") ;
 }
+
 @font-face {
   font-family: ostrich-rounded;
   src: font-url("ostrich-rounded.ttf") ;
 }
 
-.lavReg{
+.lavReg {
   font-family: lavReg;
 }
 
-
-.lucon{
+.lucon {
   font-family: LUCON;
 }
 
@@ -60,7 +61,6 @@ $positions: top bottom left right;
   text-align: center;
 }
 
-
 .vertical-align {
   display: flex;
   align-items: center;
@@ -70,7 +70,8 @@ $positions: top bottom left right;
   color: #fff801;
   background-color: #b74788;
 }
-.pink-on-yellow{
+
+.pink-on-yellow {
   color: #b74788;
   background-color: #ffb90b;
 }
@@ -78,22 +79,22 @@ $positions: top bottom left right;
 $gold-color: #e09a1d;
 $deep-red: #b10007;
 
-.gold-on-red{
+.gold-on-red {
   color: $gold-color;
-  background-color:$deep-red;
+  background-color: $deep-red;
 }
 
-.red-on-gold{
+.red-on-gold {
   color: $deep-red;
-  background-color:$gold-color;
+  background-color: $gold-color;
 }
 
-.hugeText{
+.hugeText {
   text-align: center;
   font-size: 1000%;
 }
 
-.center-text{
+.center-text {
   text-align: center;
 }
 
@@ -139,25 +140,27 @@ $deep-red: #b10007;
   border-radius: 15px;
 }
 
-.peacockLogo{
+.peacockLogo {
   height: auto;
   width: auto;
   max-width: 700px;
   border-radius: 15px;
 }
 
-.carouselImg{
+.carouselImg {
   height: auto;
   width: auto;
   max-width: $carousel-max-dimension;
   max-height: $carousel-max-dimension;
   border-radius: 15px;
 }
-.carouselCap{
+
+.carouselCap {
   width: $carousel-max-dimension;
-  margin:0 auto;
+  margin: 0 auto;
   text-align: center;
 }
+
 .rotate {
   -ms-transform: rotate(90deg); /* IE 9 */
   -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
@@ -171,6 +174,14 @@ $deep-red: #b10007;
 .teal {
   color: #cdac4c;
   background-color: #0d435c;
+}
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .white {
@@ -197,25 +208,25 @@ $deep-red: #b10007;
 .names {
   font-family: GOTHIC;
 }
-.no-list-style{
-  list-style:none;
-  list-style-type:none;
+
+.no-list-style {
+  list-style: none;
+  list-style-type: none;
 }
 
-
-@each $pos in $positions{
-  .padding-#{$pos}-20{
-    padding-#{$pos}: 20px;
+@each $pad in $paddings {
+  @each $pos in $positions {
+    .padding-#{$pos}-#{$pad} {
+      padding-#{$pos}: #{$pad}px;
+    }
   }
 }
-
 
 main {
   background: black;
 }
 
-
-.up-top{
+.up-top {
   z-index: 99;
 }
 
@@ -225,7 +236,7 @@ html, body {
   overflow-x: hidden !important;
 }
 
-.carousel-height{
+.carousel-height {
   height: $carousel-max-dimension;
 }
 
