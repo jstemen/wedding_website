@@ -90,3 +90,5 @@ wedding_website_test
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+real_cert/*
