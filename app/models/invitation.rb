@@ -6,4 +6,5 @@ class Invitation < ActiveRecord::Base
   validates :invitation_group, presence: true
   accepts_nested_attributes_for :guest
 
+  scope :sorted_by_event, -> { includes(:event).order('events.time ASC') }
 end
