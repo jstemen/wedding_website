@@ -6,11 +6,6 @@ class InvitationGroup < ActiveRecord::Base
 
   accepts_nested_attributes_for :invitations
 
-
-  def invitations_sorted_by_event
-    invitations.sorted_by_event
-  end
-
   def readonly?
     if new_record?
       super
