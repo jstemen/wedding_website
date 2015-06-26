@@ -76,6 +76,14 @@ RSpec.describe InvitationGroup, :type => :model do
 
   end
 
+  it "must iterate over invitaitons in assending event time" do
+    invitation_group = create(:invitation_group, :four_invitations)
+    invitations = invitation_group.invitations_sorted_by_event
+    sorted = invitations.sort_by{|i| i.event.time}.collect{|i| i.event.time}
+    invs_arry = invitations.collect{|i| i.event.time}
+    expect(invs_arry).to eql(sorted)
+  end
+
   it "can have code" do
     create(:invitation_group, {code: 'foobar'})
   end
