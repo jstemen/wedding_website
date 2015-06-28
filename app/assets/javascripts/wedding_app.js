@@ -38,8 +38,7 @@ function moveDiv(newParent, child) {
         newParent.append(child)
     }
 }
-function isElementScrolledIntoView(elem) {
-    var $elem = $(elem);
+function isElementScrolledIntoView($elem) {
     var elemTop = $elem.offset().top;
     var elemBottom = elemTop + $elem.height();
     return areCoordinatesScrolledIntoView(elemTop, elemBottom);
@@ -67,13 +66,13 @@ $(window).scroll(function (event) {
     }
     if (areCoordinatesScrolledIntoView(holder.top, holder.bottom)) {
         moveDiv(holder.element, child);
-        var $navbarz = $("#navbarz");
-        if (isElementScrolledIntoView($navbarz)) {
-            $("#headContainer").css("padding-top", $navbarz.height());
-        } else {
-            $("#headContainer").css("padding-top", 0);
-        }
     } else {
         moveDiv($("#headContainer"), child)
+    }
+    var $navbarz = $("#navbarz");
+    if (isElementScrolledIntoView($navbarz)) {
+        $("#headContainer").css("padding-top", $navbarz.height());
+    } else {
+        $("#headContainer").css("padding-top", 0);
     }
 });
