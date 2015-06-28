@@ -38,32 +38,41 @@ function moveDiv(newParent, child) {
         newParent.append(child)
     }
 }
-function isScrolledIntoView(elem) {
+function isElementScrolledIntoView(elem) {
     var $elem = $(elem);
-    var $window = $(window);
+    var elemTop = $elem.offset().top;
+    var elemBottom = elemTop + $elem.height();
+    return areCoordinatesScrolledIntoView(elemTop, elemBottom);
+}
 
+function areCoordinatesScrolledIntoView(elemTop, elemBottom) {
+    var $window = $(window);
     var docViewTop = $window.scrollTop();
     var docViewBottom = docViewTop + $window.height();
 
-    return ((originalBottom <= docViewBottom) && (orginalTop >= docViewTop));
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
 
 var originalParentsHash = {};
-var orginalTop = null;
-var originalBottom = null;
 $(window).scroll(function (event) {
     var child = $(".followMe")
 
-    if (!originalParentsHash[child]) {
-        var elemTop = child.offset().top;
-        var elemBottom = elemTop + child.height();
-        originalBottom = elemBottom
-        orginalTop= elemTop
-        originalParentsHash[child] = child.parent();
+    var holder = originalParentsHash[child];
+    if (!holder) {
+        holder = {};
+        originalParentsHash[child] = holder;
+        holder.top = child.offset().top;
+        holder.bottom = holder.top + child.height();
+        holder.element = child.parent();
     }
-    //var scroll = $(window).scrollTop();
-    if (isScrolledIntoView(originalParentsHash[child])) {
-        moveDiv(originalParentsHash[child], child)
+    if (areCoordinatesScrolledIntoView(holder.top, holder.bottom)) {
+        moveDiv(holder.element, child);
+        var $navbarz = $("#navbarz");
+        if (isElementScrolledIntoView($navbarz)) {
+            $("#headContainer").css("padding-top", $navbarz.height());
+        } else {
+            $("#headContainer").css("padding-top", 0);
+        }
     } else {
         moveDiv($("#headContainer"), child)
     }
