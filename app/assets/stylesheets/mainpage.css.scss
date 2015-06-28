@@ -233,6 +233,12 @@ main {
   z-index: 100;
 }
 
+.no-padding {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  top-padding: 0px;
+  bottom-padding: 0px;
+}
 
 /*to fix weird white gap that is on the right of the page*/
 html, body {
