@@ -29,8 +29,7 @@ class InvitationGroupsController < ApplicationController
 
   def index
     authenticate_admin!
-    #@invitation_groups = InvitationGroup.all
-    @invitation_groups = InvitationGroup.paginate(:page => params[:page], :per_page => 50)
+    @invitation_groups = InvitationGroup.all
   end
 
   def confirmation

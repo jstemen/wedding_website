@@ -19,8 +19,6 @@ gem 'faker'
 gem 'devise'
 
 gem 'smarter_csv'
-gem 'will_paginate', '~> 3.0.6'
-gem "unicorn-rails"
 
 group :development do
   gem 'better_errors'
@@ -43,7 +41,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'
   gem 'guard'
-  gem 'pry-byebug'
 end
 group :production do
   gem 'mysql2'
