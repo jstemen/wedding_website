@@ -1,9 +1,10 @@
 <div class="red-on-gold">
+    <div class="padding-top-20 btn-success">
+        <h3>Total Invitation Group Count: <%= InvitationGroup.count %></h3>
 
-
-    <h3>Total Invitation Group Count: <%= InvitationGroup.count %></h3>
-    <h3>Total Finalized Invitation Group Count: <%= InvitationGroup.where(is_confirmed: true).count %></h3>
-    <table style="width:100%">
+        <h3>Total Finalized Invitation Group Count: <%= InvitationGroup.where(is_confirmed: true).count %></h3>
+    </div>
+    <table>
         <thead>
         <td>
             All Names in Invitation Group
@@ -13,7 +14,9 @@
         </td>
         <td>Last Mod Date</td>
         <td>Is Finalized</td>
+        <% event_toc_count_map = {} %>
         <% Event.all.each { |eve| %>
+            <% event_toc_count_map[eve.name] = 0 %>
             <td>
                 <%= eve.name %>
             </td>
@@ -37,10 +40,25 @@
                 </td>
                 <% Event.all.each { |eve| %>
                     <td>
-                        <%= inv.accepted_attends_for(eve).collect { |g| g.full_name }.join ',' %>
+                        <%= accepted_attends = inv.accepted_attends_for(eve)
+                            event_toc_count_map[eve.name] += accepted_attends.size
+                            accepted_attends.collect { |g| g.full_name }.join ',' %>
                     </td>
                 <% } %>
             </tr>
         <% } %>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                Total
+            </td>
+            <% Event.all.each { |eve| %>
+                <td>
+                    <%= event_toc_count_map[eve.name] %>
+                </td>
+            <% } %>
+        </tr>
     </table>
 </div>
