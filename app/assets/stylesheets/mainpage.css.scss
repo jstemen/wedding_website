@@ -253,3 +253,8 @@ html, body {
 body {
   font-family: GOTHIC;
 }
+
+.zebra tr:nth-child(even) {
+  color: $gold-color;
+  background-color: $deep-red;
+}
