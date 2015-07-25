@@ -27,7 +27,7 @@
         <% @invitation_groups.each { |inv| %>
             <tr>
                 <td>
-                    <%= inv.guest_names %>
+                    <%= link_to inv.guest_names, edit_invitations_path(inv) %>
                 </td>
                 <td>
                     <%= inv.code %>

@@ -10,6 +10,26 @@ class InvitationGroupsController < ApplicationController
     end
   end
 
+  def edit_invitations
+    authenticate_admin!
+    id = params[:id]
+    @invitation_group = InvitationGroup.find id
+=begin
+    already_invited = {}
+    @invitation_group.invitations.each { |inv|
+      already_invited["#{inv.guest.full_name}-#{inv.event.name}"] = true
+    }
+
+    Event.all.each { |event|
+      @invitation_group.guests.each { |guest|
+        unless already_invited["#{guest.full_name}-#{event.name}"]
+          @invitation_group.invitations << Invitation.new(event: event, guest: guest)
+        end
+      }
+    }
+=end
+  end
+
   # POST /invitation_groups
   # POST /invitation_groups.json
   def create
