@@ -14,16 +14,15 @@ describe 'The admin process', :type => :feature do
   end
 
 
-  it "A signed in admin should be able to access the invitations index page" do
+  it 'A signed in admin should be able to access the invitations index page' do
     expect(page).to have_content('Total Invitation Group Count')
   end
 
-  it "allows an admin to create and inviation" do
+  it 'allows an admin to create and inviation' do
     invitation_group = create(:invitation_group, :five_guests)
     guest = invitation_group.guests.sample
     fresh_event = create(:event)
     visit edit_invitations_path invitation_group.id
-    #save_and_open_page
     node = find "#event_to_guests_#{guest.id}-#{fresh_event.id}"
     node.set(true)
     click_button 'Save'
@@ -32,7 +31,7 @@ describe 'The admin process', :type => :feature do
     expect(invited).to be(true)
   end
 
-  it "allows the admin to delete an invitation" do
+  it 'allows the admin to delete an invitation' do
     invitation_group = create(:invitation_group, :five_guests)
     inv_to_del = invitation_group.invitations.sample
 
@@ -48,7 +47,7 @@ describe 'The admin process', :type => :feature do
     expect(invited).to be(false)
   end
 
-  it "is presented with a set of checkboxes that is consistent with the database" do
+  it 'is presented with a set of checkboxes that is consistent with the database' do
     invitation_group = create(:invitation_group, :five_guests)
 
     visit edit_invitations_path invitation_group.id
