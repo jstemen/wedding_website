@@ -31,6 +31,14 @@ describe 'The admin process', :type => :feature do
     expect(invited).to be(true)
   end
 
+  it 'should not let the user edit a confirmed invitation group' do
+    invitation_group = create(:invitation_group, :five_guests)
+    invitation_group.is_confirmed = true
+    invitation_group.save!
+    visit edit_invitations_path invitation_group.id
+    expect(page).to have_content 'This invitation group has already been confirmed, so you can not edit it!'
+  end
+
   it 'allows the admin to delete an invitation' do
     invitation_group = create(:invitation_group, :five_guests)
     inv_to_del = invitation_group.invitations.sample

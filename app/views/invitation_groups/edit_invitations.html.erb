@@ -2,30 +2,35 @@
     <div class="lavReg row hugeText padding-bottom-20">
         Edit Invitations
     </div>
-
-    <%= form_tag do %>
-        <table>
-            <tr>
-                <td>Guest</td>
-                <td>Invited?</td>
-                <td>Event</td>
-            </tr>
-            <% selected_bxs = {}
-               @invitation_group.invitations.each { |inv|
-                 selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
-               } %>
-            <% @invitation_group.guests.each { |guest| %>
-                <% Event.all.each { |event| %>
-                    <tr>
-                        <td><%= guest.full_name %></td>
-                        <% key = generate_key(guest: guest, event: event) %>
-                        <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
-                        <td><%= event.name %></td>
-                    </tr>
+    <% if @invitation_group.is_confirmed %>
+        <div>
+            This invitation group has already been confirmed, so you can not edit it!
+        </div>
+    <% else %>
+        <%= form_tag do %>
+            <table>
+                <tr>
+                    <td>Guest</td>
+                    <td>Invited?</td>
+                    <td>Event</td>
+                </tr>
+                <% selected_bxs = {}
+                   @invitation_group.invitations.each { |inv|
+                     selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
+                   } %>
+                <% @invitation_group.guests.each { |guest| %>
+                    <% Event.all.each { |event| %>
+                        <tr>
+                            <td><%= guest.full_name %></td>
+                            <% key = generate_key(guest: guest, event: event) %>
+                            <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
+                            <td><%= event.name %></td>
+                        </tr>
+                    <% } %>
                 <% } %>
-            <% } %>
-        </table>
-        <%= submit_tag("Save") %>
+            </table>
+            <%= submit_tag("Save") %>
+        <% end %>
     <% end %>
 
 
