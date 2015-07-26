@@ -17,5 +17,4 @@
 //= require bootstrap-sprockets
 //= require gamecontroller
 //= require saveTheDateGame.js
-//= require wedding_app.js
-
+//= require_tree .
