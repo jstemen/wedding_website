@@ -56,6 +56,7 @@ class InvitationGroupsController < ApplicationController
   # POST /invitation_groups
   # POST /invitation_groups.json
   def create
+    authenticate_admin!
     @invitation_group = InvitationGroup.new(invitation_group_params)
 
     respond_to do |format|
