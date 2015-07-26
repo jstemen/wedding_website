@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513033254) do
+ActiveRecord::Schema.define(version: 20150726213654) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20150513033254) do
     t.string   "email_address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "invitation_group_id"
   end
 
   add_index "guests", ["email_address"], name: "index_guests_on_email_address", unique: true
+  add_index "guests", ["invitation_group_id"], name: "index_guests_on_invitation_group_id"
 
   create_table "invitation_groups", force: true do |t|
     t.string   "code"

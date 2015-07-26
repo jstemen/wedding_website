@@ -1,6 +1,7 @@
 class Guest < ActiveRecord::Base
   has_many :invitations
   has_many :events, through: :invitations
+  belongs_to :invitation_group
 
   validates :first_name, presence: true
 

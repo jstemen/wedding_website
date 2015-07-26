@@ -4,8 +4,25 @@ RSpec.describe InvitationGroup, :type => :model do
 
   it 'confirmed invitation group can\'t have added guests' do
     invitation_group = create :invitation_group, is_confirmed: true
-    invitation_group.guests << create(:guest)
-    expect { invitation_group.save! }.to raise_error
+    invitation_group.associated_guests << create(:guest)
+    expect { invitation_group.save! }.to raise_error ActiveRecord::ReadOnlyRecord
+  end
+
+  it 'can add associated_guest' do
+    invitation_group = create :invitation_group
+    invitation_group.associated_guests << create(:guest)
+    invitation_group.save!
+  end
+
+  it 'returns assocated_guests and invited guests with #guests' do
+    invitation_group = create(:invitation_group, :five_guests)
+    original_size = invitation_group.guests.size
+    new_guest = create(:guest)
+    invitation_group.associated_guests << new_guest
+    invitation_group.save!
+    new_size = invitation_group.guests.size
+    expect(new_size).to eq(original_size + 1)
+    expect(invitation_group.guests).to include(new_guest)
   end
 
   it "has code" do
@@ -28,7 +45,7 @@ RSpec.describe InvitationGroup, :type => :model do
     ig.save!
 
     ig.code = "changed value"
-    expect {ig.save!}.to raise_error ActiveRecord::ReadOnlyRecord
+    expect { ig.save! }.to raise_error ActiveRecord::ReadOnlyRecord
   end
 
   it "must have code" do
@@ -79,7 +96,7 @@ RSpec.describe InvitationGroup, :type => :model do
   it "must iterate over invitaitons in assending event time" do
     invitation_group = create(:invitation_group, :four_invitations)
     invitations = invitation_group.invitations_sorted_by_event
-    sorted = invitations.sort_by{|i|  [i.event.time, i.event.name]}
+    sorted = invitations.sort_by { |i| [i.event.time, i.event.name] }
     invs_arry = invitations.to_a
     expect(invs_arry).to eql(sorted)
   end

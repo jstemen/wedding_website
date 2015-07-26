@@ -3,6 +3,7 @@ class InvitationGroup < ActiveRecord::Base
   validates :code, presence: true
 
   has_many :invitations, dependent: :destroy
+  has_many :associated_guests, class_name: Guest
 
   accepts_nested_attributes_for :invitations
 
@@ -33,7 +34,7 @@ class InvitationGroup < ActiveRecord::Base
   end
 
   def guests
-    res = invitations.collect(&:guest).uniq.compact.to_a
+    res = (invitations.collect(&:guest) + self.associated_guests).flatten.uniq.to_a
     res
   end
 
