@@ -16,7 +16,11 @@ class InvitationGroupsController < ApplicationController
     @invitation_group = InvitationGroup.find id
   end
 
+  # ToDo make this better.  Is kind of hacky. Seems like there should be a more "rails" way of doing this.
+  # Unable to add temp invitations for view to manipulate.
+  # Rails automatically saves the invitations when adding them to the collection of invitations.
   def update_invitations
+    authenticate_admin!
     ig = InvitationGroup.find params[:id]
     saved_keys = ig.invitations.collect { |inv|
       [view_context.generate_key(event: inv.event, guest: inv.guest), true]
