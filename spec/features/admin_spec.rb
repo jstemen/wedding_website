@@ -18,6 +18,14 @@ describe 'The admin process', :type => :feature do
     expect(page).to have_content('Total Invitation Group Count')
   end
 
+  it 'should not let the user edit a confirmed invitation group' do
+    invitation_group = create(:invitation_group, :five_guests)
+    invitation_group.is_confirmed = true
+    invitation_group.save!
+    visit edit_invitations_path invitation_group.id
+    expect(page).to have_content 'This invitation group has already been confirmed, so you can not edit it!'
+  end
+
   it 'allows an admin to create and inviation' do
     invitation_group = create(:invitation_group, :five_guests)
     guest = invitation_group.guests.sample
@@ -29,15 +37,9 @@ describe 'The admin process', :type => :feature do
 
     invited = guest_invited_to_event? event: fresh_event, guest: guest
     expect(invited).to be(true)
+    expect(page).to have_content 'Successfully updated invitation group!'
   end
 
-  it 'should not let the user edit a confirmed invitation group' do
-    invitation_group = create(:invitation_group, :five_guests)
-    invitation_group.is_confirmed = true
-    invitation_group.save!
-    visit edit_invitations_path invitation_group.id
-    expect(page).to have_content 'This invitation group has already been confirmed, so you can not edit it!'
-  end
 
   it 'allows the admin to delete an invitation' do
     invitation_group = create(:invitation_group, :five_guests)
@@ -53,6 +55,7 @@ describe 'The admin process', :type => :feature do
 
     invited = guest_invited_to_event? event: event, guest: guest
     expect(invited).to be(false)
+    expect(page).to have_content 'Successfully updated invitation group!'
   end
 
   it 'is presented with a set of checkboxes that is consistent with the database' do

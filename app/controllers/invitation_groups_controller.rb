@@ -49,7 +49,7 @@ class InvitationGroupsController < ApplicationController
         Invitation.destroy(invitations.first.id)
       end
     }
-
+    flash[:success] = 'Successfully updated invitation group!'
     redirect_to action: 'edit_invitations'
   end
 
