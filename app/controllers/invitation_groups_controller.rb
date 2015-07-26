@@ -14,20 +14,39 @@ class InvitationGroupsController < ApplicationController
     authenticate_admin!
     id = params[:id]
     @invitation_group = InvitationGroup.find id
-=begin
-    already_invited = {}
-    @invitation_group.invitations.each { |inv|
-      already_invited["#{inv.guest.full_name}-#{inv.event.name}"] = true
+  end
+
+  def update_invitations
+    ig = InvitationGroup.find params[:id]
+    saved_keys = ig.invitations.collect { |inv|
+      [view_context.generate_key(event: inv.event, guest: inv.guest), true]
+    }.to_h
+
+    # Add needed invitations
+    params[:event_to_guests].each { |relation_str, val|
+      if saved_keys[relation_str]
+        # we're good
+      else
+        # Need to add one
+        event, guest = view_context.extract_event_and_guest(relation_str)
+        ig.invitations.build(event: event, guest: guest).save!
+      end
     }
 
-    Event.all.each { |event|
-      @invitation_group.guests.each { |guest|
-        unless already_invited["#{guest.full_name}-#{event.name}"]
-          @invitation_group.invitations << Invitation.new(event: event, guest: guest)
-        end
-      }
+    # Remove old invitations
+    saved_keys.each { |relation_str, val|
+      if params[:event_to_guests][relation_str]
+        # in both, good
+      else
+        # shouldn't be saved
+        event, guest = view_context.extract_event_and_guest(relation_str)
+        invitations = Invitation.where(event: event, guest: guest, invitation_group: ig)
+        raise "more than one found" if invitations.size > 1
+        Invitation.destroy(invitations.first.id)
+      end
     }
-=end
+
+    redirect_to action: 'edit_invitations'
   end
 
   # POST /invitation_groups

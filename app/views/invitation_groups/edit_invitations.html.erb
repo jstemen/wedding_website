@@ -2,40 +2,31 @@
     <div class="lavReg row hugeText padding-bottom-20">
         Edit Invitations
     </div>
-    <table>
-        <tr>
-            <td>Guest</td>
-            <td>Invited?</td>
-            <td>Event</td>
-        </tr>
-        <%= form_for @invitation_group do |ig_form| %>
-            <%= ig_form.fields_for(:invitations, ig_form.object.invitations.sorted_by_guest) { |inv_form| %>
-                <tr>
-                    <td><%= inv_form.object.guest.full_name %></td>
-                    <td><%= inv_form.check_box :should_keep%></td>
-                    <td><%= inv_form.object.event.name %></td>
-                </tr>
-            <% } %>
-        <% end %>
 
-        <!--
-        <% selected_bxs = {}
-           @invitation_group.invitations.each { |inv|
-             selected_bxs["#{inv.guest.id}-#{inv.event.id}"] = true
-           } %>
-        <%= form_tag do %>
+    <%= form_tag do %>
+        <table>
+            <tr>
+                <td>Guest</td>
+                <td>Invited?</td>
+                <td>Event</td>
+            </tr>
+            <% selected_bxs = {}
+               @invitation_group.invitations.each { |inv|
+                 selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
+               } %>
             <% @invitation_group.guests.each { |guest| %>
-                 <% Event.all.each { |event| %>
+                <% Event.all.each { |event| %>
                     <tr>
                         <td><%= guest.full_name %></td>
-                        <% key = "#{guest.id}-#{event.id}" %>
-                        <td><%= check_box_tag(key, 1, selected_bxs[key]) %></td>
+                        <% key = generate_key(guest: guest, event: event) %>
+                        <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
                         <td><%= event.name %></td>
                     </tr>
                 <% } %>
             <% } %>
-        <% end %>
-        -->
+        </table>
+        <%= submit_tag("Save") %>
+    <% end %>
 
-    </table>
+
 </div>

@@ -4,10 +4,7 @@ class InvitationGroup < ActiveRecord::Base
 
   has_many :invitations, dependent: :destroy
 
-  accepts_nested_attributes_for :invitations, allow_destroy: true, reject_if: lambda { |attributes|
-                                  raise "i was run"
-                                              true
-                                            }
+  accepts_nested_attributes_for :invitations, allow_destroy: true
 
 
   def invitations_sorted_by_event
