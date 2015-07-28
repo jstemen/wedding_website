@@ -41,7 +41,7 @@
                     <% end %>
                     <div class="padding-top-20 padding-bottom-20">
                         <div >Assocated Guests</div>
-                        <% @invitation_group.associated_guests do |guest| %>
+                        <% @invitation_group.associated_guests.each do |guest| %>
                             <div><%= guest.full_name %></div>
                         <% end %>
                         <%= link_to 'Create Guest', new_invitation_group_guest_path(@invitation_group.id) %>
