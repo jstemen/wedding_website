@@ -1,0 +1,16 @@
+<div id="eventsSelectionPage" class="pink-on-yellow content-section">
+
+    <div class="lavReg row hugeText padding-bottom-20">
+        Edit Guest
+    </div>
+
+    <%= semantic_form_for @guest, url: {action: 'update'} do |f| %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email_address %>
+        <%= f.actions do %>
+            <%= f.action :submit, :as => :button %>
+            <%= f.action :cancel, :as => :link %>
+        <% end %>
+    <% end %>
+</div>

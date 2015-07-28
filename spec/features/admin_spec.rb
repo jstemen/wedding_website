@@ -15,7 +15,7 @@ describe 'The admin process', :type => :feature do
 
   after do |scenario|
     if scenario.exception
-      #save_and_open_page
+      save_and_open_page
     end
   end
 
@@ -104,7 +104,7 @@ describe 'The admin process', :type => :feature do
     expect(Guest.where(last_name: last_name)).to be_empty
   end
 
-  describe 'when a user is created' do
+  describe 'when a guest is created' do
     before do
       invitation_group = create(:invitation_group, :five_guests)
       visit new_invitation_group_guest_path invitation_group.id
@@ -116,13 +116,28 @@ describe 'The admin process', :type => :feature do
       click_button 'Create Guest'
 
     end
-    it 'creates a user' do
+    it 'creates a guest' do
       expect(Guest.where(first_name: @first_name, last_name: @last_name).size).to eq(1)
     end
     it 'take the admin back to the invitations edit page after creating a guest' do
       expect(page).to have_content('Edit Invitations')
     end
+  end
 
+
+  describe 'when a guest is edited' do
+    before do
+      invitation_group = create(:invitation_group, :five_guests)
+      visit edit_invitation_group_guest_path invitation_group.id, invitation_group.guests.first.id
+      @first_name = 'John'
+      @last_name = 'Doe'
+      fill_in :guest_first_name, :with => @first_name
+      fill_in :guest_last_name, :with => @last_name
+      click_button 'Update Guest'
+    end
+    it 'updates a guest' do
+      expect(Guest.where(first_name: @first_name, last_name: @last_name).size).to eq(1)
+    end
   end
 
 
