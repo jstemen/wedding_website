@@ -50,7 +50,7 @@ class InvitationGroupsController < ApplicationController
       end
     }
     flash[:success] = 'Successfully updated invitation group!'
-    redirect_to action: 'edit_invitations'
+    redirect_to action: 'index'
   end
 
   # POST /invitation_groups

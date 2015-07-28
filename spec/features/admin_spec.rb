@@ -15,7 +15,7 @@ describe 'The admin process', :type => :feature do
 
   after do |scenario|
     if scenario.exception
-      save_and_open_page
+      #save_and_open_page
     end
   end
 
@@ -32,37 +32,35 @@ describe 'The admin process', :type => :feature do
     expect(page).to have_content 'This invitation group has already been confirmed, so you can not edit it!'
   end
 
-  it 'allows an admin to create and inviation' do
-    invitation_group = create(:invitation_group, :five_guests)
-    guest = invitation_group.guests.sample
-    fresh_event = create(:event)
-    visit edit_invitations_path invitation_group.id
-    node = find "#event_to_guests_#{guest.id}-#{fresh_event.id}"
-    node.set(true)
-    click_button 'Save'
+  describe 'editing invitations' do
+    before do
+      invitation_group = create(:invitation_group, :five_guests)
+      @guest = invitation_group.guests.sample
+      @fresh_event = create(:event)
+      visit edit_invitations_path invitation_group.id
+      @node = find "#event_to_guests_#{@guest.id}-#{@fresh_event.id}"
 
-    invited = guest_invited_to_event? event: fresh_event, guest: guest
-    expect(invited).to be(true)
-    expect(page).to have_content 'Successfully updated invitation group!'
+    end
+    it 'allows an admin to create and inviation' do
+      @node.set(true)
+      click_button 'Save'
+
+      invited = guest_invited_to_event? event: @fresh_event, guest: @guest
+      expect(invited).to be(true)
+      expect(page).to have_content 'Successfully updated invitation group!'
+      expect(page).to have_content 'Total Finalized Invitation Group Count'
+    end
+    it 'allows the admin to delete an invitation' do
+      @node.set(false)
+      click_button 'Save'
+
+      invited = guest_invited_to_event? event: @fresh_event, guest: @guest
+      expect(invited).to be(false)
+      expect(page).to have_content 'Successfully updated invitation group!'
+      expect(page).to have_content 'Total Finalized Invitation Group Count'
+    end
   end
 
-
-  it 'allows the admin to delete an invitation' do
-    invitation_group = create(:invitation_group, :five_guests)
-    inv_to_del = invitation_group.invitations.sample
-
-    visit edit_invitations_path invitation_group.id
-
-    guest = inv_to_del.guest
-    event = inv_to_del.event
-    node = find "#event_to_guests_#{guest.id}-#{event.id}"
-    node.set(false)
-    click_button 'Save'
-
-    invited = guest_invited_to_event? event: event, guest: guest
-    expect(invited).to be(false)
-    expect(page).to have_content 'Successfully updated invitation group!'
-  end
 
   it 'is presented with a set of checkboxes that is consistent with the database' do
     invitation_group = create(:invitation_group, :five_guests)
