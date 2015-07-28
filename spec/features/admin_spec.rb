@@ -41,6 +41,12 @@ describe 'The admin process', :type => :feature do
       @node = find "#event_to_guests_#{@guest.id}-#{@fresh_event.id}"
 
     end
+
+    it 'takes the user to the new guest page when the user clicks the link' do
+      click_link 'Create Guest'
+      expect(page).to have_content 'Create Guest'
+    end
+
     it 'allows an admin to create and inviation' do
       @node.set(true)
       click_button 'Save'

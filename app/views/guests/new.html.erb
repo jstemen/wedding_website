@@ -1,5 +1,9 @@
 <div id="eventsSelectionPage" class="pink-on-yellow content-section">
 
+    <div class="lavReg row hugeText padding-bottom-20">
+        Create Guest
+    </div>
+
     <%= semantic_form_for @guest, url: {action: 'create'} do |f| %>
         <%= f.input :first_name %>
         <%= f.input :last_name %>
