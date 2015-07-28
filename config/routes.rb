@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get '/invitation_groups/search', to: 'invitation_groups#show_events'
   get '/invitation_groups/confirmation', to: 'invitation_groups#confirmation'
-  resources :invitations
-  resources :guests
-  resources :invitation_groups
+  resources :invitation_groups do
+    resources :guests
+    resources :invitations
+  end
   get 'invitation_groups/:id/edit_invitations', to: 'invitation_groups#edit_invitations', as: 'edit_invitations'
   post 'invitation_groups/:id/edit_invitations', to: 'invitation_groups#update_invitations', as: 'update_invitations'
   get 'pages/non_indian_guide', to: 'pages#non_indian_guide', as: 'non_indian_guide'

@@ -13,6 +13,12 @@ describe 'The admin process', :type => :feature do
     click_button 'Log in'
   end
 
+  after do |scenario|
+    if scenario.exception
+      save_and_open_page
+    end
+  end
+
 
   it 'A signed in admin should be able to access the invitations index page' do
     expect(page).to have_content('Total Invitation Group Count')
@@ -74,6 +80,43 @@ describe 'The admin process', :type => :feature do
       }
     }
 
+  end
+
+  xit 'take the admin back to the invitations edit page after creating a guest' do
+
+
+  end
+
+  it 'does not allow admin to create a guest without a first name' do
+    invitation_group = create(:invitation_group, :five_guests)
+    inv_to_del = invitation_group.invitations.sample
+
+    visit new_invitation_group_guest_path invitation_group.id
+
+    last_name = 'Doe'
+    fill_in :guest_last_name, :with => last_name
+
+    click_button 'Create Guest'
+
+    expect(Guest.where(last_name: last_name)).to be_empty
+
+  end
+
+  it 'allows admin to create new guest' do
+    invitation_group = create(:invitation_group, :five_guests)
+    inv_to_del = invitation_group.invitations.sample
+
+    visit new_invitation_group_guest_path invitation_group.id
+
+    first_name = 'John'
+    last_name = 'Doe'
+    #save_and_open_page
+    fill_in :guest_first_name, :with => first_name
+    fill_in :guest_last_name, :with => last_name
+
+    click_button 'Create Guest'
+
+    expect(Guest.where(first_name: first_name, last_name: last_name).size).to eq(1)
   end
 
   def guest_invited_to_event?(event:, guest:)

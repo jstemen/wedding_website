@@ -1,0 +1,12 @@
+<div id="eventsSelectionPage" class="pink-on-yellow content-section">
+
+    <%= semantic_form_for @guest, url: {action: 'create'} do |f| %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email_address %>
+        <%= f.actions do %>
+            <%= f.action :submit, :as => :button %>
+            <%= f.action :cancel, :as => :link %>
+        <% end %>
+    <% end %>
+</div>
