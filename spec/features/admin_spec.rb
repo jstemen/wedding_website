@@ -37,9 +37,15 @@ describe 'The admin process', :type => :feature do
       invitation_group = create(:invitation_group, :five_guests)
       @guest = invitation_group.guests.sample
       @fresh_event = create(:event)
+      @assocated_guest = create(:guest)
+      invitation_group.associated_guests << @assocated_guest
       visit edit_invitations_path invitation_group.id
       @node = find "#event_to_guests_#{@guest.id}-#{@fresh_event.id}"
 
+    end
+
+    it 'shows associated guests' do
+      expect(page).to have_content @assocated_guest.full_name
     end
 
     it 'takes the user to the new guest page when the user clicks the link' do

@@ -34,5 +34,12 @@
     <% end %>
 
     <li><%= link_to 'Back to RSVP list', invitation_groups_path %></li>
+
+    <div>Assocated Guests</div>
+    <% @invitation_group.associated_guests do |guest| %>
+        <div><%= guest.full_name %></div>
+    <% end %>
+
+
     <li><%= link_to 'Create Guest', new_invitation_group_guest_path(@invitation_group.id) %></li>
 </div>
