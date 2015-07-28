@@ -1,45 +1,62 @@
-<div id="eventsSelectionPage" class="yellow-on-pink content-section">
+<div class="black-on-white">
+
     <div class="lavReg row hugeText padding-bottom-20">
         Edit Invitations
     </div>
-    <% if @invitation_group.is_confirmed %>
-        <div>
-            This invitation group has already been confirmed, so you can not edit it!
+    <div class=" container">
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-7">
+                <div id="eventsSelectionPage">
+                    <% if @invitation_group.is_confirmed %>
+                        <div>
+                            This invitation group has already been confirmed, so you can not edit it!
+                        </div>
+                    <% else %>
+                        <%= form_tag do %>
+                            <table>
+                                <tr>
+                                    <td>Guest</td>
+                                    <td>Invited?</td>
+                                    <td>Event</td>
+                                </tr>
+                                <% selected_bxs = {}
+                                   @invitation_group.invitations.each { |inv|
+                                     selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
+                                   } %>
+                                <% @invitation_group.guests.each { |guest| %>
+                                    <% Event.all.each { |event| %>
+                                        <tr>
+                                            <td><%= guest.full_name %></td>
+                                            <% key = generate_key(guest: guest, event: event) %>
+                                            <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
+                                            <td><%= event.name %></td>
+                                        </tr>
+                                    <% } %>
+                                <% } %>
+                            </table>
+                            <%= submit_tag("Save") %>
+                        <% end %>
+                    <% end %>
+                    <div class="padding-top-20 padding-bottom-20">
+                        <div >Assocated Guests</div>
+                        <% @invitation_group.associated_guests do |guest| %>
+                            <div><%= guest.full_name %></div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
         </div>
-    <% else %>
-        <%= form_tag do %>
-            <table>
-                <tr>
-                    <td>Guest</td>
-                    <td>Invited?</td>
-                    <td>Event</td>
-                </tr>
-                <% selected_bxs = {}
-                   @invitation_group.invitations.each { |inv|
-                     selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
-                   } %>
-                <% @invitation_group.guests.each { |guest| %>
-                    <% Event.all.each { |event| %>
-                        <tr>
-                            <td><%= guest.full_name %></td>
-                            <% key = generate_key(guest: guest, event: event) %>
-                            <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
-                            <td><%= event.name %></td>
-                        </tr>
-                    <% } %>
-                <% } %>
-            </table>
-            <%= submit_tag("Save") %>
-        <% end %>
-    <% end %>
+        <div class="row">
+            <div class="col-md-8">
+                <%= link_to 'Back to RSVP list', invitation_groups_path %>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2    ">
+                <%= link_to 'Create Guest', new_invitation_group_guest_path(@invitation_group.id) %>
+            </div>
 
-    <li><%= link_to 'Back to RSVP list', invitation_groups_path %></li>
-
-    <div>Assocated Guests</div>
-    <% @invitation_group.associated_guests do |guest| %>
-        <div><%= guest.full_name %></div>
-    <% end %>
-
-
-    <li><%= link_to 'Create Guest', new_invitation_group_guest_path(@invitation_group.id) %></li>
+        </div>
+    </div>
 </div>
