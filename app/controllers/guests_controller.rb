@@ -26,12 +26,11 @@ class GuestsController < ApplicationController
 
   def update
     perm= params.permit(guest: [:first_name, :last_name, :email_address])
-    guest = Guest.find(params[:id])
-
-    if guest.update perm['guest']
+    @guest = Guest.find(params[:id])
+    if @guest.update perm['guest']
       redirect_to(edit_invitations_url(params[:invitation_group_id]), notice: 'Guest was successfully updated.')
     else
-      redirect_to guest
+      render :edit
     end
   end
 

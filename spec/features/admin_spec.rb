@@ -133,11 +133,27 @@ describe 'The admin process', :type => :feature do
       @last_name = 'Doe'
       fill_in :guest_first_name, :with => @first_name
       fill_in :guest_last_name, :with => @last_name
-      click_button 'Update Guest'
     end
-    it 'updates a guest' do
+    it 'updates a guest with valid modifications' do
+      click_button 'Update Guest'
       expect(Guest.where(first_name: @first_name, last_name: @last_name).size).to eq(1)
     end
+
+    context " with bad input" do
+      before do
+        @bad_email = "im not an email address"
+        fill_in :guest_email_address, :with => @bad_email
+        click_button 'Update Guest'
+
+      end
+      it 'does not update when the guest has a bad email address' do
+        expect(Guest.where(first_name: @first_name, last_name: @last_name)).to be_empty
+      end
+      it 'keeps the bad data on the screen so the user can fix it' do
+        expect(find('#guest_email_address').value).to eq(@bad_email)
+      end
+    end
+
   end
 
 
