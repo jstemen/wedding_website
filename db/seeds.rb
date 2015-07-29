@@ -34,7 +34,7 @@ end
 if File.exist? file_path
 
   pool_array =[('a'..'z'), (0..9)].inject { |a, b| a.to_a + b.to_a }
-  SmarterCSV.process(file_path, remove_empty_values: false) do |chunk|
+  SmarterCSV.process(file_path, remove_empty_values: false, chunk_size: 15) do |chunk|
     chunk.each { |row|
       begin
         code = (0..7).map { pool_array[rand(pool_array.size)] }.join
@@ -69,6 +69,7 @@ if File.exist? file_path
       rescue NoMethodError
       end
     }
+    break
   end
 
 end
