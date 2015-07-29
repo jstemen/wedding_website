@@ -90,6 +90,11 @@ describe 'The admin process', :type => :feature do
       expect(page).to have_content 'Create Guest'
     end
 
+    it 'takes the user to the edit guest page when the user clicks the link' do
+      click_link @guest.full_name, :match => :first
+      expect(page).to have_content 'Update Guest'
+    end
+
     it 'allows an admin to create and inviation' do
       @node.set(true)
       click_button 'Save'

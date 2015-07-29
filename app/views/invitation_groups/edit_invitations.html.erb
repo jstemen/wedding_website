@@ -28,7 +28,7 @@
                                 <% @invitation_group.guests.each { |guest| %>
                                     <% Event.all.each { |event| %>
                                         <tr>
-                                            <td><%= guest.full_name %></td>
+                                            <td><%=link_to(guest.full_name, edit_invitation_group_guest_url(@invitation_group.id, guest.id))%></td>
                                             <% key = generate_key(guest: guest, event: event) %>
                                             <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
                                             <td><%= event.name %></td>
