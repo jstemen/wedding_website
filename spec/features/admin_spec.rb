@@ -56,9 +56,22 @@ describe 'The admin process', :type => :feature do
     end
   end
 
+  context "on the invtation groups index page" do
+    it 'A signed in admin should be able to access the invitations index page' do
+      expect(page).to have_content('Total Invitation Group Count')
+    end
 
-  it 'A signed in admin should be able to access the invitations index page' do
-    expect(page).to have_content('Total Invitation Group Count')
+    it "creates a new invitation group when the admin clicks on \"Create new Invtation Group\"" do
+      @invitation_group = create(:invitation_group, :five_guests)
+      before_count = InvitationGroup.count
+      click_button "Create new Invtation Group"
+      after_count = InvitationGroup.count
+      expect(after_count).to eq( before_count +1)
+      #todo fix the fact that we get more than one empty link back
+      #click_link "empty"
+      click_link "empty", :match => :first
+      expect(page).to have_content 'Edit Invitation'
+    end
   end
 
   describe 'editing invitations' do

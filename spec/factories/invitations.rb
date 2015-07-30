@@ -11,6 +11,7 @@ FactoryGirl.define do
   # post factory with a `belongs_to` association for the user
   factory :invitation do
     event { create(:event) }
+    #todo make this stop gernerating blank igs
     invitation_group
     trait :with_guest do
       guest {create(:guest)}

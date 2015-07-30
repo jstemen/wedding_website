@@ -57,12 +57,10 @@ class InvitationGroupsController < ApplicationController
   # POST /invitation_groups.json
   def create
     authenticate_admin!
-    @invitation_group = InvitationGroup.new(invitation_group_params)
-
+    @invitation_group = InvitationGroup.new(params.require(:invitation_group).permit(:code))
     respond_to do |format|
       if @invitation_group.save
-        #format.html { redirect_to @invitation_group, notice: 'Invitation group was successfully created.' }
-        format.html { redirect_to action: "show", code: @invitation_group.code, notice: 'Invitation group was successfully created.' }
+        format.html { redirect_to action: "index", code: @invitation_group.code, notice: 'Invitation group was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_group }
       else
         format.html { render :new }
@@ -74,6 +72,7 @@ class InvitationGroupsController < ApplicationController
   def index
     authenticate_admin!
     @invitation_groups = InvitationGroup.all
+    @new_invitation_group = InvitationGroup.new(is_confirmed: false, code: InvitationGroup.generate_random_code)
   end
 
   def confirmation
@@ -122,7 +121,7 @@ class InvitationGroupsController < ApplicationController
     }
 =end
     inv_grp_params = params["invitation_group"]
-    res= params.permit(:invitation_group).tap do |whitelisted|
+    res= params.permit(:invitation_group, :code).tap do |whitelisted|
       is_confirmed = inv_grp_params["is_confirmed"]
       if is_confirmed
         whitelisted[:is_confirmed] = is_confirmed

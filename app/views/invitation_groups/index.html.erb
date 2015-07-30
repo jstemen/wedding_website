@@ -27,7 +27,9 @@
         <% @invitation_groups.each { |inv| %>
             <tr>
                 <td>
-                    <%= link_to inv.guest_names, edit_invitations_path(inv) %>
+                    <%names = inv.guest_names %>
+                    <%names = 'empty' if names.empty? %>
+                    <%= link_to names, edit_invitations_path(inv) %>
                 </td>
                 <td>
                     <%= inv.code %>
@@ -61,4 +63,10 @@
             <% } %>
         </tr>
     </table>
+    <%= form_for @new_invitation_group, url: { action: "create" } do |f| %>
+        <div>
+            <%= f.hidden_field :code%>
+            <%= f.submit "Create new Invtation Group" %>
+        </div>
+    <% end %>
 </div>

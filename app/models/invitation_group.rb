@@ -12,6 +12,12 @@ class InvitationGroup < ActiveRecord::Base
     invitations.sorted_by_event
   end
 
+  def self.generate_random_code
+    pool_array =[('A'..'Z'), (0..9)].inject { |a, b| a.to_a + b.to_a }
+    code = (0..7).map { pool_array[rand(pool_array.size)] }.join
+    code
+  end
+
   def readonly?
     if new_record?
       super
