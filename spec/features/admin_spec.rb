@@ -61,22 +61,14 @@ describe 'The admin process', :type => :feature do
     expect(page).to have_content('Total Invitation Group Count')
   end
 
-  it 'should not let the user edit a confirmed invitation group' do
-    invitation_group = create(:invitation_group, :five_guests)
-    invitation_group.is_confirmed = true
-    invitation_group.save!
-    visit edit_invitations_path invitation_group.id
-    expect(page).to have_content 'This invitation group has already been confirmed, so you can not edit it!'
-  end
-
   describe 'editing invitations' do
     before do
-      invitation_group = create(:invitation_group, :five_guests)
-      @guest = invitation_group.guests.sample
+      @invitation_group = create(:invitation_group, :five_guests)
+      @guest = @invitation_group.guests.sample
       @fresh_event = create(:event)
       @assocated_guest = create(:guest)
-      invitation_group.associated_guests << @assocated_guest
-      visit edit_invitations_path invitation_group.id
+      @invitation_group.associated_guests << @assocated_guest
+      visit edit_invitations_path @invitation_group.id
       @node = find "#event_to_guests_#{@guest.id}-#{@fresh_event.id}"
 
     end
@@ -95,15 +87,18 @@ describe 'The admin process', :type => :feature do
       expect(page).to have_content 'Update Guest'
     end
 
-    it 'allows an admin to create and inviation' do
-      @node.set(true)
-      click_button 'Save'
+    [true, false].each { |confirmed|
+      it "allows an admin to create and inviation with is confirmed: #{confirmed}" do
+        @node.set(true)
+        @invitation_group.is_confirmed = confirmed
+        click_button 'Save'
 
-      invited = guest_invited_to_event? event: @fresh_event, guest: @guest
-      expect(invited).to be(true)
-      expect(page).to have_content 'Successfully updated invitation group!'
-      expect(page).to have_content 'Total Finalized Invitation Group Count'
-    end
+        invited = guest_invited_to_event? event: @fresh_event, guest: @guest
+        expect(invited).to be(true)
+        expect(page).to have_content 'Successfully updated invitation group!'
+        expect(page).to have_content 'Total Finalized Invitation Group Count'
+      end
+    }
     it 'allows the admin to delete an invitation' do
       @node.set(false)
       click_button 'Save'
@@ -147,12 +142,8 @@ describe 'The admin process', :type => :feature do
   end
 
 
-
-
   generate_guest_test 'create', 'Create Guest', :new_invitation_group_guest_path
   generate_guest_test 'edit', 'Update Guest', :edit_invitation_group_guest_path
-
-
 
 
   def guest_invited_to_event?(event:, guest:)

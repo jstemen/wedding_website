@@ -10,37 +10,36 @@
             <div class="col-md-7">
                 <div id="eventsSelectionPage">
                     <% if @invitation_group.is_confirmed %>
-                        <div>
-                            This invitation group has already been confirmed, so you can not edit it!
+                        <div class="btn-danger">
+                            This invitation group has already been confirmed, so editing it isn't recommmended!
                         </div>
-                    <% else %>
-                        <%= form_tag do %>
-                            <table>
-                                <tr>
-                                    <td>Guest</td>
-                                    <td>Invited?</td>
-                                    <td>Event</td>
-                                </tr>
-                                <% selected_bxs = {}
-                                   @invitation_group.invitations.each { |inv|
-                                     selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
-                                   } %>
-                                <% @invitation_group.guests.each { |guest| %>
-                                    <% Event.all.each { |event| %>
-                                        <tr>
-                                            <td><%=link_to(guest.full_name, edit_invitation_group_guest_url(@invitation_group.id, guest.id))%></td>
-                                            <% key = generate_key(guest: guest, event: event) %>
-                                            <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
-                                            <td><%= event.name %></td>
-                                        </tr>
-                                    <% } %>
+                    <% end %>
+                    <%= form_tag do %>
+                        <table>
+                            <tr>
+                                <td>Guest</td>
+                                <td>Invited?</td>
+                                <td>Event</td>
+                            </tr>
+                            <% selected_bxs = {}
+                               @invitation_group.invitations.each { |inv|
+                                 selected_bxs[generate_key(guest: inv.guest, event: inv.event)] = true
+                               } %>
+                            <% @invitation_group.guests.each { |guest| %>
+                                <% Event.all.each { |event| %>
+                                    <tr>
+                                        <td><%= link_to(guest.full_name, edit_invitation_group_guest_url(@invitation_group.id, guest.id)) %></td>
+                                        <% key = generate_key(guest: guest, event: event) %>
+                                        <td><%= check_box_tag("event_to_guests[#{key}]", 1, selected_bxs[key]) %></td>
+                                        <td><%= event.name %></td>
+                                    </tr>
                                 <% } %>
-                            </table>
-                            <%= submit_tag("Save") %>
-                        <% end %>
+                            <% } %>
+                        </table>
+                        <%= submit_tag("Save") %>
                     <% end %>
                     <div class="padding-top-20 padding-bottom-20">
-                        <div >Assocated Guests</div>
+                        <div>Assocated Guests</div>
                         <% @invitation_group.associated_guests.each do |guest| %>
                             <div><%= guest.full_name %></div>
                         <% end %>
