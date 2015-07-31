@@ -2,6 +2,7 @@ class Guest < ActiveRecord::Base
   has_many :invitations
   has_many :events, through: :invitations
   belongs_to :invitation_group
+  nilify_blanks :only => [:email_address]
 
   validates :first_name, presence: true
 

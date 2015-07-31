@@ -17,7 +17,7 @@ gem 'underscore-rails'
 gem 'formtastic'
 gem 'faker'
 gem 'devise'
-
+gem "nilify_blanks"
 gem 'smarter_csv'
 
 group :development do

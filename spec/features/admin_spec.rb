@@ -13,6 +13,14 @@ def generate_guest_test(action, button_name, path)
       click_button button_name
       expect(Guest.where(first_name: @first_name, last_name: @last_name).size).to eq(1)
     end
+
+    #We don't want empty email addresses because we have a uniquiness constraint on the email address
+    it "#{action}s a guest with a blank email address sets the email as nil" do
+      fill_in :guest_email_address, :with => ''
+      click_button button_name
+      expect(Guest.where(first_name: @first_name, last_name: @last_name).first.email_address).to be_nil
+    end
+
     it "take the admin back to the invitations edit page after #{action}ing a guest" do
       click_button button_name
       expect(page).to have_content('Edit Invitations')
