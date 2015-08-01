@@ -9,6 +9,8 @@ def create_guest(first_name, last_name)
   Guest.create!(first_name: first_name, last_name: last_name)
 end
 
+Admin.create(email: 'bob@foo.com', password: 'bob@foo.com').save!
+
 total_failed =0
 total_succeeded =0
 time_zone = DateTime.now.in_time_zone
