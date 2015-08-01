@@ -32,7 +32,7 @@
                     <%= link_to names, edit_invitations_path(inv) %>
                 </td>
                 <td>
-                    <%= inv.code %>
+                    <%= link_to inv.code, link_guests_to_events_url(inv.code) %>
                 </td>
                 <td>
                     <%= inv.updated_at %>

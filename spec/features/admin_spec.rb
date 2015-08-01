@@ -69,6 +69,14 @@ describe 'The admin process', :type => :feature do
       expect(page).to have_content('Total Invitation Group Count')
     end
 
+    it 'clicking the invitation group code should take the admin to the show events page' do
+      @invitation_group = create(:invitation_group, :five_guests)
+      visit invitation_groups_path
+      click_link @invitation_group.code
+      expect(page).to have_content 'Please select which guests will be attending each event.'
+    end
+
+
     it "creates a new invitation group when the admin clicks on \"Create new Invtation Group\"" do
       @invitation_group = create(:invitation_group, :five_guests)
       before_count = InvitationGroup.count
