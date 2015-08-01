@@ -1,0 +1,25 @@
+<div class="row no-list-style padding-bottom-20">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <div>
+            Please select which guests will be attending each event.
+        </div>
+        <%= semantic_form_for @invitation_group do |f| %>
+
+            <% last_event = nil %>
+            <%= f.semantic_fields_for :invitations, @invitation_group.invitations_sorted_by_event do |invitation| %>
+                <% event = invitation.object.event %>
+                <h1 class="myheading">
+                    <%= "#{event.name} - #{event.time.strftime("%A %B %d, %Y ")}" unless event == last_event %>
+                    <% last_event = event %>
+                </h1>
+
+                <div class="names">
+                    <%= invitation.input :is_accepted, label: invitation.object.guest.full_name %>
+                </div>
+            <% end %>
+
+            <%= f.action :submit, :label => "Save Guest Selections", :button_html => {:id => 'submitSaveGuestSelections', :class => "red-on-gold btn"} %>
+        <% end %>
+    </div>
+</div>

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe InvitationGroup, :type => :model do
 
-  it 'confirmed invitation group can\'t have added guests' do
+  it 'confirmed invitation group can have added guests' do
     invitation_group = create :invitation_group, is_confirmed: true
     invitation_group.associated_guests << create(:guest)
-    expect { invitation_group.save! }.to raise_error ActiveRecord::ReadOnlyRecord
+    invitation_group.save!
   end
 
   it 'can add associated_guest' do
@@ -39,13 +39,13 @@ RSpec.describe InvitationGroup, :type => :model do
     expect { create(:invitation_group, {is_confirmed: nil}) }.to raise_error ActiveRecord::RecordInvalid
   end
 
-  it "can not be updated once confimed" do
+  it "can be updated once confimed" do
     ig = create(:invitation_group)
     ig.is_confirmed = true
     ig.save!
 
     ig.code = "changed value"
-    expect { ig.save! }.to raise_error ActiveRecord::ReadOnlyRecord
+    ig.save!
   end
 
   it "must have code" do

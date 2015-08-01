@@ -18,14 +18,6 @@ class InvitationGroup < ActiveRecord::Base
     code
   end
 
-  def readonly?
-    if new_record?
-      super
-    else
-      InvitationGroup.find(id).is_confirmed
-    end
-  end
-
   def has_attendees
     not accepted_attendees.empty?
   end

@@ -14,7 +14,7 @@ def generate_guest_test(action, button_name, path)
       expect(Guest.where(first_name: @first_name, last_name: @last_name).size).to eq(1)
     end
 
-    #We don't want empty email addresses because we have a uniquiness constraint on the email address
+    #We don't want empty email addresses because we have a uniqueness constraint on the email address
     it "#{action}s a guest with a blank email address sets the email as nil" do
       fill_in :guest_email_address, :with => ''
       click_button button_name
@@ -76,16 +76,15 @@ describe 'The admin process', :type => :feature do
         visit invitation_groups_path
       end
 
-      it 'and allow to the admin to change the rsvp when it is not confirmed' do
+      it 'and allow the admin to change the rsvp when it is not confirmed' do
         click_link @invitation_group.code
         expect(page).to have_content 'Please select which guests will be attending each event.'
       end
 
-      it 'and allow to the admin to change the rsvp when it is confirmed' do
+      it 'and allow the admin to change the rsvp when it is confirmed' do
         @invitation_group.is_confirmed = true
         @invitation_group.save!
-        click_link @invitation_group.code
-        expect(page).to have_content 'Please select which guests will be attending each event.'
+        verify_that_invitation_groups_rsvps_can_be_modified @invitation_group, 'thank_you'
       end
     end
 
@@ -129,7 +128,7 @@ describe 'The admin process', :type => :feature do
     end
 
     [true, false].each { |confirmed|
-      it "allows an admin to create and inviation with is confirmed: #{confirmed}" do
+      it "allows an admin to create and invitation with is confirmed: #{confirmed}" do
         @node.set(true)
         @invitation_group.is_confirmed = confirmed
         click_button 'Save'
