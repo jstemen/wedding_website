@@ -2,8 +2,8 @@
     <div class="lavReg row hugeText padding-bottom-20">
         RSV P
     </div>
-
-    <% if @invitation_group.is_confirmed %>
+    <!--Todo move this logic to controller. It should render appropriate view-->
+    <% if @invitation_group.is_confirmed and !admin_signed_in? %>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
