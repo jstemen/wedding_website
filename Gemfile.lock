@@ -94,6 +94,10 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
+    guard-compat (1.2.1)
+    guard-ctags-bundler (1.4.0)
+      guard (>= 2.0)
+      guard-compat (>= 0.1.0)
     guard-livereload (2.3.1)
       em-websocket (~> 0.5)
       guard (~> 2.0)
@@ -274,6 +278,7 @@ DEPENDENCIES
   formtastic
   guard
   guard-bundler
+  guard-ctags-bundler
   guard-livereload
   guard-rails
   guard-rspec

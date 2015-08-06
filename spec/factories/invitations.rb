@@ -20,7 +20,7 @@ FactoryGirl.define do
 
   factory :invitation_group do
     code {
-      Faker::Internet.password
+      Faker::Internet.password.upcase
     }
     is_confirmed false
 

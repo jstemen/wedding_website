@@ -2,8 +2,8 @@ class InvitationGroupsController < ApplicationController
   before_action :set_invitation_group, only: [:edit, :update, :destroy]
 
   def show_events
-    code = params[:code]
-    @invitation_group = InvitationGroup.find_by_code code
+    code = params[:code].strip
+    @invitation_group = InvitationGroup.find_by_code code.upcase
     if @invitation_group.nil?
       flash[:danger] = "You have entered the invalid RSVP code: \"#{code}\".  If you believe that you have received this message in error, please contact us via palakandjared@gmail.com, or call Veena at 678-232-4506."
       redirect_to "#{root_path}#rsvp"

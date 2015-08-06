@@ -21,6 +21,7 @@ gem "nilify_blanks"
 gem 'smarter_csv'
 
 group :development do
+  gem 'guard-ctags-bundler'
   gem 'better_errors'
   gem 'guard-livereload'
   gem "rack-livereload"

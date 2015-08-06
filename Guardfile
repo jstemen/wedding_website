@@ -51,3 +51,8 @@ guard 'livereload' do
   # Rails Assets Pipeline
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
 end
+
+guard 'ctags-bundler', :src_path => ["app", "lib", "spec/support"] do
+  watch(/^(app|lib|spec\/support)\/.*\.rb$/)
+  watch('Gemfile.lock')
+end
