@@ -6,6 +6,7 @@ FactoryGirl.define do
   factory :event do
     name { Faker::Lorem.words.join ' ' }
     time { Faker::Time.between(3.months.from_now, 4.months.from_now) }
+    address { Faker::Address}
   end
 
   # post factory with a `belongs_to` association for the user

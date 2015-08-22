@@ -32,7 +32,7 @@ class InvitationGroup < ActiveRecord::Base
   end
 
   def guests
-    res = (invitations.collect(&:guest) + self.associated_guests).flatten.uniq.to_a
+    res = (invitations.collect(&:guest) + self.associated_guests).flatten.compact.uniq.to_a
     res
   end
 

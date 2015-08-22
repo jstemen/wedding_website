@@ -16,4 +16,8 @@ module InvitationGroupsHelper
     [Event.find(event_id), Guest.find(guest_id)]
   end
 
+  def render_time(time)
+    time.in_time_zone("EST").strftime("%A %B %d, %Y ")
+  end
+
 end

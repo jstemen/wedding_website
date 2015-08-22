@@ -19,6 +19,8 @@ gem 'faker'
 gem 'devise'
 gem "nilify_blanks"
 gem 'smarter_csv'
+gem 'delayed_job_active_record'
+gem 'pry-byebug'
 
 group :development do
   gem 'guard-ctags-bundler'
@@ -48,6 +50,8 @@ group :production do
   gem 'rails_12factor'
 end
 group :test do
+  gem 'rspec-activemodel-mocks'
+  gem 'capybara-email'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'

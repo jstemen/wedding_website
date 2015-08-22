@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Hi <%= @guest.full_name %></h1>
+
+<p>
+    We're excited to celebrate our wedding with you this September! As a reminder you RSVPed to the following event.
+</p>
+
+
+<table style="border: 1px solid black">
+    <tr>
+        <td>Event</td>
+        <td>Time</td>
+        <td>Location</td>
+    </tr>
+    <% @guest.invitations.sorted_by_event.where(is_accepted: true).each do |inv| %>
+        <tr>
+            <td><%= inv.event.name %></td>
+            <td><%= render_time(inv.event.time) %></td>
+            <td><%= inv.event.address %></td>
+        </tr>
+    <% end %>
+</table>
+
+</body>
+</html>
