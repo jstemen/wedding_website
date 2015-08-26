@@ -6,10 +6,17 @@ class ReminderEmailsController < ApplicationController
   end
 
   def send_email_reminders
-    InvitationGroup.all.each { |ig|
-      ReminderMailer.reminder_email(ig).deliver_later
-    }
-    redirect_to 'index'
+
+    if Delayed::Job.all.empty?
+      InvitationGroup.all.each { |ig|
+        ReminderMailer.reminder_email(ig).deliver_later
+      }
+    else
+      flash[:error] = 'Background jobs are still being processed.  Please try again later!'
+    end
+      flash[:success] = 'Emails have successfully been enqueue to be sent'
+      redirect_to 'index'
+
   end
 
 
