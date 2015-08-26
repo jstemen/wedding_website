@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="black-on-white GOTHIC">
+
+        <h1 id="non-indian" class="myheading">Reminder Emails</h1>
+
+        <%= form_tag("/reminder_emails", method: "post") do |f|%>
+            <%= submit_tag("Send Reminder Emails", data: { confirm: 'Are you sure?' } ) %>
+        <% end %>
+
+        <h1 id="non-indian" class="myheading">Sent</h1>
+        <%= render partial: 'email_list', locals: {emails: @sent_emails, date_name: :sent_date} %>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

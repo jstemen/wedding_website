@@ -10,7 +10,7 @@ RSpec.describe ReminderMailer, type: :mailer do
     @invitation.guest.save!
     @invitation_group.save!
     @guest = Guest.first
-    @mail = ReminderMailer.reminder_email @guest
+    @mail = ReminderMailer.reminder_email @invitation_group
 
 
   end

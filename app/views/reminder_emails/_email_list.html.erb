@@ -1,0 +1,14 @@
+<table class="table-striped" >
+    <tr>
+        <td>Send Date</td>
+        <td>Addresses</td>
+        <td>Body</td>
+    </tr>
+    <% emails.each { |email| %>
+        <tr>
+            <td> <%= render_time(email.send(date_name)) %>    </td>
+            <td><%= email.addresses %></td>
+            <td><%= email.body.to_s.html_safe %></td>
+        </tr>
+    <% } %>
+</table>

@@ -4,6 +4,7 @@ class InvitationGroup < ActiveRecord::Base
 
   has_many :invitations, dependent: :destroy
   has_many :associated_guests, class_name: Guest
+  has_many  :reminder_emails
 
   accepts_nested_attributes_for :invitations
 

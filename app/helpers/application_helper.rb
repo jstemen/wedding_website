@@ -6,4 +6,9 @@ module ApplicationHelper
     end
     link_to_function(name, h("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"))
   end
+
+
+  def render_time(time)
+    time.in_time_zone("EST").strftime("%A %B %d, %Y ")
+  end
 end

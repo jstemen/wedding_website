@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   get 'invitation_groups/show/:code/thank_you', to: 'invitation_groups#thank_you', as: 'thank_you'
   get 'invitation_groups/show/:code/guests', to: 'invitation_groups#show', as: 'add_guests'
   get 'invitation_groups/show/:code/events', to: 'invitation_groups#show_events', as: 'link_guests_to_events'
-  get 'reminders', to: 'reminder_emails#send_email_reminders', as: 'send_reminder_emails'
+  get 'reminder_emails', to: 'reminder_emails#index', as: 'reminder_emails'
+  post 'reminder_emails', to: 'reminder_emails#send_email_reminders', as: 'send_reminder_emails'
 end

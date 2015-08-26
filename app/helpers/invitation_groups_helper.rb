@@ -1,4 +1,5 @@
 module InvitationGroupsHelper
+  include ApplicationHelper
 
   def print_attending(invitations)
     guests = invitations.select(&:is_accepted).collect(&:guest).collect(&:full_name).join(", ")
@@ -14,10 +15,6 @@ module InvitationGroupsHelper
     guest_id = out.first
     event_id = out.last
     [Event.find(event_id), Guest.find(guest_id)]
-  end
-
-  def render_time(time)
-    time.in_time_zone("EST").strftime("%A %B %d, %Y ")
   end
 
 end

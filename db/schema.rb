@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822185259) do
+ActiveRecord::Schema.define(version: 20150824160959) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -88,5 +88,14 @@ ActiveRecord::Schema.define(version: 20150822185259) do
   add_index "invitations", ["event_id"], name: "index_invitations_on_event_id"
   add_index "invitations", ["guest_id"], name: "index_invitations_on_guest_id"
   add_index "invitations", ["invitation_group_id"], name: "index_invitations_on_invitation_group_id"
+
+  create_table "reminder_emails", force: :cascade do |t|
+    t.string  "body"
+    t.string  "addresses"
+    t.integer "invitation_group_id"
+    t.date    "sent_date"
+  end
+
+  add_index "reminder_emails", ["invitation_group_id"], name: "index_reminder_emails_on_invitation_group_id"
 
 end
