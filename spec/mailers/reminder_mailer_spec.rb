@@ -1,17 +1,16 @@
+require 'pry'
 require "rails_helper"
 
 RSpec.describe ReminderMailer, type: :mailer do
   include InvitationGroupsHelper
   before do
-    @invitation_group = create(:invitation_group, :four_invitations)
-    @invitation = @invitation_group.invitations.first()
-    @invitation.is_accepted = true
-    @invitation.guest= create(:guest)
-    @invitation.guest.save!
+    @invitation_group = create(:invitation_group, :four_invitations, with_accepted_invitations: true)
     @invitation_group.save!
-    @guest = Guest.first
+    @invitation_group.invitations.first
+    @invitation = @invitation_group.invitations.first
+    @guest = @invitation.guest
     @mail = ReminderMailer.reminder_email @invitation_group
-
+    expect(@mail).to_not be(nil)
 
   end
   it "should include the fullname of the guest" do
@@ -39,7 +38,7 @@ RSpec.describe ReminderMailer, type: :mailer do
   end
 
   it 'renders the receiver email' do
-    expect(@mail.to).to eql([@guest.email_address])
+    expect(@mail.to).to include(@guest.email_address)
   end
   it 'renders the sender email' do
     expect(@mail.from).to eql(['palakandjared@gmail.com'])

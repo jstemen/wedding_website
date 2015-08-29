@@ -1,5 +1,7 @@
 class ReminderEmailsController < ApplicationController
 
+  before_action :authenticate_admin!
+
   def index
     @pending_emails = ReminderEmail.where(sent_date: nil)
     @sent_emails = ReminderEmail.where.not(sent_date: nil).order(:sent_date)
@@ -14,8 +16,8 @@ class ReminderEmailsController < ApplicationController
     else
       flash[:error] = 'Background jobs are still being processed.  Please try again later!'
     end
-      flash[:success] = 'Emails have successfully been enqueue to be sent'
-      redirect_to 'index'
+    flash[:success] = 'Emails have successfully been enqueue to be sent'
+    redirect_to action: 'index'
 
   end
 

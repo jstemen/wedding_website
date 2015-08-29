@@ -3,7 +3,7 @@ class ReminderMailer < ApplicationMailer
 
   def reminder_email(invitation_group)
     @event_to_attending_hash = Event.all.collect { |event|
-      attending_guests = Guest.joins(:invitations).where(invitations: {event: event, invitation_group: invitation_group, is_accepted: true})
+      attending_guests = Guest.joins(:invitations).where(invitations: {event_id: event.id, invitation_group_id: invitation_group.id, is_accepted: true})
       [event, attending_guests]
     }.to_h
 

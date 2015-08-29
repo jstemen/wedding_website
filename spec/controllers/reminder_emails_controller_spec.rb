@@ -4,6 +4,10 @@ describe ReminderEmailsController do
 
   describe '#send_email_reminders' do
 
+    before do
+        admin = create :admin
+        sign_in admin
+    end
 
     context 'when emails are succesfully sent' do
 

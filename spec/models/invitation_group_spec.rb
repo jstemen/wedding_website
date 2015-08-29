@@ -66,8 +66,7 @@ RSpec.describe InvitationGroup, :type => :model do
     invitation_group = create(:invitation_group, :four_invitations)
     invitation = invitation_group.invitations.first()
     invitation.is_accepted = true
-    invitation.guest= create(:guest)
-    invitation_group.save!
+    invitation.save!
     expect(invitation_group.has_attendees).to be(true)
   end
 

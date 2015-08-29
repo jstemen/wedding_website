@@ -6,16 +6,19 @@ FactoryGirl.define do
   factory :event do
     name { Faker::Lorem.words.join ' ' }
     time { Faker::Time.between(3.months.from_now, 4.months.from_now) }
-    address { Faker::Address}
+    address { Faker::Address }
   end
 
   # post factory with a `belongs_to` association for the user
   factory :invitation do
+    is_accepted false
     event { create(:event) }
-    #todo make this stop gernerating blank igs
-    invitation_group
+    invitation_group {create(:invitation_group)}
+
     trait :with_guest do
-      guest {create(:guest)}
+      after(:build) do |invitation, evaluator|
+        create(:guest, invitations: [invitation])
+      end
     end
   end
 
@@ -23,18 +26,24 @@ FactoryGirl.define do
     code {
       Faker::Internet.password.upcase
     }
+
+    transient do
+      with_accepted_invitations false
+    end
+
     is_confirmed false
 
     trait :five_guests do
-      invitations  {
-        (1..5).collect{FactoryGirl.create(:invitation, :with_guest)}
-      }
+      after(:build) do |invitation_group, evaluator|
+        create_list(:invitation, 5, :with_guest, invitation_group: invitation_group, is_accepted: evaluator.with_accepted_invitations)
+      end
     end
 
+
     trait :four_invitations do
-      invitations {
-        (1..4).collect{FactoryGirl.create(:invitation)}
-      }
+      after(:build) do |invitation_group, evaluator|
+        create_list(:invitation, 4, :with_guest, invitation_group: invitation_group, is_accepted: evaluator.with_accepted_invitations)
+      end
     end
 
 
