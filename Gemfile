@@ -51,7 +51,6 @@ group :production do
 end
 group :test do
   gem 'rspec-activemodel-mocks'
-  gem 'capybara-email'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
