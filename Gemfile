@@ -33,6 +33,7 @@ group :development do
   gem 'guard-rspec'
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'daemons', '~> 1.2'
 
   gem "awesome_print"
   gem 'rb-fchange', :require=>false
