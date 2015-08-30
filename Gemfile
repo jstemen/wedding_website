@@ -21,6 +21,7 @@ gem "nilify_blanks"
 gem 'smarter_csv'
 gem 'delayed_job_active_record'
 gem 'pry-byebug'
+gem 'daemons', '~> 1.2'
 
 group :development do
   gem 'guard-ctags-bundler'
@@ -33,7 +34,6 @@ group :development do
   gem 'guard-rspec'
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'daemons', '~> 1.2'
 
   gem "awesome_print"
   gem 'rb-fchange', :require=>false
