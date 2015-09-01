@@ -1,6 +1,5 @@
 describe 'When using reminder emails', :type => :feature do
-
-  include ActiveJob::TestHelper
+  include ActiveJob::TestHelper, ApplicationHelper
 
   def send_reminder_emails_button_visible?
     page.has_button?('Send Reminder Emails')
@@ -30,20 +29,38 @@ describe 'When using reminder emails', :type => :feature do
       expect(send_reminder_emails_button_visible?).to be(true)
     end
 
-    ReminderEmailsController
+
     it 'we are redirected to the reminder emails index page' do
       click_button 'email-submit'
       expect(send_reminder_emails_button_visible?).to be(true)
     end
 
-    it 'sent emails are displayed' do
-      perform_enqueued_jobs do
-        assert_performed_jobs 0
-        click_button 'email-submit'
-        assert_performed_jobs 1
+    context 'sent emails have' do
+      before do
+        perform_enqueued_jobs do
+          assert_performed_jobs 0
+          click_button 'email-submit'
+          assert_performed_jobs 1
+        end
       end
-      expect(page).to have_content(@invitation.guest.first_name)
+      it 'The guest\'s first name' do
+        expect(page).to have_content(@invitation.guest.first_name)
+      end
+      it 'The guest\'s last name' do
+        expect(page).to have_content(@invitation.guest.last_name)
+      end
+      it 'The event name' do
+        expect(page).to have_content(@invitation.event.name)
+      end
+      it 'The event address' do
+        expect(page).to have_content(@invitation.event.address)
+      end
+      it 'The event time' do
+        expect(page).to have_content(render_time(@invitation.event.time))
+      end
+
     end
 
   end
+
 end
