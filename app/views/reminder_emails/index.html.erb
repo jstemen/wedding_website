@@ -9,7 +9,7 @@
 
                 <div class="alert-danger">DO NOT CLICK THIS BUTTON JARED TOLD YOU TO!</div>
                 <%= form_tag("/reminder_emails", method: "post") do |f| %>
-                    <%= submit_tag("Send Reminder Emails", id: 'email-submit') %>
+                    <%= submit_tag("Send Reminder Emails", id: 'email-submit', data: { confirm: "Are you sure?  Have you sent emails already?  Enqueue emails may take a few minutes to show up." }) %>
                 <% end %>
 
                 <h1 id="non-indian" class="myheading">Sent</h1>
