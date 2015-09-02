@@ -15,6 +15,5 @@
 //= require jquery_ujs
 //= require phaser
 //= require bootstrap-sprockets
-//= require gamecontroller
 //= require saveTheDateGame.js
 //= require_tree .
