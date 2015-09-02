@@ -21,6 +21,10 @@ db/*.sqlite3
 /log/*
 /tmp/*
 
+
+tags
+gems.tags
+
 # various artifacts
 **.war
 *.rbc
