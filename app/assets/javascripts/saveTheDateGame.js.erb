@@ -46,14 +46,14 @@ function loadGame() {
             layer = map.createLayer('World1'); //Sprites must be added below this line
 
             //Add though bubble style instructions
-            const scale = .5
+            const scale = .5;
             instructions = game.add.sprite(20, 10, 'instructions');
             var temple = game.add.sprite(3100, 330, 'temple');
-            temple.width = temple.width * .5
-            temple.height = temple.height * .5
+            temple.width = temple.width * .5;
+            temple.height = temple.height * .5;
 
-            instructions.width = instructions.width * scale
-            instructions.height = instructions.height * scale
+            instructions.width = instructions.width * scale;
+            instructions.height = instructions.height * scale;
 
 
             //load sounds
@@ -86,7 +86,7 @@ function loadGame() {
                     game.scale.startFullScreen(false);
                 }
             }, this, 0);
-            button.fixedToCamera = true
+            button.fixedToCamera = true;
             button.visible = true;
 
         }
@@ -99,7 +99,7 @@ function loadGame() {
             $.each(ShoesModule.allShoes, function (index, shoes) {
                 game.physics.arcade.collide(PlayerModule.player, shoes, function (player, shoes) {
                     shoes.destroy();
-                    player.hasShoes = true
+                    player.hasShoes = true;
                 });
             })
         }
@@ -113,8 +113,8 @@ function loadGame() {
             render: render
         });
 
-        const buttonHeight = 71
-        const buttonWidth = 192
+        const buttonHeight = 71;
+        const buttonWidth = 192;
 
 
         var map;
@@ -126,9 +126,9 @@ function loadGame() {
         var jumpButton;
         var f1Button;
         var bg;
-        var text
-        var music
-        var button
+        var text;
+        var music;
+        var button;
 
         var instructions;
 
@@ -137,24 +137,24 @@ function loadGame() {
         var marioDiedSound;
         var stompSound;
         var shoes;
-        const gravityLevel = 250
+        const gravityLevel = 250;
 
         function MySpriteBase() {
             this.myKill = function () {
                 this.kill();
-            }
+            };
             this.myUpdate = function () {
-            }
+            };
         }
 
         MySpriteBase.prototype = Object.create(Phaser.Sprite.prototype);
-        MySpriteBase.constructor = MySpriteBase
+        MySpriteBase.constructor = MySpriteBase;
         MySpriteBase.prototype.update = function () {
             if (this.y >= game.height && this.alive) {
                 this.myKill();
             }
-            this.myUpdate.apply(this)
-        }
+            this.myUpdate.apply(this);
+        };
         var mySpriteBase = new MySpriteBase();
 
 
@@ -176,36 +176,36 @@ function loadGame() {
                     emitter.x = randX();
                     emitter.y = randY();
                 }, 7000)
-            }
+            };
             var randPos = function () {
                 var number = Math.pow(Math.random(), 2);
-                return number
-            }
+                return number;
+            };
             var randX = function () {
                 var number = game.world.width - 100 - randPos() * 300;
-                return number
-            }
+                return number;
+            };
             var randY = function () {
                 var number = 200 - randPos() * 100;
-                return number
-            }
+                return number;
+            };
             for (var i = 0; i < 3; i++) {
-                createLoc(randX(), randY())
+                createLoc(randX(), randY());
             }
-        }
+        };
 
         var ShoesModule = function (game) {
-            var allShoes = []
+            var allShoes = [];
             var Shoes = function (x, y) {
                 //Add shoes
-                Phaser.Sprite.call(this, game, x, y, 'shoes', 1)
+                Phaser.Sprite.call(this, game, x, y, 'shoes', 1);
                 game.physics.enable(this, Phaser.Physics.ARCADE);
                 this.body.collideWorldBounds = true;
                 this.body.setSize(20, 32, 5, 16);
-                this.scale.setTo(.5, .5)
-                game.add.existing(this)
-                allShoes.push(this)
-            }
+                this.scale.setTo(.5, .5);
+                game.add.existing(this);
+                allShoes.push(this);
+            };
 
             Shoes.prototype.constructor = Shoes;
             Shoes.prototype = Object.create(mySpriteBase);
@@ -216,13 +216,12 @@ function loadGame() {
         }(game);
 
         var PlayerModule = function (game) {
-            this.player;
 
             function Player(x, y) {
                 this.hasShoes = false;
                 this.horizSpeed = 150;
                 this.jumpSpeed = -200;
-                Phaser.Sprite.call(this, game, x, y, 'dude', 1)
+                Phaser.Sprite.call(this, game, x, y, 'dude', 1);
                 game.physics.enable(this, Phaser.Physics.ARCADE);
                 this.body.bounce.y = 0;
                 this.body.collideWorldBounds = true;
@@ -231,13 +230,13 @@ function loadGame() {
                 this.animations.add('left', [0, 1, 2, 3], 10, true);
                 this.animations.add('turn', [4], 20, true);
                 this.animations.add('right', [5, 6, 7, 8], 10, true);
-                this.health = 100
-                this.inputEnabled = true
+                this.health = 100;
+                this.inputEnabled = true;
                 this.events.onKilled.add(function () {
-                    died()
+                    died();
                 }, this);
 
-                game.add.existing(this)
+                game.add.existing(this);
                 game.camera.follow(this);
                 PlayerModule.player = this;
             }
@@ -247,18 +246,18 @@ function loadGame() {
                 marioDiedSound.play();
                 setTimeout(function () {
                     location.reload();
-                }, 4000)
+                }, 4000);
             }
 
-            Player.prototype = Object.create(mySpriteBase)
+            Player.prototype = Object.create(mySpriteBase);
             Player.prototype.constructor = Player;
             Player.prototype.enableGodMode = function () {
-                Player.prototype.origKill = Player.prototype.kill
+                Player.prototype.origKill = Player.prototype.kill;
                 Player.prototype.kill = function () {
-                }
+                };
                 this.horizSpeed = 3000;
                 this.jumpSpeed = -500;
-            }
+            };
             Player.prototype.moveRight = function () {
                 this.body.velocity.x = this.horizSpeed;
 
@@ -266,7 +265,7 @@ function loadGame() {
                     this.animations.play('right');
                     facing = 'right';
                 }
-            }
+            };
 
             Player.prototype.moveLeft = function () {
                 this.body.velocity.x = this.horizSpeed * -1;
@@ -275,18 +274,18 @@ function loadGame() {
                     this.animations.play('left');
                     facing = 'left';
                 }
-            }
+            };
 
             Player.prototype.jump = function () {
                 if (this.body.onFloor() && game.time.now > jumpTimer) {
-                    jumpSound.play()
+                    jumpSound.play();
                     this.body.velocity.y = this.jumpSpeed;
                     jumpTimer = game.time.now + 750;
                 }
-            }
+            };
 
             Player.prototype.myUpdate = function () {
-                var player = this
+                var player = this;
                 //game.physics.arcade.collide(player, layer);
                 game.physics.arcade.collide(player, layer, function (bod, tile) {
                     if (tile.index == 14 && bod.body.blocked.up == true && !tile.madeShoes) {
@@ -294,7 +293,7 @@ function loadGame() {
                         var y = tile.worldY - tile.width * 2;
                         var x = tile.worldX;
                         new ShoesModule.Shoes(x, y);
-                        tile.madeShoes = true
+                        tile.madeShoes = true;
                     }
                 });
                 player.body.velocity.x = 0;
@@ -311,13 +310,13 @@ function loadGame() {
                     }
                 }
                 if (player.x > 3183 && player.hasShoes) {
-                    player.hasShoes = false
-                    startFireworks()
-                    EnemyModule.stopEnemyCreation()
+                    player.hasShoes = false;
+                    startFireworks();
+                    EnemyModule.stopEnemyCreation();
                     $.each(EnemyModule.enemies, function (i, enemy) {
-                        enemy.kill()
+                        enemy.kill();
                     });
-                    PrintMsg.printMsg("Save the Date! September 26, 2015")
+                    PrintMsg.printMsg("Save the Date! September 26, 2015");
                     PrintMsg.flash();
 
                 }
@@ -354,7 +353,7 @@ function loadGame() {
                     this.jump();
                 }
             }
-            return {Player: Player, died: died}
+            return {Player: Player, died: died};
         }(game);
 
         var EnemyModule = function (game) {
@@ -363,16 +362,16 @@ function loadGame() {
             function Enemy(x, y) {
                 //Here's where we create our player sprite.
                 //Phaser.Sprite.call(game, x, y, 'mummy', null);
-                Phaser.Sprite.call(this, game, x, y, 'mummy', 1)
-                this.name = "mummy"
-                var mummy = this
+                Phaser.Sprite.call(this, game, x, y, 'mummy', 1);
+                this.name = "mummy";
+                var mummy = this;
 
                 this.animations.add('left', [0, 1, 2, 3], 10, true);
                 this.animations.add('turn', [4], 20, true);
                 this.animations.add('right', [5, 6, 7, 8], 10, true);
                 this.anchor.setTo(.5, .5); //so it flips around its middle
-                this.speed = Math.random()
-                this.scale.setTo(1.2, 1.2)
+                this.speed = Math.random();
+                this.scale.setTo(1.2, 1.2);
 
                 game.physics.enable(this, Phaser.Physics.ARCADE);
 
@@ -381,11 +380,11 @@ function loadGame() {
 
                 this.animations.play('right');
                 this.checkWorldBounds = true;
-                this.outOfBoundsKill = true
+                this.outOfBoundsKill = true;
                 this.events.onOutOfBounds.add(this.dropRef, this);
 
-                this.walk(-50)
-                game.add.existing(this)
+                this.walk(-50);
+                game.add.existing(this);
                 enemies.push(this);
             }
 
@@ -395,8 +394,8 @@ function loadGame() {
                 enemyTimer = 0;
             }
             var onFocus = function () {
-                clearInterval(enemyTimer)
-                enemyTimer = setEnemyCreationTime()
+                clearInterval(enemyTimer);
+                enemyTimer = setEnemyCreationTime();
             }
             //Creates a set of timers that periodically create enemies when the browser tab is active
             var startEnemyCreation = function () {
@@ -405,7 +404,7 @@ function loadGame() {
                 function setEnemyCreationTime() {
                     return setInterval(function () {
                         var x = game.camera.x + game.camera.width;
-                        var enemy = new EnemyModule.Enemy(x, 0)
+                        var enemy = new EnemyModule.Enemy(x, 0);
                     }, 10000);
                 }
 
@@ -414,23 +413,23 @@ function loadGame() {
             var stopEnemyCreation = function () {
                 $(window).unbind("blur", onBlur);
                 $(window).unbind("focus", onFocus);
-                clearInterval(enemyTimer)
-            }
+                clearInterval(enemyTimer);
+            };
 
             function setEnemyCreationTime() {
                 return setInterval(function () {
                     var x = game.camera.x + game.camera.width;
-                    var enemy = new EnemyModule.Enemy(x, 0)
+                    var enemy = new EnemyModule.Enemy(x, 0);
                 }, 10000);
-            }
+            };
 
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
-            Enemy.prototype = Object.create(mySpriteBase)
+            Enemy.prototype = Object.create(mySpriteBase);
             Enemy.prototype.constructor = Enemy;
             Enemy.prototype.myUpdate = function () {
-                var mummy = this
+                var mummy = this;
                 game.physics.arcade.collide(mummy, layer, enemyColHandler);
-            }
+            };
 
             Enemy.prototype.walk = function (speed) {
                 if (speed > 0) {
@@ -439,15 +438,15 @@ function loadGame() {
                     this.scale.x = -1; //flipped
                 }
                 this.body.velocity.x = speed * this.speed;
-            }
+            };
             Enemy.prototype.dropRef = function () {
                 var start = $.inArray(this, enemies);
                 enemies.splice(start, 1);
-            }
+            };
             Enemy.prototype.myKill = function () {
-                this.dropRef()
+                this.dropRef();
                 this.destroy();
-            }
+            };
             function enemyColHandler(enemy, obj1) {
                 if (enemy.body.blocked.right) {
                     enemy.walk(-50);
@@ -455,15 +454,15 @@ function loadGame() {
                 if (enemy.body.blocked.left) {
                     enemy.walk(50);
                 }
-            }
+            };
 
             return {
                 Enemy: Enemy,
                 enemies: enemies,
                 startEnemyCreation: startEnemyCreation,
                 stopEnemyCreation: stopEnemyCreation
-            }
-        }(game)
+            };
+        }(game);
 
         var PrintMsg = function () {
             var lastMsg;
@@ -478,11 +477,10 @@ function loadGame() {
                 }
                 var style = { font  : "50px LUCON", fill: "white", align: "center"};
                 var t = game.add.text(20, 20, msg, style);
-                var textX
-                t.x = textX
-                t.fixedToCamera = true
+                t.x = 0;
+                t.fixedToCamera = true;
                 lastMsg = t;
-            }
+            };
 
             function flash(interval) {
                 interval = interval ? interval : 500;
@@ -495,7 +493,7 @@ function loadGame() {
                     } else {
                         lastMsg.visible = true;
                     }
-                },interval)
+                },interval);
             }
 
             function cancelFlash() {
@@ -509,16 +507,12 @@ function loadGame() {
         function enemyPlayerCollisionHandler(obj1, enemy) {
             if (obj1.body.touching.down) {
                 stompSound.play();
-                enemy.kill()
+                enemy.kill();
                 PlayerModule.player.body.velocity.y = -250;
             } else if (enemy.exists) {
-                PlayerModule.player.damage(5)
+                PlayerModule.player.damage(5);
             }
         }
-
-
-
-
 
     }
 }
