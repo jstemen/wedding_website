@@ -22,6 +22,7 @@ gem 'smarter_csv'
 gem 'delayed_job_active_record'
 gem 'pry-byebug'
 gem 'daemons', '~> 1.2'
+gem 'actionpack-page_caching'
 
 group :development do
   gem 'guard-ctags-bundler'
