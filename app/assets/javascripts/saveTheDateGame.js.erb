@@ -46,7 +46,7 @@ function loadGame() {
             layer = map.createLayer('World1'); //Sprites must be added below this line
 
             //Add though bubble style instructions
-            const scale = .5;
+            var scale = .5;
             instructions = game.add.sprite(20, 10, 'instructions');
             var temple = game.add.sprite(3100, 330, 'temple');
             temple.width = temple.width * .5;
@@ -113,19 +113,17 @@ function loadGame() {
             render: render
         });
 
-        const buttonHeight = 71;
-        const buttonWidth = 192;
+        var buttonHeight = 71;
+        var buttonWidth = 192;
 
 
         var map;
-        var tileset;
         var layer;
         var facing = 'left';
         var jumpTimer = 0;
         var cursors;
         var jumpButton;
         var f1Button;
-        var bg;
         var text;
         var music;
         var button;
@@ -137,7 +135,7 @@ function loadGame() {
         var marioDiedSound;
         var stompSound;
         var shoes;
-        const gravityLevel = 250;
+        var gravityLevel = 250;
 
         function MySpriteBase() {
             this.myKill = function () {
@@ -161,7 +159,7 @@ function loadGame() {
 
         var startFireworks = function () {
             var createLoc = function (x, y) {
-                var emitter = emitter || game.add.emitter(x, y);
+                var emitter = game.add.emitter(x, y);
                 //  Here we're passing an array of image keys. It will pick one at random when emitting a new particle.
                 emitter.makeParticles(['sfire', 'mfire', 'lfire']);
                 emitter.minParticleSpeed.setTo(0, 0);
@@ -178,16 +176,13 @@ function loadGame() {
                 }, 7000)
             };
             var randPos = function () {
-                var number = Math.pow(Math.random(), 2);
-                return number;
+                return Math.pow(Math.random(), 2);
             };
             var randX = function () {
-                var number = game.world.width - 100 - randPos() * 300;
-                return number;
+                return game.world.width - 100 - randPos() * 300;
             };
             var randY = function () {
-                var number = 200 - randPos() * 100;
-                return number;
+                return 200 - randPos() * 100;
             };
             for (var i = 0; i < 3; i++) {
                 createLoc(randX(), randY());
@@ -211,7 +206,7 @@ function loadGame() {
             Shoes.prototype = Object.create(mySpriteBase);
             Shoes.prototype.myUpdate = function () {
                 game.physics.arcade.collide(this, layer);
-            }
+            };
             return {Shoes: Shoes, allShoes: allShoes}
         }(game);
 
@@ -252,7 +247,6 @@ function loadGame() {
             Player.prototype = Object.create(mySpriteBase);
             Player.prototype.constructor = Player;
             Player.prototype.enableGodMode = function () {
-                Player.prototype.origKill = Player.prototype.kill;
                 Player.prototype.kill = function () {
                 };
                 this.horizSpeed = 3000;
@@ -352,7 +346,7 @@ function loadGame() {
                 if (cursors.up.isDown || jumpButton.isDown) {
                     this.jump();
                 }
-            }
+            };
             return {Player: Player, died: died};
         }(game);
 
@@ -392,11 +386,11 @@ function loadGame() {
             var onBlur = function () {
                 clearInterval(enemyTimer);
                 enemyTimer = 0;
-            }
+            };
             var onFocus = function () {
                 clearInterval(enemyTimer);
                 enemyTimer = setEnemyCreationTime();
-            }
+            };
             //Creates a set of timers that periodically create enemies when the browser tab is active
             var startEnemyCreation = function () {
                 $(window).blur(onBlur);
@@ -409,7 +403,7 @@ function loadGame() {
                 }
 
                 enemyTimer = setEnemyCreationTime();
-            }
+            };
             var stopEnemyCreation = function () {
                 $(window).unbind("blur", onBlur);
                 $(window).unbind("focus", onFocus);
@@ -421,8 +415,7 @@ function loadGame() {
                     var x = game.camera.x + game.camera.width;
                     var enemy = new EnemyModule.Enemy(x, 0);
                 }, 10000);
-            };
-
+            }
             //We give our player a type of Phaser.Sprite and assign it's constructor method.
             Enemy.prototype = Object.create(mySpriteBase);
             Enemy.prototype.constructor = Enemy;
@@ -454,7 +447,7 @@ function loadGame() {
                 if (enemy.body.blocked.left) {
                     enemy.walk(50);
                 }
-            };
+            }
 
             return {
                 Enemy: Enemy,
@@ -480,19 +473,14 @@ function loadGame() {
                 t.x = 0;
                 t.fixedToCamera = true;
                 lastMsg = t;
-            };
-
+            }
             function flash(interval) {
                 interval = interval ? interval : 500;
                 if (toggleHandler) {
                     toggleHandler.cancel();
                 }
                 toggleHandler = setInterval(function () {
-                    if (lastMsg.visible) {
-                        lastMsg.visible = false;
-                    } else {
-                        lastMsg.visible = true;
-                    }
+                    lastMsg.visible = !lastMsg.visible;
                 },interval);
             }
 
