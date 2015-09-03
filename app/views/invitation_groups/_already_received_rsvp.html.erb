@@ -2,9 +2,24 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="alert alert-info">
-            We have already received your RSVP. Please contact palakandjared@gmail.com, or call Veena at 678-232-4506 with any questions.
+            We have already received your RSVP. Please contact palakandjared@gmail.com, or call Veena at 678-232-4506
+            with any questions.
         </div>
     </div>
     <div class="col-md-2"></div>
 
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+            <p>Guests currently RSVPed to attend: </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <%= render partial: "shared/accepted_table", locals: {event_to_attending_hash: @event_to_attending_hash} %>
+        </div>
+    </div>
 </div>

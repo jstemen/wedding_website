@@ -26,11 +26,12 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'actionpack-page_caching'
 
 group :development do
+  gem 'binding_of_caller'
   gem 'guard-ctags-bundler'
   gem 'better_errors'
   gem 'guard-livereload'
   gem "rack-livereload"
-  gem 'binding_of_caller', :platforms=>[:mri_21]
+  #gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'

@@ -23,6 +23,7 @@ describe 'When using reminder emails', :type => :feature do
       @invitation = @invitation_group.invitations.last
       @invitation.is_accepted = true
       @invitation.save!
+      @accepted_invitations = [@invitation]
       @invitation_group.save!
       login_admin
       visit reminder_emails_path
@@ -43,23 +44,9 @@ describe 'When using reminder emails', :type => :feature do
           assert_performed_jobs 1
         end
       end
-      it 'The guest\'s first name' do
-        expect(page).to have_content(@invitation.guest.first_name)
-      end
-      it 'The guest\'s last name' do
-        expect(page).to have_content(@invitation.guest.last_name)
-      end
-      it 'The event name' do
-        expect(page).to have_content(@invitation.event.name)
-      end
-      it 'The event address' do
-        expect(page).to have_content(@invitation.event.address)
-      end
-      it 'The event time' do
-        expect(page).to have_content(render_time(@invitation.event.time))
-      end
-
+      it_behaves_like 'email table'
     end
+
 
   end
 

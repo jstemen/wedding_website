@@ -1,5 +1,13 @@
 class InvitationGroupsController < ApplicationController
-  before_action :set_invitation_group, only: [:edit, :update, :destroy]
+  before_action :set_invitation_group, only: [:edit, :update, :destroy, :show_events_already_confirmed]
+
+
+  def show_events_already_confirmed
+    @event_to_attending_hash = Event.all.collect { |event|
+      attending_guests = Guest.joins(:invitations).where(invitations: {event_id: event.id, invitation_group_id: @invitation_group.id, is_accepted: true})
+      [event, attending_guests]
+    }.to_h
+  end
 
   def show_events
     code = params[:code].strip
@@ -11,7 +19,7 @@ class InvitationGroupsController < ApplicationController
       if can_change_rsvp_answers?
         render 'show_events'
       else
-        render 'show_events_already_confirmed'
+        redirect_to action: :show_events_already_confirmed, code: @invitation_group.code
       end
     end
   end
@@ -112,7 +120,7 @@ class InvitationGroupsController < ApplicationController
         end
       end
     else
-      render 'show_events_already_confirmed'
+      redirect_to 'invitation_groups#show_events_already_confirmed', code: @invitation_group.code
     end
   end
 
@@ -124,7 +132,13 @@ class InvitationGroupsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_invitation_group
-    @invitation_group = InvitationGroup.find(params[:id])
+    id = params[:id]
+    code = params[:code]
+    if id
+      @invitation_group = InvitationGroup.find(params[:id])
+    elsif code
+      @invitation_group = InvitationGroup.find_by_code code.strip.upcase
+    end
   end
 
 

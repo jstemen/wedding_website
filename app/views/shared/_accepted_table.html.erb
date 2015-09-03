@@ -1,0 +1,18 @@
+<table class="table" >
+    <tr>
+        <td>Guest(s)</td>
+        <td>Event</td>
+        <td>Time</td>
+        <td>Location</td>
+    </tr>
+    <% event_to_attending_hash.each { |event, attending_guests| %>
+        <% unless attending_guests.empty? %>
+            <tr>
+                <td><%= attending_guests.collect(&:full_name).join(', ') %></td>
+                <td><%= event.name %></td>
+                <td><%= render_time(event.time) %></td>
+                <td><%= event.address %></td>
+            </tr>
+        <% end %>
+    <% } %>
+</table>

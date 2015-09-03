@@ -1,18 +1,52 @@
 module FeaturesHelper
+  include ApplicationHelper
 
- def login_admin
-   pass = '123abc' * 2
-   admin = create :admin, {password: pass}
+  def login_admin
+    pass = '123abc' * 2
+    admin = create :admin, {password: pass}
 
-   visit invitation_groups_path
+    visit invitation_groups_path
 
-   expect(page).to have_content('Log in')
+    expect(page).to have_content('Log in')
 
-   fill_in('admin_email', :with => admin.email)
-   fill_in('admin_password', :with => pass)
-   click_button 'Log in'
-   expect(page).to have_content('Signed in successfully')
- end
+    fill_in('admin_email', :with => admin.email)
+    fill_in('admin_password', :with => pass)
+    click_button 'Log in'
+    expect(page).to have_content('Signed in successfully')
+  end
+
+  shared_examples_for 'email table' do
+    context 'it shows each of the accepted invitations\' ' do
+
+      it 'guest\'s first name' do
+        @accepted_invitations.each { |inv|
+          expect(page).to have_content(inv.guest.first_name)
+        }
+      end
+      it 'guest\'s last name' do
+        @accepted_invitations.each { |inv|
+          expect(page).to have_content(inv.guest.last_name)
+        }
+      end
+      it 'event name' do
+        @accepted_invitations.each { |inv|
+          expect(page).to have_content(inv.event.name)
+        }
+      end
+      it 'event address' do
+        @accepted_invitations.each { |inv|
+          expect(page).to have_content(inv.event.address)
+        }
+      end
+      it 'event time' do
+        @accepted_invitations.each { |inv|
+          expect(page).to have_content(render_time(inv.event.time))
+        }
+      end
+    end
+
+  end
+
 
   def add_guests(code)
     "/invitation_groups/show/#{code}/guests"

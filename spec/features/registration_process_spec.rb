@@ -12,12 +12,23 @@ describe 'The RSVP Process', :type => :feature do
   end
 
   reuse_error_msg = 'We have already received your RSVP.  Please contact palakandjared@gmail.com, or call Veena at 678-232-4506 with any questions.'
-  it "If a user tries to reuse a code from am a confirmed invitation group, they get the error message #{reuse_error_msg}" do
-    invitation_group = create(:invitation_group, :five_guests, is_confirmed: true)
-    visit link_guests_to_events(invitation_group.code)
-    expect_to_be_on_events_page
-    expect(page).to have_content reuse_error_msg
+  context 'If a user tries to reuse a code from am a confirmed invitation group,' do
+    before do
+      @invitation_group = create(:invitation_group, :five_guests, with_accepted_invitations: true, is_confirmed: true)
+      visit link_guests_to_events(@invitation_group.code)
+      expect_to_be_on_events_page
+      @accepted_invitations = @invitation_group.invitations
+    end
+
+    it "they get the error message #{reuse_error_msg}" do
+      expect(page).to have_content reuse_error_msg
+    end
+
+    context "they see a list of events their party RSVP'd to" do
+      it_behaves_like 'email table'
+    end
   end
+
 
   is_coming = "We look forward to celebrating with you!"
   it "Thank-you page should say '#{is_coming}' when there is at least one guest attending" do
@@ -72,9 +83,9 @@ describe 'The RSVP Process', :type => :feature do
     visit link_guests_to_events(invitation_group.code)
 
     expect_to_be_on_events_page
-    expected_selected_arry.each{|invitation|
+    expected_selected_arry.each { |invitation|
       #ToDo id in html seems to be zero based ... investigate
-      node  = find("#invitation_group_invitations_attributes_#{invitation.id-1}_is_accepted")
+      node = find("#invitation_group_invitations_attributes_#{invitation.id-1}_is_accepted")
       expect(node.value).to eq("1")
     }
     expect(page.all("[checked]").size).to eq(expected_selected_arry.size)
@@ -107,7 +118,6 @@ describe 'The RSVP Process', :type => :feature do
     click_button 'Update Invitation group'
     guest
   end
-
 
 
 end

@@ -10,25 +10,7 @@
     We're excited to celebrate our wedding with you this September! As a reminder you RSVPed to the following event.
 </p>
 
-
-<table style="border: 1px solid black">
-    <tr>
-        <td>Guest(s)</td>
-        <td>Event</td>
-        <td>Time</td>
-        <td>Location</td>
-    </tr>
-    <% @event_to_attending_hash.each { |event, attending_guests| %>
-        <% unless attending_guests.empty? %>
-            <tr>
-                <td><%= attending_guests.collect(&:full_name).join(', ') %></td>
-                <td><%= event.name %></td>
-                <td><%= render_time(event.time) %></td>
-                <td><%= event.address %></td>
-            </tr>
-        <% end %>
-    <% } %>
-</table>
+<%= render partial: "shared/accepted_table", locals: {event_to_attending_hash: @event_to_attending_hash} %>
 
 </body>
 </html>
