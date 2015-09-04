@@ -45,14 +45,15 @@ function isElementScrolledIntoView($elem) {
 }
 
 function areCoordinatesScrolledIntoView(elemTop, elemBottom) {
-    var $window = $(window);
-    var docViewTop = $window.scrollTop();
-    var docViewBottom = docViewTop + $window.height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    var docViewBottom = windowBottom();
+    return ((elemBottom <= docViewBottom) && (elemTop >= $(window).scrollTop()));
 }
 
 var originalParentsHash = {};
+function windowBottom() {
+    var docViewTop = $(window).scrollTop();
+    return docViewTop + $(window).height();
+}
 $(window).scroll(function (event) {
     var child = $(".followMe")
 
@@ -64,7 +65,8 @@ $(window).scroll(function (event) {
         holder.bottom = holder.top + child.height();
         holder.element = child.parent();
     }
-    if (areCoordinatesScrolledIntoView(holder.top, holder.bottom)) {
+    var isAboveOrigin = windowBottom() < holder.bottom;
+    if (areCoordinatesScrolledIntoView(holder.top, holder.bottom) || isAboveOrigin) {
         moveDiv(holder.element, child);
     } else {
         moveDiv($("#headContainer"), child)
