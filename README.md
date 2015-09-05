@@ -10,9 +10,13 @@ This application is a small Ruby on Rails project.  Its purpose is to provide we
 The [Save the Date Game](https://www.palakandjared.com/pages/save_the_date) is a [Phaser](http://phaser.io/) powered HTML5 game.
 
 The site is designed to work in conjunction with paper invitations.  The designed work-flow is as follows:
+
 1. The couple sends out a paper invitations to guests' households with a unique random code.  Each paper invitation may be for multiple guests at the household.  Each guest may be invited to a different set of wedding events.
+
 2. When the guest family receives the invitation, one member enters the family's unique code on the website.  
+
 3. The family member selects which events each family member plans to attend and clicks submit.
+
 4. The website administrator can login to the admin part of the website and view which guests are coming to which events.
 
 
