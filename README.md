@@ -5,7 +5,7 @@ Wedding Website
 Overview
 -------------
 
-This application is a small Ruby on Rails project.  Its purpose is to provide wedding details to wedding guests and allow them to RSVP to events.  It is currently hosted on Elastic Beanstalk with a MySQL RDS instance here: [palakandjared.com](https://palakandjared.com)  
+This application is a small Ruby on Rails project.  Its purpose is to provide wedding details to wedding guests and allow them to RSVP to events.  It is currently hosted on Elastic Beanstalk with a MySQL RDS instance here: [palakandjared.com](https://www.palakandjared.com)  
 
 Getting Started
 ---------------
