@@ -12,11 +12,11 @@ Getting Started
 
 Currently the application requires ruby 2.2.2, so install that and then do 
 
-*gem install bundler
-*bundle install
-*rake db:migrate
-*rake db:seed
-*bundle exec guard
+* gem install bundler
+* bundle install
+* rake db:migrate
+* rake db:seed
+* bundle exec guard
 
 This is will bring up automated testing and the development version of the website.
 
