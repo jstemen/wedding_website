@@ -1,82 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-def create_guest(first_name, last_name)
-  Guest.create!(first_name: first_name, last_name: last_name)
-end
+Admin.create(email: 'admin@example.com', password: 'admin@example.com').save!
 
-Admin.create(email: 'bob@foo.com', password: 'bob@foo.com').save!
-
-total_failed =0
-total_succeeded =0
 time_zone = DateTime.now.in_time_zone
-event_str_to_event = {
-    'number_invited_guests___wedding' => Event.create!(name: 'Wedding', time: time_zone),
-    'mehndi_invited' => Event.create!(name: 'Mehndi', time: time_zone),
-    'number_invited_guests___vidhi' => Event.create!(name: 'Vidhi', time: time_zone),
-    'number_invited_guests___after_party' => Event.create!(name: 'After Party', time: time_zone)
-}
-
-file_path = 'db/spreadsheet_data.csv'
-
-def save_a_guest(first_name, guests, last_name)
-  unless first_name.blank?
-    guests << Guest.create!(first_name: first_name, last_name: last_name, email_address: "#{first_name}#{last_name}@mailinator.com")
-  end
-end
-
-if File.exist? file_path
-
-  pool_array =[('A'..'Z'), (0..9)].inject { |a, b| a.to_a + b.to_a }
-  SmarterCSV.process(file_path, remove_empty_values: false, chunk_size: 15, strings_as_keys: true) do |chunk|
-    chunk.each { |row|
-      begin
-        puts "processing a chunk..."
-        code = (0..7).map { pool_array[rand(pool_array.size)] }.join
-        invitation_group = InvitationGroup.create(code: code)
-        guests = []
-
-        first_name_primary = row['first_name_primary']
-        last_name_primary = row['last_name_primary']
+events = [
+    Event.create!(name: 'Wedding', time: time_zone),
+    Event.create!(name: 'Mehndi', time: time_zone),
+    Event.create!(name: 'Vidhi', time: time_zone),
+    Event.create!(name: 'After Party', time: time_zone)
+]
 
 
-        binding.pry unless first_name_primary && last_name_primary
-        raise "missing primary name #{row}" unless first_name_primary && last_name_primary
+pool_array =[('A'..'Z'), (0..9)].inject { |a, b| a.to_a + b.to_a }
 
-        save_a_guest(first_name_primary, guests, last_name_primary)
-
-        first_name_secondary = row['first_name_secondary']
-        last_name_secondary = row['last_name_secondary']
-        save_a_guest(first_name_secondary, guests, last_name_secondary)
-
-        children = row['children']
-        unless children.blank?
-          children.split(',').each { |c| guests << Guest.create!(first_name: c) }
-        end
-
-        event_str_to_event.each { |event_str, event|
-          count = row[event_str]
-          raise "Can't find invitation count for #{event_str}" unless count
-          (0..(count-1)).each { |i| invitation_group.invitations << Invitation.create!(guest: guests[i], event: event, invitation_group: invitation_group) }
-        }
-        invitation_group.save!
-        total_succeeded += 1
-        puts "Sucessfully processed #{first_name_primary} #{last_name_primary}"
-      rescue ActiveRecord::RecordInvalid => e
-        puts "Failed to process: "
-        ap row
-        ap e
-        total_failed += 1
-        #rescue NoMethodError
+100.times {
+  rsvp_code = (0..7).map { pool_array[rand(pool_array.size)] }.join
+  invitation_group = InvitationGroup.new(code: rsvp_code)
+  (0..rand(5)).each {
+    first_name = Faker::Name.first_name
+    last_name = Faker::Name.last_name
+    guest = Guest.new(first_name: first_name, last_name: last_name, email_address: "#{first_name}#{last_name}@mailinator.com")
+    puts "Created guest: #{guest.full_name}"
+    events.each { |event|
+      if rand > 0.7
+        invitation_group.invitations << Invitation.new(guest: guest, event: event, invitation_group: invitation_group)
       end
     }
-    break
-  end
-
-end
-puts "total failed imports: #{total_failed}"
-puts "total succeeded imports: #{total_succeeded}"
+    invitation_group.save!
+  }
+}
