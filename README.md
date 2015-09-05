@@ -7,6 +7,9 @@ Overview
 
 This application is a small Ruby on Rails project.  Its purpose is to provide wedding details to wedding guests and allow them to RSVP to events.  It is currently hosted on Elastic Beanstalk with a MySQL RDS instance here: [palakandjared.com](https://www.palakandjared.com)  
 
+The [Save the Date Game](https://www.palakandjared.com/pages/save_the_date) is a [Phaser](http://phaser.io/) powered HTML5 game. 
+
+
 Getting Started
 ---------------
 
