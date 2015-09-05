@@ -2,33 +2,24 @@ Wedding Website
 ================
 [![Build Status](https://semaphoreapp.com/api/v1/projects/c40331c6-c0cc-4fb6-b6b5-63be2d22e595/359615/badge.png)](https://semaphoreapp.com/jstemen/wedding_website)
 
-Ruby on Rails
+Overview
 -------------
 
-This application requires:
-
-- Ruby 2.1.3
-- Rails 4.1.6
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+This application is a small Ruby on Rails project.  Its purpose is to provide wedding details to wedding guests and allow them to RSVP to events.  It is currently hosted on Elastic Beanstalk with a MySQL RDS instance here: [palakandjared.com](https://palakandjared.com)  
 
 Getting Started
 ---------------
 
-Documentation and Support
--------------------------
+Currently the application requires ruby 2.2.2, so install that and then do 
 
-Issues
--------------
+*gem install bundler
+*bundle install
+*rake db:migrate
+*rake db:seed
+*bundle exec guard
 
-Similar Projects
-----------------
+This is will bring up automated testing and the development version of the website.
 
-Contributing
-------------
-
-Credits
--------
 
 License
 -------
