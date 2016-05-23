@@ -19,7 +19,6 @@ gem 'faker'
 gem 'devise'
 gem "nilify_blanks"
 gem 'smarter_csv'
-gem 'delayed_job_active_record'
 gem 'pry-byebug'
 gem 'daemons', '~> 1.2'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
@@ -50,7 +49,6 @@ group :development, :test do
   gem 'guard'
 end
 group :production do
-  gem 'mysql2'
   gem 'rails_12factor'
 end
 group :test do

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'reminder_emails/send_email_reminders'
 
-  devise_for :admins, :controllers => {:registrations => "admins/registrations"}
   root to: 'pages#home'
   get '/invitation_groups/search', to: 'invitation_groups#show_events'
   get '/invitation_groups/confirmation', to: 'invitation_groups#confirmation'
